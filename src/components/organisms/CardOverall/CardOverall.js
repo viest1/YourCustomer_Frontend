@@ -95,7 +95,7 @@ const Statistics = ({ customers, visits }) => {
     'Old Customers:',
     customers.filter((item) => item.visits.length > 1).length,
   ];
-  const arrTexts3 = ['Tip:', sumPrice, 'Premium:', sumPremium, 'Extra:', sumExtraPay];
+  const arrTexts3 = ['Tip:', sumTip, 'Premium:', sumPremium, 'Extra:', sumExtraPay];
   const arrTexts5 = [
     'Gender: ',
     'Male: ' + sumFilter('gender', 'Male') + ' ' + 'Female: ' + sumFilter('gender', 'Female'),
