@@ -1,6 +1,6 @@
 {
-  "name": "Customers List",
-  "version": "0.1.0",
+  "name": "YourCustomer",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -23,8 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "pre-commit": "lint-staged"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -52,11 +51,6 @@
     },
     "parser": "babel-eslint"
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -72,7 +66,6 @@
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
     "lint-staged": "^11.2.1",
     "prettier": "^2.4.1"
   }
