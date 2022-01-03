@@ -26,24 +26,19 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-button {
-    width: 75px; //for horizontal scrollbar
-    height: 75px; //for vertical scrollbar
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    display: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 100px;
-    border: 6px solid #6aa7b350;
-    border-left: 0;
-    border-right: 0;
-    background-color: ${({ theme }) => theme.color.main200}
+    background-image: linear-gradient(45deg, #00aeff, #a68eff);
+    border-radius: 10px;
+    -webkit-box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
   }
 
   img {
@@ -201,6 +196,7 @@ export const GlobalStyle = createGlobalStyle`
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
+    z-index:-1;
   }
 
   .custom-shape-divider-bottom-1641212545 svg {

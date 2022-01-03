@@ -6,6 +6,8 @@ export const ListCustomersTestContext = createContext({
   setSearchingCustomers: () => {},
   isSearching: false,
   setIsSearching: () => {},
+  themeType: false,
+  setThemeType: () => {},
   userData: {},
   setUserData: () => {},
 });
@@ -13,6 +15,7 @@ export const ListCustomersTestContext = createContext({
 const GeneralProvider = ({ children }) => {
   const [searchingCustomers, setSearchingCustomers] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [themeType, setThemeType] = useLocalStorage('yourCustomerThemeType030122', false);
   const [userData, setUserData] = useLocalStorage('userDataListCustomersTest', {
     userId: '',
     token: '',
@@ -29,6 +32,8 @@ const GeneralProvider = ({ children }) => {
         setIsSearching,
         userData,
         setUserData,
+        themeType,
+        setThemeType,
       }}
     >
       {children}

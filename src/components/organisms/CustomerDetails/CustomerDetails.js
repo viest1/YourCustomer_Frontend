@@ -14,7 +14,8 @@ export const ContainerCardVisitDetails = styled.div`
   min-width: 350px;
   margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
+  //flex-wrap: wrap;
+  overflow-x: auto;
   justify-content: space-between;
   background: ${({ theme }) => theme.color.main100};
 

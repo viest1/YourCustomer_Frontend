@@ -24,7 +24,7 @@ const initialValues = {
   visit: '',
   price: '',
   premium: '',
-  tip: '',
+  tip: '0',
   behavior: '',
   extraPay: '',
   time: '',

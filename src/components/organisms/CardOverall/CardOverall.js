@@ -21,7 +21,9 @@ export const ContainerOnMobile = styled.div`
 export const ContainerStatisticsCardsOverall = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
   gap: 1rem;
+  border-radius: 1rem;
 `;
 
 const Statistics = ({ customers, visits, dateStats = 'Overall Time' }) => {

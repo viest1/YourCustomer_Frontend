@@ -11,6 +11,12 @@ export const Container = styled.div`
   margin: 2rem auto 2rem auto;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+  @media all and (max-width: 400px) {
+    padding: 1rem;
+  }
+`;
+
+export const ContainerFormsChangeData = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -31,7 +37,7 @@ export const ContainerChangeData = styled.form`
 const Settings = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [errorMessagePassword, setErrorMessagePassword] = useState();
-  const { userData, setUserData } = useContext(ListCustomersTestContext);
+  const { userData, setUserData, setThemeType } = useContext(ListCustomersTestContext);
   const { inputs, handleChange } = useForm({
     name: userData.name,
     email: userData.email,
@@ -79,25 +85,33 @@ const Settings = () => {
       setErrorMessagePassword(resJSON.message);
     }
   };
+  const handleChangeLayout = () => {
+    setThemeType((prev) => !prev);
+  };
   return (
     <Container>
-      <ContainerChangeData onSubmit={handleChangeEmailAndName}>
-        {/*<ContainerDataSettings>*/}
-        {/*  <SettingsItem text="Your Subscription" data="Free" />*/}
-        {/*</ContainerDataSettings>*/}
-        <SettingsItem text="Email" data={inputs.email} element="input" onChange={handleChange} id="email" />
-        <SettingsItem text="Name" data={inputs.name} element="input" onChange={handleChange} id="name" />
-        <SettingsItem text="Password" element="input" type="password" data={inputs.password} onChange={handleChange} id="password" />
-        <Button text="Submit Changes" type="submit" />
-        {errorMessage && <p>{errorMessage}</p>}
-      </ContainerChangeData>
-      <ContainerChangeData onSubmit={handleChangePassword}>
-        <SettingsItem text="Old Password" id="oldPassword" element="input" type="password" onChange={handleChange} />
-        <SettingsItem text="New Password" id="newPassword" element="input" type="password" onChange={handleChange} />
-        <SettingsItem text="Repeat New Password" id="repeatedNewPassword" element="input" type="password" onChange={handleChange} />
-        <Button text="Change Password" type="submit" />
-        {errorMessagePassword && <p>{errorMessagePassword}</p>}
-      </ContainerChangeData>
+      <div>
+        <SettingsItem text="Change Layout" onClick={handleChangeLayout} />
+      </div>
+      <ContainerFormsChangeData>
+        <ContainerChangeData onSubmit={handleChangeEmailAndName}>
+          {/*<ContainerDataSettings>*/}
+          {/*  <SettingsItem text="Your Subscription" data="Free" />*/}
+          {/*</ContainerDataSettings>*/}
+          <SettingsItem text="Email" data={inputs.email} element="input" onChange={handleChange} id="email" />
+          <SettingsItem text="Name" data={inputs.name} element="input" onChange={handleChange} id="name" />
+          <SettingsItem text="Password" element="input" type="password" data={inputs.password} onChange={handleChange} id="password" />
+          <Button text="Submit Changes" type="submit" />
+          {errorMessage && <p>{errorMessage}</p>}
+        </ContainerChangeData>
+        <ContainerChangeData onSubmit={handleChangePassword}>
+          <SettingsItem text="Old Password" id="oldPassword" element="input" type="password" onChange={handleChange} />
+          <SettingsItem text="New Password" id="newPassword" element="input" type="password" onChange={handleChange} />
+          <SettingsItem text="Repeat New Password" id="repeatedNewPassword" element="input" type="password" onChange={handleChange} />
+          <Button text="Change Password" type="submit" />
+          {errorMessagePassword && <p>{errorMessagePassword}</p>}
+        </ContainerChangeData>
+      </ContainerFormsChangeData>
     </Container>
   );
 };

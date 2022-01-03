@@ -265,7 +265,15 @@ const FormVisit = ({
         )}
       </ContainerInputFile>
       <FormLabelAndInput type="number" id="tip" placeholder="Type Here..." label="Tip" handleInput={handleChange} value={inputs.tip} />
-      <FormLabelAndInput textarea id="comments" placeholder="Type Here..." label="Comments" handleInput={handleChange} value={inputs.comments} />
+      <FormLabelAndInput
+        textarea
+        id="comments"
+        placeholder="Type Here..."
+        label="Comments"
+        handleInput={handleChange}
+        value={inputs.comments}
+        required={false}
+      />
     </ContainerFormVisit>
   );
 };

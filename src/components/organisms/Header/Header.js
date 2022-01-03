@@ -83,7 +83,9 @@ export const Title = styled.h2`
 
 export const ContainerHamburger = styled.div`
   margin-right: auto;
-  position: relative;
+  position: absolute;
+  left: 25px;
+  top: 29px;
   z-index: 2;
 `;
 
@@ -186,7 +188,7 @@ const Header = ({ setThemeState }) => {
   }, [isOpenSearch]);
 
   useEffect(() => {
-    if (size.width < 945) {
+    if (size.width < 1090) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -241,6 +243,9 @@ const Header = ({ setThemeState }) => {
     closeModal();
     setUserData({ ...userData, exp: userData.exp + 1000 * 35 });
   };
+  const handleOpenMenu = () => {
+    setIsOpenMenu((prev) => !prev);
+  };
 
   return (
     <ContainerHeader>
@@ -277,9 +282,9 @@ const Header = ({ setThemeState }) => {
           {!userData.token && <NavLinkItem text="Login" path="/login" />}
         </>
       ) : (
-        <>
+        <div ref={ref}>
           <ContainerHamburger>
-            <div className={isOpenMenu ? 'icon nav-icon-1 open' : 'icon nav-icon-1'} onClick={() => setIsOpenMenu((prev) => !prev)}>
+            <div className={isOpenMenu ? 'icon nav-icon-1 open' : 'icon nav-icon-1'} onClick={handleOpenMenu}>
               <span></span>
               <span></span>
               <span></span>
@@ -291,7 +296,7 @@ const Header = ({ setThemeState }) => {
               <span></span>
             </div>
           </ContainerHamburger>
-          <ContainerListMenu open={isOpenMenu} ref={ref}>
+          <ContainerListMenu open={isOpenMenu}>
             <ListMenu>
               <NavLinkItem text="Home" path="/" />
               {userData.token && (
@@ -300,13 +305,14 @@ const Header = ({ setThemeState }) => {
                   <NavLinkItem text="Customers" path="/customers" />
                   <NavLinkItem text="Visits" path="/visits" />
                   <NavLinkItem text="Statistics" path="/statistics" />
+                  <NavLinkItem text="Settings" path="/settings" />
                   <NavLinkItem text="Logout" path="/logout" onClick={handleLogout} />
                 </>
               )}
               {!userData.token && <NavLinkItem text="Login" path="/login" />}
             </ListMenu>
           </ContainerListMenu>
-        </>
+        </div>
       )}
       <CSSTransition in={isOpenSearch} timeout={300} classNames="search-input" unmountOnExit>
         <FormLabelAndInput

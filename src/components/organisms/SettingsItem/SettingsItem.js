@@ -10,13 +10,14 @@ export const ContainerNotInput = styled.div`
 `;
 
 export const EditIcon = styled(AiFillEdit)`
+  font-size: 22px;
   &:hover {
     transform: scale(1.3);
     cursor: pointer;
   }
 `;
 
-const SettingsItem = ({ text, data, element, type, onChange, id }) => {
+const SettingsItem = ({ text, data, element, type, onChange, id, onClick }) => {
   return (
     <div>
       {element === 'input' ? (
@@ -25,9 +26,9 @@ const SettingsItem = ({ text, data, element, type, onChange, id }) => {
         </div>
       ) : (
         <ContainerNotInput>
-          <h2>{text}: </h2>
-          <p>{data}</p>
-          <EditIcon />
+          <h2>{text} </h2>
+          {data && <p>{data}</p>}
+          <EditIcon onClick={onClick} />
         </ContainerNotInput>
       )}
     </div>

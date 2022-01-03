@@ -14,6 +14,7 @@ export const ContainerCardCustomer = styled.div`
   text-align: center;
   border-radius: 1rem;
   //flex-wrap:wrap;
+  overflow-x: auto;
   position: relative;
   margin: 0 auto;
   box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.3);

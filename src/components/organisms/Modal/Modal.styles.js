@@ -9,12 +9,15 @@ export const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '500px',
-    height: '250px',
+    width: '95%',
+    maxWidth: '500px',
+    height: 'auto',
+    minHeight: '200px',
     position: 'relative',
     padding: '2rem',
     background: 'black',
     borderRadius: '1rem',
+    textAlign: 'center',
   },
 };
 
