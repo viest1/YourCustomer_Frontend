@@ -13,7 +13,6 @@ const CardVisit = ({ visit: { time, customer, _id, photo, price, extra, visit } 
 
   return (
     <UniversalCardImgPlusDetails arrValues={arrValues} photo={photo || ''}>
-      {console.log(photo)}
       <Container3ElemInCol arrTexts={arrTexts}/>
     </UniversalCardImgPlusDetails>
   );

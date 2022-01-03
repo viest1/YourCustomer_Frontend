@@ -4,10 +4,10 @@ import { CloseIcon, customStyles } from './Modal.styles';
 
 Modal.setAppElement(document.getElementById('modal-container'));
 
-const MyModal = ({ closeModal, modalIsOpen, children }) => {
+const MyModal = ({ closeModal, modalIsOpen, children, onClick }) => {
   return (
     <div>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
+      <Modal onClick={onClick} isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
         <CloseIcon onClick={closeModal} />
         {children}
       </Modal>

@@ -28,8 +28,8 @@ const initialValues = {
   tip: '',
   behavior: '',
   extraPay: '',
-  time: '00:00',
-  hour: '00:00',
+  time: '',
+  hour: '',
   comments: '',
   shop: [],
 };
@@ -91,9 +91,8 @@ const AddCustomer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!inputs.service || !inputs.premium || !inputs.price || !inputs.extraPay || !inputs.behavior) {
+    if (!inputs.premium || !inputs.price || !inputs.extraPay || !inputs.behavior) {
       setValidationError(`You need to select in Form:
-      ${!inputs.service && 'Service'},
       ${!inputs.premium && 'Premium'},
       ${!inputs.price && 'Price'},
       ${!inputs.extraPay && 'Extra Pay'},
@@ -109,6 +108,7 @@ const AddCustomer = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userData.token
       },
       body: JSON.stringify(inputs),
     });

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useState } from 'react';
 import FormVisit from '../FormVisit/FormVisit';
 import Button from '../../atoms/Button/Button';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
@@ -12,7 +11,6 @@ import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 const AddNewVisit = () => {
-  const [visit, setVisit] = useState();
   const [image, setImage] = useState();
   const [previewSource, setPreviewSource] = useState();
   const [isLoading, setIsLoading] = useState();
@@ -29,15 +27,14 @@ const AddNewVisit = () => {
   };
   const navigate = useNavigate();
   const { id } = useParams();
-  const { inputs, resetForm, handleChange, handleSelect, clearForm } = useForm(visit);
+  const { inputs, handleChange, handleSelect, clearForm } = useForm({});
   const { userData } = useContext(ListCustomersTestContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const fetchAddVisit = async () => {
-      if (!inputs.service || !inputs.premium || !inputs.price || !inputs.extraPay || !inputs.behavior) {
+      if (!inputs.premium || !inputs.price || !inputs.extraPay || !inputs.behavior) {
         setValidationError(`You need to select in Form:
-      ${!inputs.service && 'Service'},
       ${!inputs.premium && 'Premium'},
       ${!inputs.price && 'Price'},
       ${!inputs.extraPay && 'Extra Pay'},
@@ -52,6 +49,7 @@ const AddNewVisit = () => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + userData.token
         },
         body: JSON.stringify(inputs),
       });

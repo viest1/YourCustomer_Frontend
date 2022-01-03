@@ -1,3 +1,3 @@
 export const sortByTimestamp = (arr) => {
-  return [...arr].sort((a, b) => a.timestamp - b.timestamp);
+  return [...arr].sort((a, b) => b.timestamp - a.timestamp);
 };

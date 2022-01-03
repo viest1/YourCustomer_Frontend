@@ -20,6 +20,7 @@ export const useAuth = (inputs) => {
         setErrorMessageSignUp('Error! Password too short! Must be Min. 6 Signs');
         return;
       }
+      inputs.email.toLowerCase()
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/signup', {
         method: 'POST',
         headers: {
@@ -33,7 +34,7 @@ export const useAuth = (inputs) => {
         return;
       }
       navigate('/')
-      setUserData({ token: resJSON.token, userId: resJSON.userId });
+      setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email });
     };
     signup();
   };
@@ -41,6 +42,7 @@ export const useAuth = (inputs) => {
   const handleSubmitLogin = (e) => {
     e.preventDefault();
     const login = async () => {
+      inputs.email.toLowerCase()
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/login', {
         method: 'POST',
         headers: {
@@ -54,7 +56,7 @@ export const useAuth = (inputs) => {
         console.log(errorMessageLogin);
         return;
       }
-      setUserData({ token: resJSON.token, userId: resJSON.userId });
+      setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email, exp: resJSON.exp });
       navigate('/');
       console.log(resJSON);
     };
@@ -66,6 +68,8 @@ export const useAuth = (inputs) => {
     setUserData({
       userId: '',
       token: '',
+      name:'',
+      exp:'',
     });
     localStorage.removeItem('userDataListCustomersTest');
     navigate('/');

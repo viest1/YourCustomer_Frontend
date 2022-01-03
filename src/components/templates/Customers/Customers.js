@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CardCustomer from '../../organisms/CardCustomer/CardCustomer';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 
 export const ContainerCustomers = styled.div`
   padding: 2rem;
@@ -31,7 +32,6 @@ const Customers = () => {
     setIsLoading(true);
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
     const resJSON = await res.json();
-    console.log('fetch customers', resJSON.allCustomers)
     setCustomers(resJSON.allCustomers);
     setIsLoading(false);
   };
@@ -46,13 +46,13 @@ const Customers = () => {
         <LoadingSpinner />
       ) : searchingCustomers.length || isSearching ? (
         <ContainerCardsCustomer>
-          {searchingCustomers.map((item) => (
+          {sortByTimestamp(searchingCustomers).map((item) => (
             <CardCustomer item={item} key={item._id} />
           ))}
         </ContainerCardsCustomer>
       ) : (
         <ContainerCardsCustomer>
-          {customers.map((item) => (
+          {sortByTimestamp(customers).map((item) => (
             <CardCustomer item={item} key={item._id} />
           ))}
         </ContainerCardsCustomer>

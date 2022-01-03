@@ -46,7 +46,6 @@ export const ContainerInputFile = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
     font-size: 20px;
     opacity: 0;
     filter: alpha(opacity=0);
@@ -80,11 +79,11 @@ export const ImgStyled = styled.div`
   }
 `;
 
-const optionsService = [
-  { value: 'completeService', label: 'Complete Service' },
-  { value: 'handStripping', label: 'Hand Stripping' },
-  { value: 'washing', label: 'Washing' },
-];
+// const optionsService = [
+//   { value: 'completeService', label: 'Complete Service' },
+//   { value: 'handStripping', label: 'Hand Stripping' },
+//   { value: 'washing', label: 'Washing' },
+// ];
 
 const optionsPremium = [
   { value: '5', label: 'Yes' },
@@ -95,28 +94,28 @@ const optionsPrice = [
   {
     label: 'Complete Service',
     options: [
-      { label: 'Small 60', value: '60' },
-      { label: 'Medium 70', value: '70' },
-      { label: 'Big 80', value: '80' },
-      { label: 'Huge 100', value: '100' },
+      { label: 'Small 60', value: '60 CompleteService Small' },
+      { label: 'Medium 70', value: '70 CompleteService Medium' },
+      { label: 'Big 80', value: '80 CompleteService Big' },
+      { label: 'Huge 100', value: '100 CompleteService Huge' },
     ],
   },
   {
     label: 'Hand Stripping',
     options: [
-      { label: 'Small 80', value: '80' },
-      { label: 'Medium 90', value: '90' },
-      { label: 'Big 100', value: '100' },
-      { label: 'Huge 120', value: '120' },
+      { label: 'Small 80', value: '80 HandStripping Small' },
+      { label: 'Medium 90', value: '90 HandStripping Medium' },
+      { label: 'Big 100', value: '100 HandStripping Big' },
+      { label: 'Huge 120', value: '120 HandStripping Huge' },
     ],
   },
   {
     label: 'Washing',
     options: [
-      { label: 'Small 40', value: '40' },
-      { label: 'Medium 50', value: '50' },
-      { label: 'Big 65', value: '65' },
-      { label: 'Huge 85', value: '85' },
+      { label: 'Small 40', value: '40 Washing Small' },
+      { label: 'Medium 50', value: '50 Washing Medium' },
+      { label: 'Big 65', value: '65 Washing Big' },
+      { label: 'Huge 85', value: '85 Washing Huge' },
     ],
   },
 ];
@@ -193,6 +192,7 @@ const FormVisit = ({
 
   return (
     <ContainerFormVisit>
+      <FormLabelAndInput id="visit" type="date" placeholder="Type Here..." label="Visit Date" handleInput={handleChange} value={inputs.visit} />
       <FormLabelAndInput
         min="06:00"
         max="24:00"
@@ -201,9 +201,8 @@ const FormVisit = ({
         placeholder="Type Here..."
         label="Visit Hour"
         handleInput={handleChange}
-        value={inputs.hour || '01:00'}
+        value={inputs.hour || ''}
       />
-      <FormLabelAndInput id="visit" type="date" placeholder="Type Here..." label="Visit Date" handleInput={handleChange} value={inputs.visit} />
       <FormLabelAndInput
         min="00:01"
         max="04:00"
@@ -212,12 +211,12 @@ const FormVisit = ({
         placeholder="Type Here..."
         label="Time Visit"
         handleInput={handleChange}
-        value={inputs.time || '00:00'}
+        value={inputs.time || ''}
       />
-      <div>
-        <label htmlFor="service">Service</label>
-        <Select id="service" name="service" onChange={handleSelect} options={optionsService} value={inputs.service} />
-      </div>
+      {/*<div>*/}
+      {/*  <label htmlFor="service">Service</label>*/}
+      {/*  <Select id="service" name="service" onChange={handleSelect} options={optionsService} value={inputs.service} />*/}
+      {/*</div>*/}
       <div>
         <label htmlFor="premium">Premium</label>
         <Select id="premium" name="premium" onChange={handleSelect} options={optionsPremium} value={inputs.premium} />

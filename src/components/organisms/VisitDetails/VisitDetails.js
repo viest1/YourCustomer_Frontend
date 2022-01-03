@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
@@ -6,6 +6,7 @@ import Button from '../../atoms/Button/Button';
 import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
 import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
 import { DivToButtonMoreVisits } from '../CustomerDetails/CustomerDetails';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerCardVisitDetails = styled.div`
   padding: 3rem;
@@ -61,6 +62,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   const { behavior, extra, customer, message, photo, premium, price, service, shop, time, tip, visit, hour } = visitDetails;
   const { id } = useParams();
   const navigate = useNavigate();
+  const {userData} = useContext(ListCustomersTestContext)
 
   const fetchVisit = async () => {
     setIsLoading(true);
@@ -68,6 +70,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
       method: 'POST',
       headers: {
         'Content-type': 'application-json',
+        'Authorization': 'Bearer ' + userData.token
       },
     });
     const resJSON = await res.json();

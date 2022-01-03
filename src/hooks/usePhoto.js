@@ -6,7 +6,7 @@ export const usePhoto = (arr, photo) => {
   const [actuallyPhoto, setActuallyPhoto] = useState('');
 
   const findPhotos = () => {
-    if(photo?.length || photo === ''){
+    if (photo?.length || photo === '') {
       if (photo?.length) {
         setPhotos([...photos, photo]);
       }
@@ -14,7 +14,6 @@ export const usePhoto = (arr, photo) => {
       const arrayWithPhotos = arr?.filter((item) => item.photo).map((item) => item.photo);
       setPhotos(arrayWithPhotos);
     }
-
   };
 
   const handleBack = () => {
@@ -34,7 +33,7 @@ export const usePhoto = (arr, photo) => {
   }, []);
 
   useEffect(() => {
-    setCounterPhoto(photos.length - 1);
+    setCounterPhoto(photos?.length - 1);
   }, [photos]);
 
   useEffect(() => {

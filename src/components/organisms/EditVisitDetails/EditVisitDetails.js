@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import useForm from '../../../hooks/useForm';
@@ -9,6 +9,7 @@ import FormVisit from '../FormVisit/FormVisit';
 import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerEditVisit = styled.div`
   padding: 2rem;
@@ -39,6 +40,7 @@ const EditVisitDetails = () => {
   const [isLoading, setIsLoading] = useState()
   const { modalIsOpen, openModal, closeModal } = useModal();
   const { id } = useParams();
+  const {userData} = useContext(ListCustomersTestContext)
   const { inputs, resetForm, handleChange, handleSelect } = useForm(visit);
   const previewFile = () => {
     const reader = new FileReader();
@@ -53,6 +55,7 @@ const EditVisitDetails = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userData.token
       },
     });
     const resJSON = await res.json();
@@ -67,10 +70,12 @@ const EditVisitDetails = () => {
     e.preventDefault();
     const fetchEditVisit = async () => {
       setIsLoading(true)
+      inputs.userId = userData.userId
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + userData.token
         },
         body: JSON.stringify(inputs),
       });

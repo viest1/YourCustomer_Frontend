@@ -11,6 +11,8 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import Button from '../../atoms/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
+import useModal from '../Modal/useModal';
+import Modal from '../Modal/Modal';
 
 export const ContainerHeader = styled.div`
   padding: 2rem;
@@ -123,9 +125,11 @@ const Header = ({ setThemeState }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [remainingTime, setRemainingTime] = useState();
   const searchInput = useRef(null);
-  const { searchingCustomers, setSearchingCustomers, isSearching, setIsSearching, userData } = useContext(ListCustomersTestContext);
+  const { searchingCustomers, setSearchingCustomers, isSearching, setIsSearching, userData, setUserData } = useContext(ListCustomersTestContext);
   const { handleLogout } = useAuth();
+  const { modalIsOpen, openModal, closeModal } = useModal();
   const size = useWindowSize();
   const navigate = useNavigate();
   const [customers, setCustomers] = useState([]);
@@ -134,7 +138,6 @@ const Header = ({ setThemeState }) => {
   const fetchData = async () => {
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
     const resJSON = await res.json();
-    console.log(resJSON);
     setCustomers(resJSON.allCustomers);
   };
   useEffect(() => {
@@ -151,15 +154,9 @@ const Header = ({ setThemeState }) => {
     } else {
       setIsSearching(false);
     }
-    console.log('here', customers);
-    const afterSearching = customers.filter((item) => item.contactName.toLowerCase().includes(searchText.toLowerCase()));
+    const afterSearching = customers?.filter((item) => item.contactName.toLowerCase().includes(searchText.toLowerCase()));
     setSearchingCustomers(afterSearching);
-    console.log('after', afterSearching);
   }, [searchText]);
-
-  useEffect(() => {
-    console.log('searching..', searchingCustomers);
-  }, [searchingCustomers]);
 
   useEffect(() => {
     if (isSearching) {
@@ -185,8 +182,71 @@ const Header = ({ setThemeState }) => {
     }
   }, [size.width]);
 
+  useEffect(() => {
+    let interval;
+    if (Date.now() > userData.exp) {
+      setUserData({
+        userId: '',
+        token: '',
+        name: '',
+        exp: '',
+      });
+    }
+    if (userData.token) {
+      interval = setInterval(() => {
+        if (userData.exp - Date.now() < 30000) {
+          openModal();
+        }
+        if (Date.now() > userData.exp) {
+          setUserData({
+            userId: '',
+            token: '',
+            name: '',
+            exp: '',
+          });
+        }
+      }, 5000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [userData.exp]);
+
+  useEffect(() => {
+    let interval;
+    if (modalIsOpen) {
+      interval = setInterval(() => {
+        setRemainingTime(((userData.exp - Date.now()) / 1000).toFixed(1));
+      }, 100);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [modalIsOpen]);
+
+  const handleLogoutTime = () => {
+    closeModal();
+    setUserData({ ...userData, exp: userData.exp + 1000 * 35 });
+  };
+
   return (
     <ContainerHeader>
+      {modalIsOpen && (
+        <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
+          {Date.now() < userData.exp ? (
+            <div>
+              <h2 style={{ textAlign: 'center' }}>Are You There?</h2>
+              <Button text="If You Are Here, Click Here to Stay Logged In" onClick={handleLogoutTime} />
+              <p style={{ textAlign: 'center' }}>Time to Automatically Logout: {remainingTime}</p>
+            </div>
+          ) : (
+            <div>
+              <h2 style={{ textAlign: 'center' }}>Your Session Expired!</h2>
+              <h2 style={{ textAlign: 'center' }}>You Logged Out!</h2>
+            </div>
+          )}
+        </Modal>
+      )}
       {!isMobile ? (
         <>
           <Title>YourCustomer</Title>
@@ -197,6 +257,7 @@ const Header = ({ setThemeState }) => {
               <NavLinkItem text="Customers" path="/customers" />
               <NavLinkItem text="Visits" path="/visits" />
               <NavLinkItem text="Statistics" path="/statistics" />
+              <NavLinkItem text="Settings" path="/settings" />
               <NavLinkItem text="Logout" path="/logout" onClick={handleLogout} />
             </>
           )}

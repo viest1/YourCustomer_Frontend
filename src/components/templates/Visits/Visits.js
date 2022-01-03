@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import CardVisit from '../../organisms/CardVisit/CardVisit';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 
 export const ContainerVisits = styled.div`
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   justify-content: center;
   gap: 1rem;
   max-width: 1300px;
@@ -18,11 +20,18 @@ export const ContainerVisits = styled.div`
 
 export const Container = styled.div`
   padding: 2rem;
+  display: flex;
+  justify-content: center;
+`;
+
+export const ContainerDiv = styled.div`
+  padding: 2rem;
 `;
 
 const Visits = () => {
   const [visits, setVisits] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [dates, setDates] = useState([]);
   const { userData } = useContext(ListCustomersTestContext);
   const fetchVisits = async () => {
     setIsLoading(true);
@@ -36,12 +45,27 @@ const Visits = () => {
     fetchVisits();
   }, []);
 
+  // const displayVisitsWithOptionalDate = (visits) => {
+  //   if(visits){
+  //     for (let i = 0; i < visits.length; i++) {
+  //       <CardVisit visit={item} key={item._id} />
+  //     }
+  //   }
+  // }
+
   return (
     <Container>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <ContainerVisits>{visits && visits.map((item) => <CardVisit visit={item} key={item._id} />)}</ContainerVisits>
+        <ContainerVisits>
+          {visits &&
+            sortByTimestamp(visits).map((item) => (
+              // {index === 0 && <p>{item.visit}</p>}
+              // {index > 0 && item.visit !== array[index - 1].visit && <p>{item.visit}</p>}
+              <CardVisit visit={item} key={item._id} />
+            ))}
+        </ContainerVisits>
       )}
     </Container>
   );

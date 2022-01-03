@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import Button from '../../atoms/Button/Button';
 import VisitDetails from '../VisitDetails/VisitDetails';
-import { averageValue, displayTimeInHHMM } from '../../../helpers/statistics';
 import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
 import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerCardVisitDetails = styled.div`
   padding: 3rem;
@@ -58,16 +58,17 @@ const CustomerDetails = () => {
   const [isLoadingVisits, setIsLoadingVisits] = useState(false);
   const [openVisits, setOpenVisits] = useState(false);
   const [visitsFetch, setVisitsFetch] = useState([]);
-  const { dogOwner, address, birthday, breed, contactName, dogName, phone, size, timestamp, visits } = customerDetails;
+  const { dogOwner, address, birthday, breed, contactName, dogName, phone, size, visits } = customerDetails;
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { userData } = useContext(ListCustomersTestContext);
   const fetchCustomer = async () => {
     setIsLoading(true);
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id, {
       method: 'POST',
       headers: {
         'Content-type': 'application-json',
+        Authorization: 'Bearer ' + userData.token,
       },
     });
     const resJSON = await res.json();
@@ -134,7 +135,9 @@ const CustomerDetails = () => {
         <div>
           <h2>Visits Total: {visitsFetch?.length} </h2>
           {!isLoadingVisits ? (
-            visitsFetch.map((item) => <VisitDetails offCustomContainerStyles idProp={item._id} key={item._id} visitProp={item} customerProp={customerDetails} />)
+            visitsFetch.map((item) => (
+              <VisitDetails offCustomContainerStyles idProp={item._id} key={item._id} visitProp={item} customerProp={customerDetails} />
+            ))
           ) : (
             <LoadingSpinner />
           )}

@@ -89,8 +89,8 @@ const FormData = ({ handleSelect, handleChange, inputs }) => {
       />
       <label htmlFor="gender">Gender</label>
       <Select id="gender" name="gender" onChange={handleSelect} options={gender} value={inputs.gender} />
-      <label htmlFor="size">Size</label>
-      <Select id="size" name="size" onChange={handleSelect} options={options} value={inputs.size} />
+      {/*<label htmlFor="size">Size</label>*/}
+      {/*<Select id="size" name="size" onChange={handleSelect} options={options} value={inputs.size} />*/}
       <label htmlFor="breed">Breed</label>
       <Select id="breed" name="breed" onChange={handleSelect} options={breeds} value={inputs.breed} />
     </ContainerFormData>

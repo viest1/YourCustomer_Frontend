@@ -17,14 +17,13 @@ import EditVisitDetails from '../components/organisms/EditVisitDetails/EditVisit
 import EditCustomerDetails from '../components/organisms/EditCustomerDetails/EditCustomerDetails';
 import Statistics from '../components/templates/Statistics/Statistics';
 import FormAuth from '../components/organisms/FormAuth/FormAuth';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 import AddNewVisit from '../components/organisms/AddNewVisit/AddNewVisit';
-import Logout from '../components/organisms/Logout/Logout';
+import Settings from '../components/templates/Settings/Settings';
 
 function App() {
   const [themeState, setThemeState] = useState('light');
   useEffect(() => settingsDarkMode(setThemeState), []);
-  const { userData } = useContext(ListCustomersTestContext)
+  const { userData } = useContext(ListCustomersTestContext);
   return (
     <Router>
       <ThemeProvider theme={themeState === 'light' ? theme : darkTheme}>
@@ -43,6 +42,7 @@ function App() {
                 <Route path="/visits/:id" element={<VisitDetails />} />
                 <Route path="/visits/:id/edit" element={<EditVisitDetails />} />
                 <Route path="/statistics" element={<Statistics />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<PageNotFound404 />} />
               </>
             ) : (

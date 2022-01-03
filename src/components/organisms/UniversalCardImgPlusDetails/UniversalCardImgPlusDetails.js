@@ -9,7 +9,7 @@ export const ContainerCardCustomer = styled.div`
   width: ${({ width }) => (width ? width : '30%')};
   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : '500px')};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : '370px')};
-  height: ${({ height }) => (height ? height : '300px')};
+  height: ${({ height }) => (height ? height : '320px')};
   display: flex;
   text-align: center;
   border-radius: 1rem;

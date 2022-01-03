@@ -16,6 +16,9 @@ const GeneralProvider = ({ children }) => {
   const [userData, setUserData] = useLocalStorage('userDataListCustomersTest', {
     userId: '',
     token: '',
+    name: '',
+    email: '',
+    exp: 9999999999999,
   });
   return (
     <ListCustomersTestContext.Provider

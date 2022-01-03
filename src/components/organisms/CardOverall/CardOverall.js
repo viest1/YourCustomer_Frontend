@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../../atoms/Button/Button';
 import { shopProducts } from '../../../data/shop';
-import { sumValue, sum, averageValue, displayTimeInHHMM } from '../../../helpers/statistics';
+import { sumValue, sum, averageValue, displayTimeInHHMM, averageTimeInMinutes } from '../../../helpers/statistics';
 import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
 import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
 
@@ -20,16 +19,13 @@ export const ContainerOnMobile = styled.div`
   display: flex;
 `;
 export const ContainerStatisticsCardsOverall = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  gap:1rem;
-`
+  gap: 1rem;
+`;
 
-
-const Statistics = ({ customers, visits }) => {
-  const [listItemsShop, setListItemsShop] = useState({});
+const Statistics = ({ customers, visits, dateStats = 'Overall Time' }) => {
   const [showItems, setShowItems] = useState(false);
-  let sum2 = 0;
 
   const shopItems = () => {
     let arr = [];
@@ -65,13 +61,19 @@ const Statistics = ({ customers, visits }) => {
     return customers.filter((item) => item[el1]?.label === el2).length;
   };
   const sumFilterVisits = (el1, el2) => {
+    if (el1 === 'size') {
+      return visits.filter((item) => item[el1] === el2).length;
+    }
     return visits.filter((item) => item[el1]?.label === el2).length;
+  };
+  const sumTypeService = (el1) => {
+    return visits.filter((item) => item.price?.value?.split(' ')[1] === el1).length;
   };
   const sumMoneyShop = () => {
     let sum2 = 0;
     Object.entries(shopItems()).map((item) => {
       const sum = findPrice(item[0]) * item[1];
-      sum2 += +sum;
+      return sum2 += +sum;
     });
     return sum2;
   };
@@ -82,32 +84,31 @@ const Statistics = ({ customers, visits }) => {
   const sumShop = sumMoneyShop();
   const sumAll = () => {
     console.log(sumPrice, sumPremium, sumTip, sumExtraPay, sumShop);
-    console.log({customers, visits})
     return sumPrice + sumPremium + sumTip + sumExtraPay + sumShop;
   };
 
-  const arrTexts = ['Customers:', customers.length, 'Visits:', visits?.length, 'Average Price for Visit:', averageValue(visits, 'price')];
+  const arrTexts = ['Customers:', customers.length, 'Visits:', visits?.length, 'Average Price for Visit:', `${averageValue(visits, 'price')}€`];
   const arrTexts2 = [
     'Average Time for Visit:',
     displayTimeInHHMM(visits),
-    'New Customers:',
-    customers.filter((item) => item.visits.length === 1).length,
-    'Old Customers:',
-    customers.filter((item) => item.visits.length > 1).length,
+    'Average Money for Visit + Others',
+    (visits.length ? sumAll() / visits.length : 0).toFixed(2) + '€',
+    'Money per Working Hour',
+    (visits.length ? ((sumAll() / visits.length).toFixed(2) / averageTimeInMinutes(visits)) * 60 : 0).toFixed(2) + '€',
   ];
-  const arrTexts3 = ['Tip:', sumTip, 'Premium:', sumPremium, 'Extra:', sumExtraPay];
+  const arrTexts3 = ['Tip:', `${sumTip}€`, 'Premium:', `${sumPremium}€`, 'Extra:', `${sumExtraPay}€`];
   const arrTexts5 = [
     'Gender: ',
-    'Male: ' + sumFilter('gender', 'Male') + ' ' + 'Female: ' + sumFilter('gender', 'Female'),
+    'Male: ' + sumFilter('gender', 'Male') + ' Female: ' + sumFilter('gender', 'Female'),
     'Size:',
-    `Small: ${sumFilter('size', 'Small')}
-    Medium: ${sumFilter('size', 'Medium')}
-    Big: ${sumFilter('size', 'Big')}
-    Huge: ${sumFilter('size', 'Huge')}`,
+    `Small: ${sumFilterVisits('size', 'Small')}
+    Medium: ${sumFilterVisits('size', 'Medium')}
+    Big: ${sumFilterVisits('size', 'Big')}
+    Huge: ${sumFilterVisits('size', 'Huge')}`,
     'Service: ',
-    `Washing: ${sumFilterVisits('service', 'Washing')}
-Complete Service: ${sumFilterVisits('service', 'Complete Service')}
-Hand Stripping: ${sumFilterVisits('service', 'Hand Stripping')}`,
+    `Washing: ${sumTypeService('Washing')}
+Complete Service: ${sumTypeService('CompleteService')}
+Hand Stripping: ${sumTypeService('HandStripping')}`,
   ];
   const arrTexts6 = [
     'Shop items',
@@ -129,12 +130,12 @@ notGood: ${sumFilterVisits('behavior', '2')}
 ok: ${sumFilterVisits('behavior', '3')}
 kind: ${sumFilterVisits('behavior', '4')}
 veryKind: ${sumFilterVisits('behavior', '5')}`,
-    'Empty:',
-    0,
-    'Empty',
-    0,
+    'New Customers:',
+    customers.filter((item) => item.visits.length === 1).length,
+    'Old Customers:',
+    customers.filter((item) => item.visits.length > 1).length,
   ];
-  const arrValues = [visits, 'Overall Time', 'Show Items', '100%', handleShowItems];
+  const arrValues = [visits, dateStats, 'Show Items', '100%', handleShowItems];
   return (
     <ContainerStatisticsCardsOverall>
       <UniversalCardImgPlusDetails
@@ -145,7 +146,7 @@ veryKind: ${sumFilterVisits('behavior', '5')}`,
         noImageText={
           <div>
             <h2>Total Money:</h2>
-            <h2>{sumAll()}</h2>
+            <h2>{sumAll() + '€'}</h2>
           </div>
         }
         width="100%"
@@ -165,7 +166,7 @@ veryKind: ${sumFilterVisits('behavior', '5')}`,
         noImageText={
           <div>
             <h2>Total Money From Visits:</h2>
-            <h2>{sumPrice}</h2>
+            <h2>{sumPrice + '€'}</h2>
           </div>
         }
         width="100%"
@@ -184,7 +185,7 @@ veryKind: ${sumFilterVisits('behavior', '5')}`,
         noImageText={
           <div>
             <h2>Total Money Shop:</h2>
-            <h2>{sumShop}</h2>
+            <h2>{sumShop + '€'}</h2>
           </div>
         }
         width="100%"
