@@ -17,11 +17,13 @@ export const ContainerCardVisitDetails = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   background: ${({ theme }) => theme.color.main100};
+
   * {
     display: block;
     width: 30%;
     min-width: 250px;
   }
+
   img {
     width: 200px;
     min-width: 200px;
@@ -29,6 +31,7 @@ export const ContainerCardVisitDetails = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
+
   button {
     width: 80px !important;
     min-width: 80px;
@@ -41,6 +44,7 @@ export const Container = styled.div`
   border-radius: 1rem;
   min-height: 100vh;
   margin: 2rem;
+
   h2 {
     text-align: center;
   }
@@ -78,6 +82,7 @@ const CustomerDetails = () => {
 
   useEffect(() => {
     fetchCustomer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleBack = () => {

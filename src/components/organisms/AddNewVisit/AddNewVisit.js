@@ -16,7 +16,7 @@ const AddNewVisit = () => {
   const [isLoading, setIsLoading] = useState();
   const [submitted, setSubmitted] = useState(false);
   const { modalIsOpen, openModal, closeModal } = useModal();
-  const [validationError, setValidationError] = useState()
+  const [validationError, setValidationError] = useState();
   const previewFile = () => {
     const reader = new FileReader();
     reader.readAsDataURL(image);
@@ -49,7 +49,7 @@ const AddNewVisit = () => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + userData.token
+          Authorization: 'Bearer ' + userData.token,
         },
         body: JSON.stringify(inputs),
       });

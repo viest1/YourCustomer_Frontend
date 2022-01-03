@@ -31,7 +31,6 @@ export const ContainerDiv = styled.div`
 const Visits = () => {
   const [visits, setVisits] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [dates, setDates] = useState([]);
   const { userData } = useContext(ListCustomersTestContext);
   const fetchVisits = async () => {
     setIsLoading(true);
@@ -43,6 +42,7 @@ const Visits = () => {
 
   useEffect(() => {
     fetchVisits();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const displayVisitsWithOptionalDate = (visits) => {

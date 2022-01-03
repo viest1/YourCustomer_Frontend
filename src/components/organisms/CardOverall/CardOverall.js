@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { shopProducts } from '../../../data/shop';
-import { sumValue, sum, averageValue, displayTimeInHHMM, averageTimeInMinutes } from '../../../helpers/statistics';
+import { averageTimeInMinutes, averageValue, displayTimeInHHMM, sum, sumValue } from '../../../helpers/statistics';
 import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
 import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
 
@@ -73,7 +73,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time' }) => {
     let sum2 = 0;
     Object.entries(shopItems()).map((item) => {
       const sum = findPrice(item[0]) * item[1];
-      return sum2 += +sum;
+      return (sum2 += +sum);
     });
     return sum2;
   };

@@ -19,11 +19,13 @@ export const ContainerCardVisitDetails = styled.div`
   background: ${({ theme }) => theme.color.main100};
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+
   * {
     display: block;
     width: 30%;
     min-width: 250px;
   }
+
   img {
     width: 200px;
     min-width: 200px;
@@ -31,6 +33,7 @@ export const ContainerCardVisitDetails = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
+
   button {
     width: 80px !important;
     min-width: 80px;
@@ -43,13 +46,13 @@ export const Container = styled.div`
   border-radius: 1rem;
   min-height: 100vh;
   margin: 2rem;
+
   ${({ offCustomContainerStyles }) =>
     offCustomContainerStyles &&
     `
   box-shadow: none;
   min-height:auto;
   `}
-
   h2 {
     text-align: center;
   }
@@ -62,7 +65,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   const { behavior, extra, customer, message, photo, premium, price, service, shop, time, tip, visit, hour } = visitDetails;
   const { id } = useParams();
   const navigate = useNavigate();
-  const {userData} = useContext(ListCustomersTestContext)
+  const { userData } = useContext(ListCustomersTestContext);
 
   const fetchVisit = async () => {
     setIsLoading(true);
@@ -70,7 +73,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
       method: 'POST',
       headers: {
         'Content-type': 'application-json',
-        'Authorization': 'Bearer ' + userData.token
+        Authorization: 'Bearer ' + userData.token,
       },
     });
     const resJSON = await res.json();
@@ -86,6 +89,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
       fetchVisit();
       setIsVisitProp(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleBack = () => {

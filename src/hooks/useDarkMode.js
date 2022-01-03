@@ -37,6 +37,7 @@ export function useDarkMode(setThemeState, keyLocalStorage) {
   // Return enabled state and setter
   return [enabled, setEnabledState];
 }
+
 // Compose our useMedia hook to detect dark mode preference.
 // The API for useMedia looks a bit weird, but that's because ...
 // ... it was designed to support multiple media queries and return values.

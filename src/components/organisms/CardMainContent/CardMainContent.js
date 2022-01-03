@@ -18,11 +18,13 @@ export const ContainerCardMainContent = styled(NavLink)`
   cursor: ${({ prevent }) => (prevent === 'false' ? 'auto' : 'pointer')};
   border-radius: 1rem;
   text-decoration: none;
+
   h2 {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   img {
     width: 100%;
     height: 80%;
@@ -30,6 +32,7 @@ export const ContainerCardMainContent = styled(NavLink)`
     padding: 0.2rem;
     background: ${({ theme }) => theme.color.main300};
   }
+
   &:hover {
     background: ${({ theme }) => theme.color.main200};
     transform: scale(1.1);
@@ -38,13 +41,12 @@ export const ContainerCardMainContent = styled(NavLink)`
 
 const CardMainContent = ({ text, path, img, altText }) => {
   const handleNavigate = (e) => {
-    if(userData.token){
-      return;
+    if (userData.token) {
     } else {
-      e.preventDefault()
+      e.preventDefault();
     }
-  }
-  const { userData } = useContext(ListCustomersTestContext)
+  };
+  const { userData } = useContext(ListCustomersTestContext);
   return (
     <ContainerCardMainContent to={path} prevent={!!userData.token ? 'true' : 'false'} onClick={handleNavigate}>
       <h2>{text}</h2>

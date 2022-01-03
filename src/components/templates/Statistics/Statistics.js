@@ -10,12 +10,14 @@ export const ContainerStatistics = styled.div`
   margin: 2rem auto 2rem auto;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
-  input{
+
+  input {
     background-color: ${({ theme }) => (theme.color.lighterBackground ? theme.color.black : theme.color.white)};
     border-radius: 8px;
     padding: 0.7rem;
     border: 1px solid hsl(0, 0%, 80%);
     margin-bottom: 0.5rem;
+
     &:focus {
       outline: 2px solid #2684ff;
     }
@@ -46,11 +48,13 @@ const Statistics = () => {
 
   useEffect(() => {
     fetchCustomers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    setFilteringCustomers(customers.filter(item => item.visits.map(item => item.visit.slice(0,7) === dateStats).includes(true)))
+    setFilteringCustomers(customers.filter((item) => item.visits.map((item) => item.visit.slice(0, 7) === dateStats).includes(true)));
     setFilteringVisits(visits.filter((item) => item.visit?.slice(0, 7) === dateStats));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateStats]);
 
   return (
@@ -60,7 +64,11 @@ const Statistics = () => {
         <LoadingSpinner />
       ) : (
         <div>
-          <CardOverall customers={dateStats ? filteringCustomers : customers} visits={dateStats ? filteringVisits : visits} dateStats={dateStats ? dateStats : 'Overall Time'} />
+          <CardOverall
+            customers={dateStats ? filteringCustomers : customers}
+            visits={dateStats ? filteringVisits : visits}
+            dateStats={dateStats ? dateStats : 'Overall Time'}
+          />
         </div>
       )}
     </ContainerStatistics>

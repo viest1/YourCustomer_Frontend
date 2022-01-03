@@ -20,15 +20,15 @@ export const TextareaStyled = styled.textarea`
   background-color: ${({ theme }) => (theme.color.lighterBackground ? theme.color.black : theme.color.white)};
   border-radius: 0.7rem;
   padding: 0.7rem;
-  display:block;
-  width:100%;
+  display: block;
+  width: 100%;
   resize: none;
 `;
 
 export const LabelStyled = styled.label`
-  display:block;
+  display: block;
   //margin:0 0 8px 0;
-`
+`;
 
 export const Container = styled.div`
   ${({ is2Columns }) =>

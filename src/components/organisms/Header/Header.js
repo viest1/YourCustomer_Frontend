@@ -23,9 +23,11 @@ export const ContainerHeader = styled.div`
   justify-content: flex-end;
   font-size: ${({ theme }) => theme.fontSize.m};
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
+
   * {
     transition: 0.3s;
   }
+
   a {
     text-decoration: none;
     padding: 1rem;
@@ -33,10 +35,12 @@ export const ContainerHeader = styled.div`
     transition: 0.3s;
     position: relative;
   }
+
   a:hover {
     background: ${({ theme }) => theme.color.main100};
     box-shadow: ${({ theme }) => theme.boxShadow.inside};
   }
+
   a::after {
     content: '';
     display: block;
@@ -60,9 +64,11 @@ export const ContainerIcons = styled.div`
 export const SearchIcon = styled(FaSearch)`
   font-size: 22px;
   cursor: pointer;
+
   &:hover {
     transform: scale(1.2);
   }
+
   &:focus {
     border-radius: 1rem;
     -moz-outline-radius: 1rem;
@@ -103,9 +109,11 @@ export const ListMenu = styled.div`
   position: relative;
   top: 50px;
   left: -40px;
+
   a {
     margin-left: 0.5rem;
   }
+
   a::after {
     content: '';
     display: block;
@@ -127,7 +135,7 @@ const Header = ({ setThemeState }) => {
   const [searchText, setSearchText] = useState('');
   const [remainingTime, setRemainingTime] = useState();
   const searchInput = useRef(null);
-  const { searchingCustomers, setSearchingCustomers, isSearching, setIsSearching, userData, setUserData } = useContext(ListCustomersTestContext);
+  const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData } = useContext(ListCustomersTestContext);
   const { handleLogout } = useAuth();
   const { modalIsOpen, openModal, closeModal } = useModal();
   const size = useWindowSize();
@@ -142,6 +150,7 @@ const Header = ({ setThemeState }) => {
   };
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputSearch = (e) => {
@@ -156,12 +165,14 @@ const Header = ({ setThemeState }) => {
     }
     const afterSearching = customers?.filter((item) => item.contactName.toLowerCase().includes(searchText.toLowerCase()));
     setSearchingCustomers(afterSearching);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   useEffect(() => {
     if (isSearching) {
       navigate('/customers');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearching]);
 
   const handleOpenSearchBar = () => {
@@ -210,6 +221,7 @@ const Header = ({ setThemeState }) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData.exp]);
 
   useEffect(() => {
@@ -222,6 +234,7 @@ const Header = ({ setThemeState }) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalIsOpen]);
 
   const handleLogoutTime = () => {

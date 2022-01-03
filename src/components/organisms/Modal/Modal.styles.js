@@ -13,15 +13,19 @@ export const customStyles = {
     height: '250px',
     position: 'relative',
     padding: '2rem',
+    background: 'black',
+    borderRadius: '1rem',
   },
 };
 
 export const CloseIcon = styled(AiOutlineCloseCircle)`
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 20px;
+  top: 20px;
+  font-size: 20px;
 
   &:hover {
     cursor: pointer;
+    transform: scale(1.2);
   }
 `;

@@ -8,7 +8,7 @@ export const sumValue = (arr, el) => {
   return arr.map((item) => item[el]?.value).reduce((a, b) => a + +b, 0);
 };
 export const averageValue = (arr, el) => {
-  if(!arr.length){
+  if (!arr.length) {
     return (0).toFixed(2);
   }
   if (el === 'price') {
@@ -27,7 +27,7 @@ export const averageTimeInMinutes = (arr) => {
   return (sumTimeInMinutes(arr) / arr.length).toFixed(0);
 };
 export const displayTimeInHHMM = (arr) => {
-  if(!arr.length) return 0;
+  if (!arr.length) return 0;
   const time = averageTimeInMinutes(arr);
   const hour = Math.floor(time / 60);
   const minutes = time % 60;

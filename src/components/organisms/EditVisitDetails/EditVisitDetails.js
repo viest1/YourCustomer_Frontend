@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useForm from '../../../hooks/useForm';
 import Button from '../../atoms/Button/Button';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
-import FormData from '../FormData/FormData';
 import FormVisit from '../FormVisit/FormVisit';
 import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
@@ -20,11 +19,13 @@ export const ContainerEditVisit = styled.div`
   gap: 1rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+
   form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
+
   & > div {
     display: flex;
     gap: 1rem;
@@ -37,10 +38,10 @@ const EditVisitDetails = () => {
   const [image, setImage] = useState();
   const [previewSource, setPreviewSource] = useState();
   const [submitted, setSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState()
+  const [isLoading, setIsLoading] = useState();
   const { modalIsOpen, openModal, closeModal } = useModal();
   const { id } = useParams();
-  const {userData} = useContext(ListCustomersTestContext)
+  const { userData } = useContext(ListCustomersTestContext);
   const { inputs, resetForm, handleChange, handleSelect } = useForm(visit);
   const previewFile = () => {
     const reader = new FileReader();
@@ -55,7 +56,7 @@ const EditVisitDetails = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + userData.token
+        Authorization: 'Bearer ' + userData.token,
       },
     });
     const resJSON = await res.json();
@@ -64,18 +65,19 @@ const EditVisitDetails = () => {
 
   useEffect(() => {
     fetchVisit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const fetchEditVisit = async () => {
-      setIsLoading(true)
-      inputs.userId = userData.userId
+      setIsLoading(true);
+      inputs.userId = userData.userId;
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/visits/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + userData.token
+          Authorization: 'Bearer ' + userData.token,
         },
         body: JSON.stringify(inputs),
       });

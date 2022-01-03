@@ -7,20 +7,20 @@ export const useAuth = (inputs) => {
   const { setUserData } = useContext(ListCustomersTestContext);
   const [errorMessageSignUp, setErrorMessageSignUp] = useState();
   const [errorMessageLogin, setErrorMessageLogin] = useState();
-  const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
     const signup = async () => {
-      if(!inputs.email.match(mailFormat)){
+      if (!inputs.email.match(mailFormat)) {
         setErrorMessageSignUp('Error! Wrong E-Mail Format');
         return;
       }
-      if(inputs.password.length < 5){
+      if (inputs.password.length < 5) {
         setErrorMessageSignUp('Error! Password too short! Must be Min. 6 Signs');
         return;
       }
-      inputs.email.toLowerCase()
+      inputs.email.toLowerCase();
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/signup', {
         method: 'POST',
         headers: {
@@ -33,7 +33,7 @@ export const useAuth = (inputs) => {
         setErrorMessageSignUp(resJSON.message);
         return;
       }
-      navigate('/')
+      navigate('/');
       setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email });
     };
     signup();
@@ -42,7 +42,7 @@ export const useAuth = (inputs) => {
   const handleSubmitLogin = (e) => {
     e.preventDefault();
     const login = async () => {
-      inputs.email.toLowerCase()
+      inputs.email.toLowerCase();
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/login', {
         method: 'POST',
         headers: {
@@ -56,7 +56,13 @@ export const useAuth = (inputs) => {
         console.log(errorMessageLogin);
         return;
       }
-      setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email, exp: resJSON.exp });
+      setUserData({
+        token: resJSON.token,
+        userId: resJSON.userId,
+        name: resJSON.name,
+        email: resJSON.email,
+        exp: resJSON.exp,
+      });
       navigate('/');
       console.log(resJSON);
     };
@@ -68,8 +74,8 @@ export const useAuth = (inputs) => {
     setUserData({
       userId: '',
       token: '',
-      name:'',
-      exp:'',
+      name: '',
+      exp: '',
     });
     localStorage.removeItem('userDataListCustomersTest');
     navigate('/');

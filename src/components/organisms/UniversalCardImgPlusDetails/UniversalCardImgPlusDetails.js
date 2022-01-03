@@ -18,10 +18,10 @@ export const ContainerCardCustomer = styled.div`
   margin: 0 auto;
   box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
-  @media all and (max-width:1277px){
+  @media all and (max-width: 1277px) {
     width: ${({ width }) => (width ? width : '45%')};
   }
-  @media all and (max-width:890px){
+  @media all and (max-width: 890px) {
     width: ${({ width }) => (width ? width : '100%')};
   }
 `;
@@ -39,6 +39,7 @@ export const Container1 = styled.div`
 
 export const StyledAnchorTel = styled.a`
   text-decoration: none;
+
   &:hover {
     text-decoration: underline;
   }

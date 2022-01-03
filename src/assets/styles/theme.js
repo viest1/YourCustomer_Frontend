@@ -20,7 +20,7 @@ export const darkTheme = {
     l: '1.2rem',
     m: '0.8rem',
     s: '0.6rem',
-  }
+  },
 };
 
 export const theme = {
@@ -43,7 +43,7 @@ export const theme = {
     l: '1.2rem',
     m: '0.8rem',
     s: '0.6rem',
-  }
+  },
 };
 
 // blue: #5847eb,

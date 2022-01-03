@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FormVisit from '../../organisms/FormVisit/FormVisit';
 import useForm from '../../../hooks/useForm';
-import axios from 'axios';
 import FormData from '../../organisms/FormData/FormData';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import Button from '../../atoms/Button/Button';
@@ -59,11 +58,13 @@ export const ContainerForm = styled.form`
     fieldset {
       width: 48%;
     }
+
     button {
       width: 1050px;
     }
   }
   position: relative;
+
   fieldset {
     padding: 1.5rem;
     border-radius: 1rem;
@@ -108,7 +109,7 @@ const AddCustomer = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + userData.token
+        Authorization: 'Bearer ' + userData.token,
       },
       body: JSON.stringify(inputs),
     });

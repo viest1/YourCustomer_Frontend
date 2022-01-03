@@ -32,7 +32,7 @@ const Settings = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [errorMessagePassword, setErrorMessagePassword] = useState();
   const { userData, setUserData } = useContext(ListCustomersTestContext);
-  const { inputs, handleChange, clearForm } = useForm({
+  const { inputs, handleChange } = useForm({
     name: userData.name,
     email: userData.email,
     password: '',

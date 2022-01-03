@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import FormLabelAndInput from '../../atoms/FormLabelAndInput/FormLabelAndInput';
-import useForm from '../../../hooks/useForm';
 import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { shopProducts } from '../../../data/shop';
@@ -10,6 +9,7 @@ export const ContainerFormVisit = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
   * {
     color: black;
   }
@@ -71,6 +71,7 @@ export const ImgStyled = styled.div`
   z-index: 2;
   top: -22px;
   left: -120px;
+
   img {
     width: 100%;
     height: 100%;
@@ -181,6 +182,7 @@ const FormVisit = ({
     if (image) {
       previewFile();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
   useEffect(() => {
     if (submitted) {
@@ -188,6 +190,7 @@ const FormVisit = ({
       setPreviewSource(null);
       setSubmitted(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitted]);
 
   return (
@@ -261,7 +264,7 @@ const FormVisit = ({
           </ImgStyled>
         )}
       </ContainerInputFile>
-      <FormLabelAndInput type='number' id="tip" placeholder="Type Here..." label="Tip" handleInput={handleChange} value={inputs.tip} />
+      <FormLabelAndInput type="number" id="tip" placeholder="Type Here..." label="Tip" handleInput={handleChange} value={inputs.tip} />
       <FormLabelAndInput textarea id="comments" placeholder="Type Here..." label="Comments" handleInput={handleChange} value={inputs.comments} />
     </ContainerFormVisit>
   );

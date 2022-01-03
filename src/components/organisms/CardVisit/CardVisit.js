@@ -4,16 +4,16 @@ import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/Universa
 import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
 
 const CardVisit = ({ visit: { time, customer, _id, photo, price, extra, visit } }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleDetails = () => {
-    navigate(`/visits/${_id}`)
-  }
+    navigate(`/visits/${_id}`);
+  };
   const arrTexts = ['Time:', time, 'Price:', price?.label, 'Visit', visit];
   const arrValues = [photo, customer?.contactName, 'Details', '100%', handleDetails];
 
   return (
     <UniversalCardImgPlusDetails arrValues={arrValues} photo={photo || ''}>
-      <Container3ElemInCol arrTexts={arrTexts}/>
+      <Container3ElemInCol arrTexts={arrTexts} />
     </UniversalCardImgPlusDetails>
   );
 };

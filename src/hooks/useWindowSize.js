@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 // Hook
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -16,6 +17,7 @@ export function useWindowSize() {
         height: window.innerHeight,
       });
     }
+
     // Add event listener
     window.addEventListener('resize', handleResize);
     // Call handler right away so state gets updated with initial window size

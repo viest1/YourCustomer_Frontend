@@ -33,7 +33,6 @@ const FormAuth = () => {
     passwordLogin: '',
   });
 
-
   const { handleSubmitSignUp, handleSubmitLogin, errorMessageSignUp, errorMessageLogin } = useAuth(inputs);
 
   const handleLoginMode = () => {

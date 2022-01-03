@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputSearch, Container, TextareaStyled, LabelStyled } from './FormLabelAndInput.styles';
+import { Container, InputSearch, LabelStyled, TextareaStyled } from './FormLabelAndInput.styles';
 
 const FormLabelAndInput = React.forwardRef(
   ({ id, placeholder, label, type = 'text', required = true, handleInput, is2Columns, value, isNotValid, onBlur, min, max, textarea }, ref) => {

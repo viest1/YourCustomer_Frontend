@@ -30,6 +30,7 @@ export const usePhoto = (arr, photo) => {
 
   useEffect(() => {
     findPhotos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export const usePhoto = (arr, photo) => {
 
   useEffect(() => {
     setActuallyPhoto(photos[counterPhoto]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counterPhoto]);
 
   return {

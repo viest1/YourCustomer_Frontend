@@ -19,11 +19,13 @@ export const ContainerEditCustomer = styled.div`
   gap: 1rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+
   form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
+
   & > div {
     display: flex;
     gap: 1rem;
@@ -53,6 +55,7 @@ const EditCustomerDetails = () => {
 
   useEffect(() => {
     fetchCustomer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = (e) => {

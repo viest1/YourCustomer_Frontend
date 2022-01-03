@@ -7,6 +7,7 @@ export const ContainerPageNotFound = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+
   img {
     width: 600px;
     height: 600px;

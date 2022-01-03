@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import React, { useContext, useEffect, useState } from 'react';
-import GeneralProvider, { ListCustomersTestContext } from 'providers/GeneralProvider';
+import { ListCustomersTestContext } from 'providers/GeneralProvider';
 import { GlobalStyle } from '../assets/styles/GlobalStyle';
 import { darkTheme, theme } from '../assets/styles/theme';
 import { settingsDarkMode } from '../hooks/useDarkMode';
