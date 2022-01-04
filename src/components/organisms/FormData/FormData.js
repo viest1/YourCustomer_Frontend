@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FormLabelAndInput from '../../atoms/FormLabelAndInput/FormLabelAndInput';
 import Select from 'react-select';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerFormData = styled.div`
   display: flex;
@@ -40,6 +41,7 @@ const getBreedList = async () => {
 };
 
 const FormData = ({ handleSelect, handleChange, inputs }) => {
+  const { t } = useContext(ListCustomersTestContext);
   const [breeds, setBreeds] = useState([]);
   useEffect(() => {
     getBreedList().then(() => {
@@ -58,7 +60,7 @@ const FormData = ({ handleSelect, handleChange, inputs }) => {
       <FormLabelAndInput
         id="dogOwner"
         placeholder="Type Here..."
-        label="Dog Owner"
+        label={t('formData.dogOwner')}
         required={false}
         handleInput={handleChange}
         value={inputs.dogOwner}
@@ -66,28 +68,48 @@ const FormData = ({ handleSelect, handleChange, inputs }) => {
       <FormLabelAndInput
         id="dogName"
         placeholder="Type Here..."
-        label="Dog Name"
+        label={t('formData.dogName')}
         required={false}
         handleInput={handleChange}
         value={inputs.dogName}
       />
-      <FormLabelAndInput id="contactName" placeholder="Type Here..." label="Contact Name *" handleInput={handleChange} value={inputs.contactName} />
-      <FormLabelAndInput id="phone" placeholder="Type Here..." label="Phone" required={false} handleInput={handleChange} value={inputs.phone} />
-      <FormLabelAndInput id="address" placeholder="Type Here..." label="Address" required={false} handleInput={handleChange} value={inputs.address} />
+      <FormLabelAndInput
+        id="contactName"
+        placeholder="Type Here..."
+        label={t('formData.contactName')}
+        handleInput={handleChange}
+        value={inputs.contactName}
+      />
+      <FormLabelAndInput
+        id="phone"
+        placeholder="Type Here..."
+        label={t('formData.phone')}
+        required={false}
+        handleInput={handleChange}
+        value={inputs.phone}
+      />
+      <FormLabelAndInput
+        id="address"
+        placeholder="Type Here..."
+        label={t('formData.address')}
+        required={false}
+        handleInput={handleChange}
+        value={inputs.address}
+      />
       <FormLabelAndInput
         id="birthday"
         type="date"
         placeholder="Type Here..."
-        label="Birthday"
+        label={t('formData.birthday')}
         required={false}
         handleInput={handleChange}
         value={inputs.birthday}
       />
-      <label htmlFor="gender">Gender</label>
+      <label htmlFor="gender">{t('formData.gender')}</label>
       <Select id="gender" name="gender" onChange={handleSelect} options={gender} value={inputs.gender} />
       {/*<label htmlFor="size">Size</label>*/}
       {/*<Select id="size" name="size" onChange={handleSelect} options={options} value={inputs.size} />*/}
-      <label htmlFor="breed">Breed</label>
+      <label htmlFor="breed">{t('formData.breed')}</label>
       <Select id="breed" name="breed" onChange={handleSelect} options={breeds} value={inputs.breed} />
     </ContainerFormData>
   );

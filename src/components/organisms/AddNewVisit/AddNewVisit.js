@@ -28,7 +28,7 @@ const AddNewVisit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { inputs, handleChange, handleSelect, clearForm } = useForm({ tip: '0' });
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,8 +86,8 @@ const AddNewVisit = () => {
       </form>
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
-          <h2>You added Visit correctly!</h2>
-          <p>Well Done!</p>
+          <h2>{t('modal.addVisit')}</h2>
+          <p>{t('modal.wellDone')}</p>
         </Modal>
       )}
       {isLoading && (

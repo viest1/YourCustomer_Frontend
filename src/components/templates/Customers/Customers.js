@@ -27,7 +27,7 @@ export const ContainerCardsCustomer = styled.div`
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { searchingCustomers, isSearching, userData } = useContext(ListCustomersTestContext);
+  const { searchingCustomers, isSearching, userData, t } = useContext(ListCustomersTestContext);
   const fetchCustomers = async () => {
     setIsLoading(true);
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
@@ -48,13 +48,13 @@ const Customers = () => {
       ) : searchingCustomers.length || isSearching ? (
         <ContainerCardsCustomer>
           {sortByTimestamp(searchingCustomers).map((item) => (
-            <CardCustomer item={item} key={item._id} />
+            <CardCustomer t={t} item={item} key={item._id} />
           ))}
         </ContainerCardsCustomer>
       ) : (
         <ContainerCardsCustomer>
           {sortByTimestamp(customers).map((item) => (
-            <CardCustomer item={item} key={item._id} />
+            <CardCustomer t={t} item={item} key={item._id} />
           ))}
         </ContainerCardsCustomer>
       )}

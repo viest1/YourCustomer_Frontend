@@ -66,7 +66,7 @@ const CustomerDetails = () => {
   const { dogOwner, address, birthday, breed, contactName, dogName, phone, size, visits } = customerDetails;
   const { id } = useParams();
   const navigate = useNavigate();
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
   const fetchCustomer = async () => {
     setIsLoading(true);
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id, {
@@ -109,18 +109,18 @@ const CustomerDetails = () => {
     };
     fetchVisits();
   };
-  const arrTexts = ['Dog Owner:', dogOwner, 'Phone:', phone, 'Dog Name:', dogName];
-  const arrTexts2 = ['Address:', address, 'Birthday:', birthday, 'Breed:', breed?.label];
-  const arrTexts3 = ['Size:', size?.label, 'Visits:', visits?.length, 'Dog Name:', dogName];
-  const arrValues = [visits, contactName, 'Edit', '100%', handleEdit];
+  const arrTexts = [t('formData.dogOwner'), dogOwner, t('formData.phone'), phone, t('formData.dogName'), dogName];
+  const arrTexts2 = [t('formData.address'), address, t('formData.birthday'), birthday, t('formData.breed'), breed?.label];
+  const arrTexts3 = [t('formData.size'), size?.label, t('navigation.visits'), visits?.length, t('lastVisit'), dogName];
+  const arrValues = [visits, contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container>
-      <Button text="Back" onClick={handleBack} width="80px" />
-      <h2>Customer Details</h2>
+      <Button text={t('button.back')} onClick={handleBack} width="80px" />
+      <h2>{t('customers.customerDetails')}</h2>
       {!isLoading ? (
         <UniversalCardImgPlusDetails
           arrValues={arrValues}
-          button2={['Add Visit', '100%', handleAddVisit]}
+          button2={[t('button.addVisit'), '100%', handleAddVisit]}
           flexProp="0 0 40%"
           width="100%"
           maxWidth="1200px"
@@ -131,7 +131,7 @@ const CustomerDetails = () => {
           <Container3ElemInCol arrTexts={arrTexts2} flexProp="0 0 20%" />
           <Container3ElemInCol arrTexts={arrTexts3} flexProp="0 0 20%" />
           <DivToButtonMoreVisits>
-            <Button text={openVisits ? 'Click to Hide Visits' : 'Click to Watch Visits'} onClick={handleOpenVisits} />
+            <Button text={openVisits ? t('button.watchVisits') : t('button.hideVisits')} onClick={handleOpenVisits} />
           </DivToButtonMoreVisits>
         </UniversalCardImgPlusDetails>
       ) : (

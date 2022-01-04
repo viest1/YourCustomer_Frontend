@@ -31,7 +31,7 @@ export const ContainerDiv = styled.div`
 const Visits = () => {
   const [visits, setVisits] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
   const fetchVisits = async () => {
     setIsLoading(true);
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits');
@@ -63,7 +63,7 @@ const Visits = () => {
             sortByTimestamp(visits, 'visit').map((item) => (
               // {index === 0 && <p>{item.visit}</p>}
               // {index > 0 && item.visit !== array[index - 1].visit && <p>{item.visit}</p>}
-              <CardVisit visit={item} key={item._id} />
+              <CardVisit t={t} visit={item} key={item._id} />
             ))}
         </ContainerVisits>
       )}

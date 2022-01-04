@@ -196,7 +196,7 @@ const Header = ({ setThemeState }) => {
   const [remainingTime, setRemainingTime] = useState();
   const [languageMenuIsOpen, setLanguageMenuIsOpen] = useState(false);
   const searchInput = useRef(null);
-  const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData } = useContext(ListCustomersTestContext);
+  const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData, t } = useContext(ListCustomersTestContext);
   const { handleLogout } = useAuth();
   const { modalIsOpen, openModal, closeModal } = useModal();
   const size = useWindowSize();
@@ -312,14 +312,16 @@ const Header = ({ setThemeState }) => {
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           {Date.now() < userData.exp ? (
             <div>
-              <h2 style={{ textAlign: 'center' }}>Are You There?</h2>
-              <Button text="If You Are Here, Click Here to Stay Logged In" onClick={handleLogoutTime} />
-              <p style={{ textAlign: 'center' }}>Time to Automatically Logout: {remainingTime}</p>
+              <h2 style={{ textAlign: 'center' }}>{t('modal.areYouThere')}</h2>
+              <Button text={t('button.stayLogged')} onClick={handleLogoutTime} />
+              <p style={{ textAlign: 'center' }}>
+                {t('modal.automaticallyLogout')}: {remainingTime}
+              </p>
             </div>
           ) : (
             <div>
-              <h2 style={{ textAlign: 'center' }}>Your Session Expired!</h2>
-              <h2 style={{ textAlign: 'center' }}>You Logged Out!</h2>
+              <h2 style={{ textAlign: 'center' }}>{t('modal.sessionExp')}</h2>
+              <h2 style={{ textAlign: 'center' }}>{t('modal.loggedOut')}</h2>
             </div>
           )}
         </Modal>
@@ -330,15 +332,15 @@ const Header = ({ setThemeState }) => {
           <NavLinkItem text="Home" path="/" />
           {userData.token && (
             <>
-              <NavLinkItem text="Add Customer" path="/add" />
-              <NavLinkItem text="Customers" path="/customers" />
-              <NavLinkItem text="Visits" path="/visits" />
-              <NavLinkItem text="Statistics" path="/statistics" />
-              <NavLinkItem text="Settings" path="/settings" />
-              <NavLinkItem text="Logout" path="/logout" onClick={handleLogout} />
+              <NavLinkItem text={t('navigation.addCustomer')} path="/add" />
+              <NavLinkItem text={t('navigation.customers')} path="/customers" />
+              <NavLinkItem text={t('navigation.visits')} path="/visits" />
+              <NavLinkItem text={t('navigation.statistics')} path="/statistics" />
+              <NavLinkItem text={t('navigation.settings')} path="/settings" />
+              <NavLinkItem text={t('navigation.logout')} path="/logout" onClick={handleLogout} />
             </>
           )}
-          {!userData.token && <NavLinkItem text="Login" path="/login" />}
+          {!userData.token && <NavLinkItem text={t('login.l')} path="/login" />}
         </>
       ) : (
         <div ref={ref}>
@@ -360,15 +362,15 @@ const Header = ({ setThemeState }) => {
               <NavLinkItem text="Home" path="/" />
               {userData.token && (
                 <>
-                  <NavLinkItem text="Add Customer" path="/add" />
-                  <NavLinkItem text="Customers" path="/customers" />
-                  <NavLinkItem text="Visits" path="/visits" />
-                  <NavLinkItem text="Statistics" path="/statistics" />
-                  <NavLinkItem text="Settings" path="/settings" />
-                  <NavLinkItem text="Logout" path="/logout" onClick={handleLogout} />
+                  <NavLinkItem text={t('navigation.addCustomer')} path="/add" />
+                  <NavLinkItem text={t('navigation.customers')} path="/customers" />
+                  <NavLinkItem text={t('navigation.visits')} path="/visits" />
+                  <NavLinkItem text={t('navigation.statistics')} path="/statistics" />
+                  <NavLinkItem text={t('navigation.settings')} path="/settings" />
+                  <NavLinkItem text={t('navigation.logout')} path="/logout" onClick={handleLogout} />
                 </>
               )}
-              {!userData.token && <NavLinkItem text="Login" path="/login" />}
+              {!userData.token && <NavLinkItem text={t('login.l')} path="/login" />}
             </ListMenu>
           </ContainerListMenu>
         </div>
@@ -385,8 +387,9 @@ const Header = ({ setThemeState }) => {
       <ContainerIcons>
         <ContainerListLanguages>
           {languageMenuIsOpen &&
-            languages.map((item) => (
+            languages.map((item, index) => (
               <ButtonLanguage
+                key={index}
                 onClick={() => {
                   i18next.changeLanguage(item.code);
                 }}

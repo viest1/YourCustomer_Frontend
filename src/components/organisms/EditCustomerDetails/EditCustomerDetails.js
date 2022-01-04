@@ -39,7 +39,7 @@ const EditCustomerDetails = () => {
   const { inputs, resetForm, handleChange, handleSelect } = useForm(customer);
   const { modalIsOpen, openModal, closeModal } = useModal();
   const [error, setError] = useState(null);
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
   const fetchCustomer = async () => {
     inputs.userId = userData.userId;
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id, {
@@ -82,13 +82,13 @@ const EditCustomerDetails = () => {
   return (
     <ContainerEditCustomer>
       <div>
-        <Button text="Back" onClick={() => navigate(-1)} width="80px" />
-        <Button text="Reset Form" onClick={() => resetForm()} width="80px" />
+        <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
+        <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
       </div>
       {customer ? (
         <form onSubmit={handleSubmit}>
           <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
-          <Button type="submit" text="Edit Visit" />
+          <Button type="submit" text={t('button.editCustomer')} />
         </form>
       ) : (
         <ContainerLoadingSpinner>
@@ -99,8 +99,8 @@ const EditCustomerDetails = () => {
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           {!error ? (
             <div>
-              <h2>You Edited Customer correctly!</h2>
-              <p>Well Done!</p>
+              <h2>{t('modal.editCustomer')}</h2>
+              <p>{t('modal.wellDone')}</p>
             </div>
           ) : (
             <p>{error}</p>

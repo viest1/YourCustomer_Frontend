@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import FormLabelAndInput from '../../atoms/FormLabelAndInput/FormLabelAndInput';
 import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { shopProducts } from '../../../data/shop';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerFormVisit = styled.div`
   display: flex;
@@ -178,6 +179,7 @@ const FormVisit = ({
   previewSource,
 }) => {
   const imageRef = useRef(null);
+  const { t } = useContext(ListCustomersTestContext);
   useEffect(() => {
     if (image) {
       previewFile();
@@ -195,14 +197,21 @@ const FormVisit = ({
 
   return (
     <ContainerFormVisit>
-      <FormLabelAndInput id="visit" type="date" placeholder="Type Here..." label="Visit Date" handleInput={handleChange} value={inputs.visit} />
+      <FormLabelAndInput
+        id="visit"
+        type="date"
+        placeholder="Type Here..."
+        label={t('formVisit.visit')}
+        handleInput={handleChange}
+        value={inputs.visit}
+      />
       <FormLabelAndInput
         min="06:00"
         max="24:00"
         type="time"
         id="hour"
         placeholder="Type Here..."
-        label="Visit Hour"
+        label={t('formVisit.hour')}
         handleInput={handleChange}
         value={inputs.hour || ''}
       />
@@ -212,7 +221,7 @@ const FormVisit = ({
         type="time"
         id="time"
         placeholder="Type Here..."
-        label="Time Visit"
+        label={t('formVisit.time')}
         handleInput={handleChange}
         value={inputs.time || ''}
       />
@@ -221,23 +230,23 @@ const FormVisit = ({
       {/*  <Select id="service" name="service" onChange={handleSelect} options={optionsService} value={inputs.service} />*/}
       {/*</div>*/}
       <div>
-        <label htmlFor="premium">Premium</label>
+        <label htmlFor="premium">{t('formVisit.premium')}</label>
         <Select id="premium" name="premium" onChange={handleSelect} options={optionsPremium} value={inputs.premium} />
       </div>
       <div>
-        <label htmlFor="price">Price</label>
+        <label htmlFor="price">{t('formVisit.price')}</label>
         <Select id="price" name="price" onChange={handleSelect} options={optionsPrice} value={inputs.price} />
       </div>
       <div>
-        <label htmlFor="extraPay">Extra Pay</label>
+        <label htmlFor="extraPay">{t('formVisit.extraPay')}</label>
         <Select id="extraPay" name="extraPay" onChange={handleSelect} options={optionsExtraPay} value={inputs.extraPay} />
       </div>
       <div>
-        <label htmlFor="behavior">Behavior</label>
+        <label htmlFor="behavior">{t('formVisit.behavior')}</label>
         <Select id="behavior" name="behavior" onChange={handleSelect} options={optionsBehavior} value={inputs.behavior} />
       </div>
       <div>
-        <label htmlFor="shop">Shop</label>
+        <label htmlFor="shop">{t('formVisit.shop')}</label>
         <Select
           id="shop"
           name="shop"
@@ -257,19 +266,19 @@ const FormVisit = ({
             setImage(e.target.files[0]);
           }}
         />
-        <span>File Upload</span>
+        <span>{t('formVisit.fileUpload')}</span>
         {previewSource && (
           <ImgStyled>
             <img src={previewSource} alt="dog" />
           </ImgStyled>
         )}
       </ContainerInputFile>
-      <FormLabelAndInput type="number" id="tip" placeholder="Type Here..." label="Tip" handleInput={handleChange} value={inputs.tip} />
+      <FormLabelAndInput type="number" id="tip" placeholder="Type Here..." label={t('formVisit.tip')} handleInput={handleChange} value={inputs.tip} />
       <FormLabelAndInput
         textarea
         id="comments"
         placeholder="Type Here..."
-        label="Comments"
+        label={t('formVisit.comments')}
         handleInput={handleChange}
         value={inputs.comments}
         required={false}

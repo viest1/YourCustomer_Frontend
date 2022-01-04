@@ -15,6 +15,7 @@
     "secondHeroText": "Easy managing your Customers, Visits and others"
   },
   "functionalities": {
+    "functionalities": "Functionalities",
     "addCustomer": "Add Customer +",
     "displayCustomers": "Display Customers",
     "displayVisits": "Display Visits",
@@ -36,9 +37,11 @@
     "address":"Address",
     "birthday": "Birthday",
     "gender":"Gender",
-    "breed": "Breed"
+    "breed": "Breed",
+    "size": "Size"
   },
   "formVisit": {
+    "title": "Customer Data",
     "visit":  "Visit Date",
     "hour": "Visit Hour",
     "time":  "Time Visit",
@@ -55,7 +58,9 @@
     "addNewCustomer": "Add New Customer",
     "addVisit": "Add Visit",
     "edit": "Edit",
+    "editCustomer": "Edit Customer",
     "watchVisits": "Click to Watch Visits",
+    "hideVisits": "Click to Hide Visits",
     "back": "Back",
     "resetForm": "Reset Form",
     "editVisit": "Edit Visit",
@@ -66,7 +71,10 @@
     "showItems": "Show Items",
     "submitChanges": "Submit Changes",
     "changePassword": "Change Password",
-    "stayLogged": "If You Are Here, Click Here to Stay Logged In"
+    "stayLogged": "If You Are Here, Click Here to Stay Logged In",
+    "clickToLogIn": "Click to Log In",
+    "login": "Log In",
+    "signup": "Sign Up"
   },
   "customers": {
     "details": "Details",
@@ -79,7 +87,8 @@
     "time": "Time",
     "price": "Price",
     "visit": "Visit",
-    "extra": "Extra"
+    "extra": "Extra",
+    "visitDetails": "Visit Details"
   },
   "statistics": {
     "totalMoney": "Total Money",
@@ -115,5 +124,26 @@
     "automaticallyLogout": "Time to Automatically Logout",
     "sessionExp": "Your Session Expired!",
     "loggedOut": "You Logged Out"
-  }
+  },
+  "login": {
+    "l": "Log In",
+    "password": "Password",
+    "switchSign": "Switch to Sign Up",
+    "switchLogin": "Switch to Log In",
+    "name": "Name"
+  },
+  "service": "Service",
+  "small":"Small",
+  "medium":"Medium",
+  "big":"Big",
+  "huge":"Huge",
+  "washing":"Washing",
+  "completeService":"Complete Service",
+  "handStripping":"Hand Stripping",
+  "1":"Aggressive",
+  "2":"Not Polite",
+  "3":"Ok",
+  "4":"Cool",
+  "5":"Best",
+  "lastVisit": "Last Visit"
 }

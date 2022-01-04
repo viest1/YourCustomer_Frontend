@@ -4,7 +4,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { ContainerSocial, Copyright, FooterContainer, topWaveVar1 } from '../../templates/MainContent/MainContent';
 
-const Footer = () => {
+const Footer = ({ t }) => {
   return (
     <FooterContainer>
       {topWaveVar1}
@@ -12,9 +12,9 @@ const Footer = () => {
       <Copyright>
         <h2>Copyright {new Date().getFullYear()} by PLWebsites</h2>
       </Copyright>
-      <h2>YourCustomer - we are developing the application for Your comfort</h2>
+      <h2>{t('footer.mainText')}</h2>
       <ContainerSocial>
-        <h3>Find us Here</h3>
+        <h3>{t('footer.textIcons')}</h3>
         <h3>----</h3>
         <a href="https://facebook.com" target="_blank" rel="noreferrer">
           <FaFacebookF />

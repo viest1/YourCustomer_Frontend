@@ -79,7 +79,7 @@ const AddCustomer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState();
   const { modalIsOpen, openModal, closeModal } = useModal();
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
 
   const previewFile = () => {
     const reader = new FileReader();
@@ -126,11 +126,11 @@ const AddCustomer = () => {
   return (
     <ContainerForm onSubmit={handleSubmit}>
       <fieldset disabled={isLoading}>
-        <legend>Customer Data</legend>
+        <legend>{t('formData.title')}</legend>
         <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
       </fieldset>
       <fieldset disabled={isLoading}>
-        <legend>Visit Information</legend>
+        <legend>{t('formVisit.title')}</legend>
         <FormVisit
           previewSource={previewSource}
           previewFile={previewFile}
@@ -149,12 +149,12 @@ const AddCustomer = () => {
           </ContainerLoadingSpinner>
         )}
       </fieldset>
-      <Button type="submit" text="Add New Customer" />
+      <Button type="submit" text={t('button.addNewCustomer')} />
       {validationError && <p>{validationError}</p>}
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
-          <h2>You added Customer correctly!</h2>
-          <p>Well Done!</p>
+          <h2>{t('modal.addCustomer')}</h2>
+          <p>{t('modal.wellDone')}</p>
         </Modal>
       )}
     </ContainerForm>

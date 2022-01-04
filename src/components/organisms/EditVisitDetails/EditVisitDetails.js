@@ -41,7 +41,7 @@ const EditVisitDetails = () => {
   const [isLoading, setIsLoading] = useState();
   const { modalIsOpen, openModal, closeModal } = useModal();
   const { id } = useParams();
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
   const { inputs, resetForm, handleChange, handleSelect } = useForm(visit);
   const previewFile = () => {
     const reader = new FileReader();
@@ -92,8 +92,8 @@ const EditVisitDetails = () => {
   return (
     <ContainerEditVisit>
       <div>
-        <Button text="Back" onClick={() => navigate(-1)} width="80px" />
-        <Button text="Reset Form" onClick={() => resetForm()} width="80px" />
+        <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
+        <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
       </div>
       {visit ? (
         <form onSubmit={handleSubmit}>
@@ -109,7 +109,7 @@ const EditVisitDetails = () => {
             submitted={submitted}
             setSubmitted={setSubmitted}
           />
-          <Button type="submit" text="Edit visit" />
+          <Button type="submit" text={t('button.editVisit')} />
         </form>
       ) : (
         <ContainerLoadingSpinner>
@@ -123,8 +123,8 @@ const EditVisitDetails = () => {
       )}
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
-          <h2>You edited Visit correctly!</h2>
-          <p>Well Done!</p>
+          <h2>{t('modal.editVisit')}</h2>
+          <p>{t('modal.wellDone')}</p>
         </Modal>
       )}
     </ContainerEditVisit>

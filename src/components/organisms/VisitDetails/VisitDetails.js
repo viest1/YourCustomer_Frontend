@@ -65,7 +65,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   const { behavior, extra, customer, message, photo, premium, price, service, shop, time, tip, visit, hour } = visitDetails;
   const { id } = useParams();
   const navigate = useNavigate();
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
 
   const fetchVisit = async () => {
     setIsLoading(true);
@@ -108,26 +108,26 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
     navigate(`/customers/${customerProp?._id || customer?._id}`);
   };
 
-  const arrTexts = ['Visit Date:', visit, 'Visit Hour:', hour, 'Behavior:', behavior?.value];
-  const arrTexts2 = ['Extra:', extra?.label, 'Message:', message, 'Premium:', premium?.label];
+  const arrTexts = [t('formVisit.visit'), visit, t('formVisit.hour'), hour, t('formVisit.behavior'), behavior?.value];
+  const arrTexts2 = [t('visit.extra'), extra?.label, t('formVisit.comments'), message, t('formVisit.premium'), premium?.label];
   const arrTexts3 = [
-    'Price:',
+    t('formVisit.price'),
     price?.value,
-    'Service:',
+    t('service'),
     service?.value,
-    'Shop',
+    t('formVisit.shop'),
     shop?.map((item, index) => (
       <li style={{ listStyle: 'none' }}>
         {index + 1}. {item.label}
       </li>
     )),
   ];
-  const arrTexts4 = ['Time:', time, 'Tip:', tip, 'Empty', ''];
-  const arrValues = [visit, customerProp?.contactName || customer?.contactName, 'Edit', '100%', handleEdit];
+  const arrTexts4 = [t('formVisit.time'), time, t('formVisit.tip'), tip, 'Empty', ''];
+  const arrValues = [visit, customerProp?.contactName || customer?.contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container offCustomContainerStyles>
-      {!isVisitProp && <Button text="Back" onClick={handleBack} width="80px" />}
-      {!offCustomContainerStyles && <h2>Visit Details</h2>}
+      {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="80px" />}
+      {!offCustomContainerStyles && <h2>{t('visit.visitDetails')}</h2>}
       {!isLoading ? (
         <UniversalCardImgPlusDetails
           photo={photo || visitProp?.photo || ''}
@@ -139,13 +139,13 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
           height="300px"
           container1Padding="1rem"
         >
-          <Container3ElemInCol arrTexts={arrTexts} flexProp="0 0 19%" />
-          <Container3ElemInCol arrTexts={arrTexts2} flexProp="0 0 19%" />
-          <Container3ElemInCol arrTexts={arrTexts3} flexProp="0 0 19%" />
-          <Container3ElemInCol arrTexts={arrTexts4} flexProp="0 0 19%" />
+          <Container3ElemInCol key="1" arrTexts={arrTexts} flexProp="0 0 19%" />
+          <Container3ElemInCol key="2" arrTexts={arrTexts2} flexProp="0 0 19%" />
+          <Container3ElemInCol key="3" arrTexts={arrTexts3} flexProp="0 0 19%" />
+          <Container3ElemInCol key="4" arrTexts={arrTexts4} flexProp="0 0 19%" />
           {!visitProp && (
             <DivToButtonMoreVisits>
-              <Button text="Go to Customer Data" onClick={handleOpenCustomerDetails} />
+              <Button text={t('button.goToCustomerData')} onClick={handleOpenCustomerDetails} />
             </DivToButtonMoreVisits>
           )}
         </UniversalCardImgPlusDetails>

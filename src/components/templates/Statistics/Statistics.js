@@ -31,7 +31,7 @@ const Statistics = () => {
   const [filteringCustomers, setFilteringCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [dateStats, setDateStats] = useState('');
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
   const todayDateMonth = `${new Date().getFullYear()}-${
     new Date().getMonth() < 10 ? `0${new Date().getMonth() + 1}` : `${new Date().getMonth() + 1}`
   }`;
@@ -65,9 +65,10 @@ const Statistics = () => {
       ) : (
         <div>
           <CardOverall
+            t={t}
             customers={dateStats ? filteringCustomers : customers}
             visits={dateStats ? filteringVisits : visits}
-            dateStats={dateStats ? dateStats : 'Overall Time'}
+            dateStats={dateStats ? dateStats : t('statistics.overallTime')}
           />
         </div>
       )}

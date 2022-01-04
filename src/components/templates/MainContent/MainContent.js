@@ -229,36 +229,36 @@ const MainContent = () => {
   return (
     <ContainerMainContent>
       <ContainerHero>
-        <h2>PLWebsites Presents: YourCustomer!</h2>
+        <h2>{t('heroContent.presents')}</h2>
         <div>
           <h1>{t('heroContent.heroText')}</h1>
-          <h2>Easy managing your Customers, Visits and others</h2>
-          {!userData.token && <Button text="Click to Log In!" onClick={handleNavigateToLogin} />}
+          <h2>{t('heroContent.secondHeroText')}</h2>
+          {!userData.token && <Button text={t('button.clickToLogIn')} onClick={handleNavigateToLogin} />}
         </div>
         <div>
-          <img src={creativeWoman} alt="" />
+          <img src={creativeWoman} alt="organised women" />
         </div>
         {bottomWaveVar}
       </ContainerHero>
       <Background>
         {/*{topWaveVar}*/}
         <div>
-          <h2>Functionalities</h2>
+          <h2>{t('functionalities.functionalities')}</h2>
         </div>
         <ContainerCards>
-          <CardMainContent text="Add Customer +" path="/add" img={addInfo} />
-          <CardMainContent text="Display Customers" path="/customers" img={displayCustomers} />
-          <CardMainContent text="Display Visits" path="/visits" img={displayVisits} />
-          <CardMainContent text="Display Statistics" path="/statistics" img={displayStatistics} />
-          <CardMainContent text="Search" path="/add" img={search} />
-          <CardMainContent text="Settings" path="/settings" img={settings} />
+          <CardMainContent text={t('functionalities.addCustomer')} path="/add" img={addInfo} />
+          <CardMainContent text={t('functionalities.displayCustomers')} path="/customers" img={displayCustomers} />
+          <CardMainContent text={t('functionalities.displayVisits')} path="/visits" img={displayVisits} />
+          <CardMainContent text={t('functionalities.displayStatistics')} path="/statistics" img={displayStatistics} />
+          <CardMainContent text={t('functionalities.search')} path="/" img={search} />
+          <CardMainContent text={t('functionalities.settings')} path="/settings" img={settings} />
         </ContainerCards>
         <div>
-          <h2>And More...</h2>
+          <h2>{t('functionalities.andMore')}</h2>
         </div>
         {bottomWaveVar}
       </Background>
-      <Footer />
+      <Footer t={t} />
     </ContainerMainContent>
   );
 };

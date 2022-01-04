@@ -37,7 +37,7 @@ export const ContainerChangeData = styled.form`
 const Settings = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [errorMessagePassword, setErrorMessagePassword] = useState();
-  const { userData, setUserData, setThemeType } = useContext(ListCustomersTestContext);
+  const { userData, setUserData, setThemeType, t } = useContext(ListCustomersTestContext);
   const { inputs, handleChange } = useForm({
     name: userData.name,
     email: userData.email,
@@ -91,7 +91,7 @@ const Settings = () => {
   return (
     <Container>
       <div>
-        <SettingsItem text="Change Layout" onClick={handleChangeLayout} />
+        <SettingsItem text={t('settings.changeLayout')} onClick={handleChangeLayout} />
       </div>
       <ContainerFormsChangeData>
         <ContainerChangeData onSubmit={handleChangeEmailAndName}>
@@ -99,16 +99,16 @@ const Settings = () => {
           {/*  <SettingsItem text="Your Subscription" data="Free" />*/}
           {/*</ContainerDataSettings>*/}
           <SettingsItem text="Email" data={inputs.email} element="input" onChange={handleChange} id="email" />
-          <SettingsItem text="Name" data={inputs.name} element="input" onChange={handleChange} id="name" />
-          <SettingsItem text="Password" element="input" type="password" data={inputs.password} onChange={handleChange} id="password" />
-          <Button text="Submit Changes" type="submit" />
+          <SettingsItem text={t('login.name')} data={inputs.name} element="input" onChange={handleChange} id="name" />
+          <SettingsItem text={t('settings.password')} element="input" type="password" data={inputs.password} onChange={handleChange} id="password" />
+          <Button text={t('button.submitChanges')} type="submit" />
           {errorMessage && <p>{errorMessage}</p>}
         </ContainerChangeData>
         <ContainerChangeData onSubmit={handleChangePassword}>
-          <SettingsItem text="Old Password" id="oldPassword" element="input" type="password" onChange={handleChange} />
-          <SettingsItem text="New Password" id="newPassword" element="input" type="password" onChange={handleChange} />
-          <SettingsItem text="Repeat New Password" id="repeatedNewPassword" element="input" type="password" onChange={handleChange} />
-          <Button text="Change Password" type="submit" />
+          <SettingsItem text={t('settings.oldPassword')} id="oldPassword" element="input" type="password" onChange={handleChange} />
+          <SettingsItem text={t('settings.newPassword')} id="newPassword" element="input" type="password" onChange={handleChange} />
+          <SettingsItem text={t('settings.repeatPassword')} id="repeatedNewPassword" element="input" type="password" onChange={handleChange} />
+          <Button text={t('button.changePassword')} type="submit" />
           {errorMessagePassword && <p>{errorMessagePassword}</p>}
         </ContainerChangeData>
       </ContainerFormsChangeData>

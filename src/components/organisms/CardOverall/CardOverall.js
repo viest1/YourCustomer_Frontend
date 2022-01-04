@@ -26,7 +26,7 @@ export const ContainerStatisticsCardsOverall = styled.div`
   border-radius: 1rem;
 `;
 
-const Statistics = ({ customers, visits, dateStats = 'Overall Time' }) => {
+const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
   const [showItems, setShowItems] = useState(false);
 
   const shopItems = () => {
@@ -85,59 +85,65 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time' }) => {
   const sumExtraPay = sumValue(visits, 'extraPay');
   const sumShop = sumMoneyShop();
   const sumAll = () => {
-    console.log(sumPrice, sumPremium, sumTip, sumExtraPay, sumShop);
     return sumPrice + sumPremium + sumTip + sumExtraPay + sumShop;
   };
 
-  const arrTexts = ['Customers:', customers.length, 'Visits:', visits?.length, 'Average Price for Visit:', `${averageValue(visits, 'price')}€`];
+  const arrTexts = [
+    t('navigation.customers'),
+    customers.length,
+    t('navigation.visits'),
+    visits?.length,
+    t('statistics.avgPriceForVisit'),
+    `${averageValue(visits, 'price')}€`,
+  ];
   const arrTexts2 = [
-    'Average Time for Visit:',
+    t('statistics.avgTimeForVisit'),
     displayTimeInHHMM(visits),
-    'Average Money for Visit + Others',
+    t('statistics.avgMoneyForVisit'),
     (visits.length ? sumAll() / visits.length : 0).toFixed(2) + '€',
-    'Money per Working Hour',
+    t('statistics.moneyPerHour'),
     (visits.length ? ((sumAll() / visits.length).toFixed(2) / averageTimeInMinutes(visits)) * 60 : 0).toFixed(2) + '€',
   ];
-  const arrTexts3 = ['Tip:', `${sumTip}€`, 'Premium:', `${sumPremium}€`, 'Extra:', `${sumExtraPay}€`];
+  const arrTexts3 = [t('formVisit.tip'), `${sumTip}€`, t('formVisit.premium'), `${sumPremium}€`, t('visit.extra'), `${sumExtraPay}€`];
   const arrTexts5 = [
-    'Gender: ',
+    t('formData.gender'),
     'Male: ' + sumFilter('gender', 'Male') + ' Female: ' + sumFilter('gender', 'Female'),
-    'Size:',
-    `Small: ${sumFilterVisits('size', 'Small')}
-    Medium: ${sumFilterVisits('size', 'Medium')}
-    Big: ${sumFilterVisits('size', 'Big')}
-    Huge: ${sumFilterVisits('size', 'Huge')}`,
-    'Service: ',
-    `Washing: ${sumTypeService('Washing')}
-Complete Service: ${sumTypeService('CompleteService')}
-Hand Stripping: ${sumTypeService('HandStripping')}`,
+    t('formData.size'),
+    `${t('small')}: ${sumFilterVisits('size', 'Small')}
+    ${t('medium')}: ${sumFilterVisits('size', 'Medium')}
+    ${t('big')}: ${sumFilterVisits('size', 'Big')}
+    ${t('huge')}: ${sumFilterVisits('size', 'Huge')}`,
+    t('service'),
+    `${t('washing')}: ${sumTypeService('Washing')}
+${t('completeService')}: ${sumTypeService('CompleteService')}
+${t('handStripping')}: ${sumTypeService('HandStripping')}`,
   ];
   const arrTexts6 = [
-    'Shop items',
+    t('statistics.shopItems'),
     showItems &&
       Object.entries(shopItems()).map((item, index) => (
         <p key={index}>
           {item[0]}: {item[1]}*{findPrice(item[0])} = {findPrice(item[0]) * item[1]}
         </p>
       )),
-    'Shop Sold Total Items',
+    t('statistics.shopSold'),
     totalItemsShop(),
     'Empty',
     0,
   ];
   const arrTexts7 = [
-    'Behavior: ',
-    `veryAggresive: ${sumFilterVisits('behavior', '1')}
-notGood: ${sumFilterVisits('behavior', '2')}
-ok: ${sumFilterVisits('behavior', '3')}
-kind: ${sumFilterVisits('behavior', '4')}
-veryKind: ${sumFilterVisits('behavior', '5')}`,
-    'New Customers:',
+    t('formVisit.behavior'),
+    `${t('1')}: ${sumFilterVisits('behavior', '1')}
+${t('2')}: ${sumFilterVisits('behavior', '2')}
+${t('3')}: ${sumFilterVisits('behavior', '3')}
+${t('4')}: ${sumFilterVisits('behavior', '4')}
+${t('5')}: ${sumFilterVisits('behavior', '5')}`,
+    t('statistics.newCustomers'),
     customers.filter((item) => item.visits.length === 1).length,
-    'Old Customers:',
+    t('statistics.oldCustomers'),
     customers.filter((item) => item.visits.length > 1).length,
   ];
-  const arrValues = [visits, dateStats, 'Show Items', '100%', handleShowItems];
+  const arrValues = [visits, dateStats, t('button.showItems'), '100%', handleShowItems];
   return (
     <ContainerStatisticsCardsOverall>
       <UniversalCardImgPlusDetails
@@ -147,7 +153,7 @@ veryKind: ${sumFilterVisits('behavior', '5')}`,
         noPhone={true}
         noImageText={
           <div>
-            <h2>Total Money:</h2>
+            <h2>{t('statistics.totalMoney')}</h2>
             <h2>{sumAll() + '€'}</h2>
           </div>
         }
@@ -167,7 +173,7 @@ veryKind: ${sumFilterVisits('behavior', '5')}`,
         noImage={true}
         noImageText={
           <div>
-            <h2>Total Money From Visits:</h2>
+            <h2>{t('statistics.totalMoneyFromVisits')}</h2>
             <h2>{sumPrice + '€'}</h2>
           </div>
         }
@@ -186,7 +192,7 @@ veryKind: ${sumFilterVisits('behavior', '5')}`,
         noImage={true}
         noImageText={
           <div>
-            <h2>Total Money Shop:</h2>
+            <h2>{t('statistics.totalMoneyShop')}</h2>
             <h2>{sumShop + '€'}</h2>
           </div>
         }
