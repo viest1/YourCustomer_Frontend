@@ -19,11 +19,13 @@ import Statistics from '../components/templates/Statistics/Statistics';
 import FormAuth from '../components/organisms/FormAuth/FormAuth';
 import AddNewVisit from '../components/organisms/AddNewVisit/AddNewVisit';
 import Settings from '../components/templates/Settings/Settings';
-
+// import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 function App() {
   const [themeState, setThemeState] = useState('light');
   useEffect(() => settingsDarkMode(setThemeState), []);
   const { userData } = useContext(ListCustomersTestContext);
+  // const { t } = useTranslation();
   return (
     <Router>
       <ThemeProvider theme={themeState === 'light' ? theme : darkTheme}>
@@ -58,4 +60,4 @@ function App() {
   );
 }
 
-export default App;
+export default withTranslation()(App);

@@ -60,7 +60,7 @@ const Visits = () => {
       ) : (
         <ContainerVisits>
           {visits &&
-            sortByTimestamp(visits).map((item) => (
+            sortByTimestamp(visits, 'visit').map((item) => (
               // {index === 0 && <p>{item.visit}</p>}
               // {index > 0 && item.visit !== array[index - 1].visit && <p>{item.visit}</p>}
               <CardVisit visit={item} key={item._id} />

@@ -274,7 +274,7 @@ export const GlobalStyle = createGlobalStyle`
     position: relative;
     display: block;
     width: calc(163% + 1.3px);
-    height: 50vw;
+    height: 60vw;
   }
 
   .custom-shape-divider-bottom-1641220290 .shape-fill {

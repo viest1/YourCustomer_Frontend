@@ -8,12 +8,10 @@ import displayVisits from '../../../assets/illustrations/undraw_getting_coffee_r
 import displayCustomers from '../../../assets/illustrations/undraw_apps_re_ienc.svg';
 import settings from '../../../assets/illustrations/undraw_preferences_re_49in.svg';
 import search from '../../../assets/illustrations/undraw_filter_re_sa16.svg';
-import { FaFacebookF } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { IoLogoWhatsapp } from 'react-icons/io';
 import Button from '../../atoms/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import Footer from '../../organisms/Footer/Footer';
 
 export const ContainerMainContent = styled.div`
   display: flex;
@@ -30,16 +28,22 @@ export const ContainerMainContent = styled.div`
 
 export const ContainerCards = styled.div`
   display: flex;
-  //flex-wrap: wrap;
-  //justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   margin: 0 auto;
   gap: 2rem;
   padding: 3rem;
   max-width: 1360px;
-  overflow-x: auto;
   * {
     transition: 0.5s;
+  }
+  @media all and (max-width: 1070px) {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    justify-content: flex-start;
+    gap: 1rem;
   }
 `;
 
@@ -52,6 +56,11 @@ export const ContainerHero = styled.div`
   height: calc(100vh - 88px);
   line-height: 1.3;
   max-width: 1360px;
+
+  h2 {
+    color: #222121;
+  }
+
   @media only screen and (max-width: 700px) {
     padding: 0.5rem;
     padding-bottom: 2rem;
@@ -133,7 +142,7 @@ export const Background = styled.div`
   }
 `;
 
-export const Footer = styled.div`
+export const FooterContainer = styled.div`
   background: white;
   position: relative;
   min-height: 500px;
@@ -166,63 +175,63 @@ export const Copyright = styled.div`
   z-index: 1;
   h2 {
     color: black;
+    padding: 0;
+    margin: 4px;
   }
 `;
+const bottomWave = () => {
+  return (
+    <div className="custom-shape-divider-bottom-1641212545">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path
+          d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+          className="shape-fill"
+        ></path>
+      </svg>
+    </div>
+  );
+};
+// const topWave = () => {
+//   return (
+//     <div className="custom-shape-divider-top-1641212792">
+//       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+//         <path
+//           d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+//           className="shape-fill"
+//         ></path>
+//       </svg>
+//     </div>
+//   );
+// };
+
+const bottomWaveVar = bottomWave();
+// const topWaveVar = topWave();
+const topWave1 = () => {
+  return (
+    <div className="custom-shape-divider-top-1641214849">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path
+          d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+          className="shape-fill"
+        ></path>
+      </svg>
+    </div>
+  );
+};
+export const topWaveVar1 = topWave1();
 
 const MainContent = () => {
   const navigate = useNavigate();
-  const { userData } = useContext(ListCustomersTestContext);
+  const { userData, t } = useContext(ListCustomersTestContext);
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
-
-  const bottomWave = () => {
-    return (
-      <div className="custom-shape-divider-bottom-1641212545">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            className="shape-fill"
-          ></path>
-        </svg>
-      </div>
-    );
-  };
-  // const topWave = () => {
-  //   return (
-  //     <div className="custom-shape-divider-top-1641212792">
-  //       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-  //         <path
-  //           d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-  //           className="shape-fill"
-  //         ></path>
-  //       </svg>
-  //     </div>
-  //   );
-  // };
-
-  const topWave1 = () => {
-    return (
-      <div className="custom-shape-divider-top-1641214849">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path
-            d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-            className="shape-fill"
-          ></path>
-        </svg>
-      </div>
-    );
-  };
-  const bottomWaveVar = bottomWave();
-  // const topWaveVar = topWave();
-  const topWaveVar1 = topWave1();
-
   return (
     <ContainerMainContent>
       <ContainerHero>
         <h2>PLWebsites Presents: YourCustomer!</h2>
         <div>
-          <h1>YourCustomer - App which helps manage your business!</h1>
+          <h1>{t('heroContent.heroText')}</h1>
           <h2>Easy managing your Customers, Visits and others</h2>
           {!userData.token && <Button text="Click to Log In!" onClick={handleNavigateToLogin} />}
         </div>
@@ -249,35 +258,7 @@ const MainContent = () => {
         </div>
         {bottomWaveVar}
       </Background>
-      <Footer>
-        {topWaveVar1}
-        {/*{topWaveVar}*/}
-        <Copyright>
-          <h2>Copyright {new Date().getFullYear()} by PLWebsites</h2>
-        </Copyright>
-        <h2>YourCustomer - we are developing the application for Your comfort</h2>
-        <ContainerSocial>
-          <h3>Find us Here</h3>
-          <h3>----</h3>
-          <a href="https://facebook.com" target="_blank" rel="noreferrer">
-            <FaFacebookF />
-          </a>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <FcGoogle />
-          </a>
-          <a href="https://whatsapp.com" target="_blank" rel="noreferrer">
-            <IoLogoWhatsapp />
-          </a>
-        </ContainerSocial>
-        <div className="custom-shape-divider-bottom-1641212545" style={{ zIndex: '0' }}>
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path
-              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-              className="shape-fill"
-            ></path>
-          </svg>
-        </div>
-      </Footer>
+      <Footer />
     </ContainerMainContent>
   );
 };

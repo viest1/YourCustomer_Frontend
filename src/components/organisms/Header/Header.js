@@ -3,6 +3,7 @@ import DarkMode from '../../molecules/DarkMode/DarkMode';
 import NavLinkItem from '../../molecules/NavLinkItem/NavLinkItem';
 import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
+import { GrLanguage } from 'react-icons/gr';
 import FormLabelAndInput from '../../atoms/FormLabelAndInput/FormLabelAndInput';
 import { CSSTransition } from 'react-transition-group';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -13,6 +14,7 @@ import Button from '../../atoms/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
 import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
+import i18next from 'i18next';
 
 export const ContainerHeader = styled.div`
   padding: 2rem;
@@ -62,6 +64,20 @@ export const ContainerIcons = styled.div`
 `;
 
 export const SearchIcon = styled(FaSearch)`
+  font-size: 22px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:focus {
+    border-radius: 1rem;
+    -moz-outline-radius: 1rem;
+  }
+`;
+
+export const LanguageIcon = styled(GrLanguage)`
   font-size: 22px;
   cursor: pointer;
 
@@ -130,12 +146,55 @@ export const ListMenu = styled.div`
   }
 `;
 
+export const ContainerListLanguages = styled.div`
+  background: white;
+  position: absolute;
+  right: 130px;
+  top: 57px;
+  flex-direction: column;
+  display: flex;
+  z-index: 1;
+`;
+
+export const ButtonLanguage = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0.7rem 1.5rem 0.7rem 1.5rem;
+  &:hover {
+    background: #00aaff;
+    cursor: pointer;
+  }
+`;
+
+const languages = [
+  {
+    code: 'de',
+    name: 'Deutsch',
+    country_code: 'de',
+  },
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'pl',
+    name: 'Polish',
+    country_code: 'pl',
+  },
+];
+
 const Header = ({ setThemeState }) => {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [remainingTime, setRemainingTime] = useState();
+  const [languageMenuIsOpen, setLanguageMenuIsOpen] = useState(false);
   const searchInput = useRef(null);
   const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData } = useContext(ListCustomersTestContext);
   const { handleLogout } = useAuth();
@@ -324,6 +383,20 @@ const Header = ({ setThemeState }) => {
         />
       </CSSTransition>
       <ContainerIcons>
+        <ContainerListLanguages>
+          {languageMenuIsOpen &&
+            languages.map((item) => (
+              <ButtonLanguage
+                onClick={() => {
+                  i18next.changeLanguage(item.code);
+                }}
+              >
+                <span className={`fi fi-${item.country_code}`} />
+                <span>{item.name}</span>
+              </ButtonLanguage>
+            ))}
+        </ContainerListLanguages>
+        <LanguageIcon onClick={() => setLanguageMenuIsOpen((prev) => !prev)} />
         <SearchIcon onClick={handleOpenSearchBar} />
         <DarkMode setThemeState={setThemeState} />
       </ContainerIcons>

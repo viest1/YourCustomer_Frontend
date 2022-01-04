@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useTranslation } from 'react-i18next';
 
 export const ListCustomersTestContext = createContext({
   searchingCustomers: [],
@@ -10,6 +11,7 @@ export const ListCustomersTestContext = createContext({
   setThemeType: () => {},
   userData: {},
   setUserData: () => {},
+  t: () => {},
 });
 
 const GeneralProvider = ({ children }) => {
@@ -23,6 +25,7 @@ const GeneralProvider = ({ children }) => {
     email: '',
     exp: 9999999999999,
   });
+  const { t } = useTranslation();
   return (
     <ListCustomersTestContext.Provider
       value={{
@@ -34,6 +37,7 @@ const GeneralProvider = ({ children }) => {
         setUserData,
         themeType,
         setThemeType,
+        t,
       }}
     >
       {children}

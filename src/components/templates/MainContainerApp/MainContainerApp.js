@@ -3,6 +3,7 @@ import Header from '../../organisms/Header/Header';
 import { ReactComponent as WaveBottom } from '../../../assets/images/WavesOpacity.svg';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
+
 const MainContainerApp = ({ children, setThemeState }) => {
   const { themeType } = useContext(ListCustomersTestContext);
   return (

@@ -1,0 +1,114 @@
+{
+  "navigation":
+  {
+    "home": "Home",
+    "addCustomer": "Add Customer",
+    "customers": "Customers",
+    "visits": "Visits",
+    "statistics": "Statistics",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "heroContent": {
+    "presents": "PLWebsites Presents: YourCustomer!",
+    "heroText": "YourCustomer - Polska!",
+    "secondHeroText": "Easy managing your Customers, Visits and others"
+  },
+  "functionalities": {
+    "addCustomer": "Add Customer +",
+    "displayCustomers": "Display Customers",
+    "displayVisits": "Display Visits",
+    "displayStatistics": "Display Statistics",
+    "search": "Search",
+    "settings": "Settings",
+    "andMore": "And More..."
+  },
+  "footer": {
+    "mainText": "YourCustomer - we are developing the application for Your comfort",
+    "textIcons": "Find us Here"
+  },
+  "formData": {
+    "title": "Customer Data",
+    "dogOwner": "Dog Owner",
+    "dogName": "Dog Name",
+    "contactName":"Contact Name",
+    "phone": "Phone",
+    "address":"Address",
+    "birthday": "Birthday",
+    "gender":"Gender",
+    "breed": "Breed"
+  },
+  "formVisit": {
+    "visit":  "Visit Date",
+    "hour": "Visit Hour",
+    "time":  "Time Visit",
+    "premium": "Premium",
+    "price":  "Price",
+    "extraPay": "Extra Pay",
+    "behavior":  "Behavior",
+    "shop": "Shop",
+    "fileUpload":  "File Upload",
+    "tip": "Tip",
+    "comments": "Comments"
+  },
+  "button": {
+    "addNewCustomer": "Add New Customer",
+    "addVisit": "Add Visit",
+    "edit": "Edit",
+    "watchVisits": "Click to Watch Visits",
+    "back": "Back",
+    "resetForm": "Reset Form",
+    "editVisit": "Edit Visit",
+    "clearForm": "Clear Form",
+    "addNewVisit": "Add New Visit",
+    "details": "Details",
+    "goToCustomerData": "Go to Customer Data",
+    "showItems": "Show Items",
+    "submitChanges": "Submit Changes",
+    "changePassword": "Change Password"
+  },
+  "customers": {
+    "details": "Details",
+    "avgTime": "Avg. Time",
+    "avgPrice": "Avg. Price",
+    "contact": "Contact",
+    "customerDetails": "Customer Details"
+  },
+  "visit": {
+    "time": "Time",
+    "price": "Price",
+    "visit": "Visit",
+    "extra": "Extra"
+  },
+  "statistics": {
+    "totalMoney": "Total Money",
+    "overallTime": "Overall Time",
+    "totalMoneyFromVisits": "Total Money From Visits",
+    "totalMoneyShop": "Total Money Shop",
+    "avgPriceForVisit": "Average Price for Visit",
+    "avgTimeForVisit": "Average Time for Visit",
+    "avgMoneyForVisit": "Average Money for Visit + Others",
+    "moneyPerHour": "Money per Working Hour",
+    "newCustomers": "New Customers",
+    "oldCustomers": "Old Customers",
+    "shopItems": "Shop Items",
+    "shopSold": "Shop Sold Total Items"
+  },
+  "settings": {
+    "changeLayout": "Change Layout",
+    "password": "Password",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "repeatPassword": "Repeat New Password"
+  },
+  "modal": {
+    "addVisit":"You added Visit correctly!",
+    "addCustomer":"You added Customer correctly!",
+    "addNewVisit":"You added New Visit correctly!",
+    "editVisit":"You edited Visit correctly!",
+    "editCustomer":"You edited Customer correctly!",
+    "changeData":"You changed Data Account correctly!",
+    "changePassword":"You changed Your Password correctly!",
+    "wellDone":"Well Done!"
+  }
+}
