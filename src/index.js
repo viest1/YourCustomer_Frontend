@@ -29,6 +29,7 @@ i18next
 
 ReactDOM.render(
   <React.StrictMode>
+    {console.log('hi')}
     <GeneralProvider>
       <App />
     </GeneralProvider>
