@@ -5,6 +5,7 @@ Technologies Stack: React, Express, MongoDB, Node.js, HTML5, CSS3, Styled-Compon
 ## Features:
 
 ### `Add Customers`
+### `Add Visits to Customers`
 ### `Manage Customers`
 ### `Manage Visits`
 ### `Display Statistics`
