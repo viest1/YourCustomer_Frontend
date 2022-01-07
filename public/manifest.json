@@ -1,11 +1,11 @@
 {
-  "short_name": "YourCustomer",
-  "name": "YourCustomer App",
+  "short_name": "Your Customer",
+  "name": "Your Customer App",
   "icons": [
     {
-      "src": "/images/logo.png",
+      "src": "/images/logo1.png",
       "type": "image/png",
-      "sizes": "1024x1024",
+      "sizes": "512x512",
       "purpose": "any maskable"
     }
   ],
