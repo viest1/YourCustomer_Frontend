@@ -115,7 +115,7 @@ const CustomerDetails = () => {
   const arrValues = [visits, contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container>
-      <Button text={t('button.back')} onClick={handleBack} width="80px" />
+      <Button text={t('button.back')} onClick={handleBack} width="90px" />
       <h2>{t('customers.customerDetails')}</h2>
       {!isLoading ? (
         <UniversalCardImgPlusDetails

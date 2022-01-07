@@ -126,7 +126,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   const arrValues = [visit, customerProp?.contactName || customer?.contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container offCustomContainerStyles>
-      {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="80px" />}
+      {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="90px" />}
       {!offCustomContainerStyles && <h2>{t('visit.visitDetails')}</h2>}
       {!isLoading ? (
         <UniversalCardImgPlusDetails

@@ -27,7 +27,7 @@ const AddNewVisit = () => {
   };
   const navigate = useNavigate();
   const { id } = useParams();
-  const { inputs, handleChange, handleSelect, clearForm } = useForm({ tip: '0' }) ;
+  const { inputs, handleChange, handleSelect, clearForm } = useForm({ tip: '0' });
   const { userData, t } = useContext(ListCustomersTestContext);
 
   const handleSubmit = (e) => {
@@ -65,8 +65,8 @@ const AddNewVisit = () => {
   return (
     <ContainerEditVisit>
       <div>
-        <Button text="Back" onClick={() => navigate(-1)} width="80px" />
-        <Button text="Clear Form" onClick={() => clearForm()} width="80px" />
+        <Button text="Back" onClick={() => navigate(-1)} width="90px" />
+        <Button text="Clear Form" onClick={() => clearForm()} width="90px" />
       </div>
       <form onSubmit={handleSubmit}>
         <FormVisit

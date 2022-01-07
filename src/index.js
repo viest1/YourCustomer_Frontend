@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from 'views/App';
 import GeneralProvider from './providers/GeneralProvider';
@@ -7,6 +7,7 @@ import { initReactI18next } from 'react-i18next';
 import HttpApi from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import 'flag-icons/css/flag-icons.min.css';
+import LoadingSpinner from './components/atoms/LoadingSpinner/LoadingSpinner';
 
 i18next
   .use(HttpApi)
@@ -18,20 +19,28 @@ i18next
     debug: false,
     // Options for language detector
     detection: {
-      order: ['cookie', 'htmlTag'],
-      caches: ['cookie'],
+      order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+      lookupQuerystring: 'lng',
+      caches: ['localStorage', 'cookie'],
     },
-    react: { useSuspense: false },
     backend: {
       loadPath: 'assets/locales/{{lng}}/translation.json',
     },
   });
 
+// const LoadingMarkup = () => (
+//   <div style={{ display: 'flex', justifyContent: 'center' }}>
+//     <LoadingSpinner asOverlay />
+//   </div>
+// );
+
 ReactDOM.render(
-  <React.StrictMode>
-    <GeneralProvider>
-      <App />
-    </GeneralProvider>
-  </React.StrictMode>,
+  <Suspense fallback={<LoadingSpinner asOverlay />}>
+    <React.StrictMode>
+      <GeneralProvider>
+        <App />
+      </GeneralProvider>
+    </React.StrictMode>
+  </Suspense>,
   document.getElementById('root')
 );
