@@ -56,7 +56,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
   };
 
   const findPrice = (el) => {
-    return shopProducts.find((item) => item.label === el).price;
+    return shopProducts?.find((item) => item?.label === el).price;
   };
 
   const sumFilter = (el1, el2) => {
