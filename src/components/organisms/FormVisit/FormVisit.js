@@ -120,6 +120,24 @@ const optionsPrice = [
       { label: 'Huge 85', value: '85 Washing Huge' },
     ],
   },
+  {
+    label: 'Welcome Visit',
+     options: [
+       { label: 'Small 40', value: '40 WelcomeVisit Small' },
+       { label: 'Medium 40', value: '40 WelcomeVisit Medium' },
+       { label: 'Big 40', value: '40 WelcomeVisit Big' },
+       { label: 'Huge 40', value: '40 WelcomeVisit Huge' },
+     ]
+  },
+  {
+    label: 'Toothbrush',
+    options: [
+      { label: 'Small 20', value: '20 Toothbrush Small' },
+      { label: 'Medium 20', value: '20 Toothbrush Medium' },
+      { label: 'Big 20', value: '20 Toothbrush Big' },
+      { label: 'Huge 20', value: '20 Toothbrush Huge' },
+    ]
+  }
 ];
 
 const optionsExtraPay = [
