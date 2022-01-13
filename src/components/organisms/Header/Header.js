@@ -224,7 +224,13 @@ const Header = ({ setThemeState }) => {
     } else {
       setIsSearching(false);
     }
-    const afterSearching = customers?.filter((item) => item.contactName.toLowerCase().includes(searchText.toLowerCase()));
+    const afterSearching = customers?.filter(
+      (item) =>
+        item.contactName.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.dogOwner.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.dogName.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.comments.toLowerCase().includes(searchText.toLowerCase())
+    );
     setSearchingCustomers(afterSearching);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
