@@ -90,6 +90,8 @@ export const ImgStyled = styled.div`
 const optionsPremium = [
   { value: '5', label: 'Yes' },
   { value: '0', label: 'No' },
+  { value: '15', label: 'Yes + Bichon' },
+  { value: '10', label: 'No + Bichon' },
 ];
 
 const optionsPrice = [

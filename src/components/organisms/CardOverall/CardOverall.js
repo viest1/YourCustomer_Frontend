@@ -72,8 +72,10 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
     return visits.filter((item) => item.price?.value?.split(' ')[1] === el1).length;
   };
   const sumMoneyShop = () => {
+    const shopItemsReturn = shopItems();
+    if (shopItemsReturn.length < 1) return 0;
     let sum2 = 0;
-    Object.entries(shopItems()).map((item) => {
+    Object.entries(shopItemsReturn).map((item) => {
       const sum = findPrice(item[0]) * item[1];
       return (sum2 += +sum);
     });
