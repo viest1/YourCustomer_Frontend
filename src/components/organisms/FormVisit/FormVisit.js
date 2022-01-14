@@ -88,10 +88,10 @@ export const ImgStyled = styled.div`
 // ];
 
 const optionsPremium = [
-  { value: '5', label: 'Yes' },
   { value: '0', label: 'No' },
-  { value: '15', label: 'Yes + Bichon' },
-  { value: '10', label: 'No + Bichon' },
+  { value: '5', label: 'Premium' },
+  { value: '10', label: 'Bichon' },
+  { value: '20', label: 'Toothbrush' },
 ];
 
 const optionsPrice = [
@@ -132,12 +132,12 @@ const optionsPrice = [
     ],
   },
   {
-    label: 'Toothbrush',
+    label: 'Only Premium',
     options: [
-      { label: 'Small 20', value: '20 Toothbrush Small' },
-      { label: 'Medium 20', value: '20 Toothbrush Medium' },
-      { label: 'Big 20', value: '20 Toothbrush Big' },
-      { label: 'Huge 20', value: '20 Toothbrush Huge' },
+      { label: 'Small 0', value: '0 OnlyPremium Small' },
+      { label: 'Medium 0', value: '0 OnlyPremium Medium' },
+      { label: 'Big 0', value: '0 OnlyPremium Big' },
+      { label: 'Huge 0', value: '0 OnlyPremium Huge' },
     ],
   },
 ];
@@ -251,7 +251,17 @@ const FormVisit = ({
       {/*</div>*/}
       <div>
         <label htmlFor="premium">{t('formVisit.premium')}</label>
-        <Select id="premium" name="premium" onChange={handleSelect} options={optionsPremium} value={inputs.premium} />
+        <Select
+          id="premium"
+          name="premium"
+          onChange={handleSelect}
+          closeMenuOnSelect={false}
+          components={animatedComponents}
+          isMulti
+          isClearable
+          options={optionsPremium}
+          value={inputs.premium}
+        />
       </div>
       <div>
         <label htmlFor="price">{t('formVisit.price')}</label>

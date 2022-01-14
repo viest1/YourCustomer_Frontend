@@ -52,9 +52,18 @@ export const Container = styled.div`
 `;
 
 export const DivToButtonMoreVisits = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+`;
+
+export const ContainerButtons = styled.div`
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0 1rem 0;
 `;
 
 const CustomerDetails = () => {
@@ -115,8 +124,13 @@ const CustomerDetails = () => {
   const arrValues = [visits, contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container>
-      <Button text={t('button.back')} onClick={handleBack} width="90px" />
       <h2>{t('customers.customerDetails')}</h2>
+      <ContainerButtons>
+        <Button text={t('button.back')} onClick={handleBack} width="90px" />
+        <DivToButtonMoreVisits>
+          <Button text={!openVisits ? t('button.watchVisits') : t('button.hideVisits')} onClick={handleOpenVisits} />
+        </DivToButtonMoreVisits>
+      </ContainerButtons>
       {!isLoading ? (
         <UniversalCardImgPlusDetails
           arrValues={arrValues}
@@ -130,9 +144,6 @@ const CustomerDetails = () => {
           <Container3ElemInCol arrTexts={arrTexts} flexProp="0 0 20%" />
           <Container3ElemInCol arrTexts={arrTexts2} flexProp="0 0 20%" />
           <Container3ElemInCol arrTexts={arrTexts3} flexProp="0 0 20%" />
-          <DivToButtonMoreVisits>
-            <Button text={openVisits ? t('button.watchVisits') : t('button.hideVisits')} onClick={handleOpenVisits} />
-          </DivToButtonMoreVisits>
         </UniversalCardImgPlusDetails>
       ) : (
         <LoadingSpinner />

@@ -41,7 +41,7 @@ export default function useForm(initial = {}) {
       setInputs({
         // copy the existing state
         ...inputs,
-        [action.name]: { label: e?.label, value: e?.value },
+        [action.name]: e?.label === undefined || e?.value === undefined ? '' : { label: e?.label, value: e?.value },
       });
     }
   };

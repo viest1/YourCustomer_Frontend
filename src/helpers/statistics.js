@@ -2,6 +2,16 @@ export const sum = (arr, el) => {
   return arr.map((item) => item[el]).reduce((a, b) => a + +b, 0);
 };
 export const sumValue = (arr, el) => {
+  if (el === 'premium') {
+    let arr2 = [];
+    arr.forEach((item) => {
+      for (let i = 0; i < item[el].length; i++) {
+        if (item[el][i].value === undefined) return;
+        arr2.push(item[el][i]?.value);
+      }
+    });
+    return arr2.reduce((a, b) => a + +b, 0);
+  }
   if (el === 'price') {
     return arr.map((item) => item[el]?.value?.split(' ')[0]).reduce((a, b) => a + +b, 0);
   }

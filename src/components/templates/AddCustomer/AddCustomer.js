@@ -13,7 +13,7 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 const initialValues = {
   dogOwner: '',
   dogName: '',
-  contactName: '',
+  contactName: 'S ',
   phone: '',
   address: '',
   birthday: '',
@@ -23,12 +23,12 @@ const initialValues = {
   service: '',
   visit: '',
   price: '',
-  premium: '',
+  premium: [{ label: 'No', value: '0' }],
   tip: '0',
-  behavior: '',
-  extraPay: '',
-  time: '',
-  hour: '',
+  behavior: { label: '3', value: 'ok' },
+  extraPay: { label: 'No', value: '0' },
+  time: '01:45',
+  hour: '14:45',
   comments: '',
   shop: [],
 };
@@ -105,7 +105,7 @@ const AddCustomer = () => {
     inputs.timestamp = Date.now();
     inputs.addedDate = new Date().toISOString().slice(0, 10);
     inputs.userId = userData.userId;
-    await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/add', {
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -113,10 +113,16 @@ const AddCustomer = () => {
       },
       body: JSON.stringify(inputs),
     });
-    resetForm();
-    setSubmitted(true);
-    setIsLoading(false);
-    openModal();
+    const resJSON = await res.json();
+    if (!resJSON.message) {
+      console.log('yey', resJSON.message);
+      resetForm();
+      setSubmitted(true);
+      setIsLoading(false);
+      openModal();
+    } else {
+      console.log('yey2', resJSON.message);
+    }
   };
 
   useEffect(() => {

@@ -37,6 +37,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
         arr.push(visits.map((item) => item.shop)[i].map((item) => item.label)[j]);
       }
     }
+    arr.filter((item) => item !== undefined);
     for (let k = 0; k < arr.length; k++) {
       if (obj.hasOwnProperty(arr[k])) {
         obj[arr[k]] += 1;
@@ -56,7 +57,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
   };
 
   const findPrice = (el) => {
-    return shopProducts?.find((item) => item?.label === el).price;
+    return shopProducts?.find((item) => item?.label === el)?.price;
   };
 
   const sumFilter = (el1, el2) => {
@@ -74,7 +75,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
   const sumMoneyShop = () => {
     const shopItemsReturn = shopItems();
     if (shopItemsReturn?.length < 1) return 0;
-    if (shopItemsReturn) return 0;
+    if (!shopItemsReturn) return 0;
     let sum2 = 0;
     Object.entries(shopItemsReturn).map((item) => {
       const sum = findPrice(item[0]) * item[1];
