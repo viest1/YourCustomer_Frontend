@@ -62,7 +62,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   const [visitDetails, setVisitDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isVisitProp, setIsVisitProp] = useState();
-  const { behavior, extra, customer, message, photo, premium, price, service, shop, time, tip, visit, hour } = visitDetails;
+  const { behavior, extra, customer, comments, photo, premium, price, service, shop, time, tip, visit, hour } = visitDetails;
   const { id } = useParams();
   const navigate = useNavigate();
   const { userData, t } = useContext(ListCustomersTestContext);
@@ -109,7 +109,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   };
 
   const arrTexts = [t('formVisit.visit'), visit, t('formVisit.hour'), hour, t('formVisit.behavior'), behavior?.value];
-  const arrTexts2 = [t('visit.extra'), extra?.label, t('formVisit.comments'), message, t('formVisit.premium'), premium?.label];
+  const arrTexts2 = [t('visit.extra'), extra?.label, t('formVisit.comments'), comments, t('formVisit.premium'), premium?.label];
   const arrTexts3 = [
     t('formVisit.price'),
     price?.value,
@@ -126,6 +126,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   const arrValues = [visit, customerProp?.contactName || customer?.contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container offCustomContainerStyles>
+      {console.log(visitDetails)}
       {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="90px" />}
       {!offCustomContainerStyles && <h2>{t('visit.visitDetails')}</h2>}
       {!isLoading ? (

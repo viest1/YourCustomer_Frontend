@@ -27,7 +27,14 @@ const AddNewVisit = () => {
   };
   const navigate = useNavigate();
   const { id } = useParams();
-  const { inputs, handleChange, handleSelect, clearForm } = useForm({ tip: '0' });
+  const { inputs, handleChange, handleSelect, clearForm } = useForm({
+    tip: '0',
+    premium: [{ label: 'No', value: '0' }],
+    behavior: { label: '3', value: 'ok' },
+    extraPay: { label: 'No', value: '0' },
+    time: '01:45',
+    hour: '14:45',
+  });
   const { userData, t } = useContext(ListCustomersTestContext);
 
   const handleSubmit = (e) => {

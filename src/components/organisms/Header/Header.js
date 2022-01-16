@@ -216,6 +216,7 @@ const Header = ({ setThemeState }) => {
 
   const handleInputSearch = (e) => {
     setSearchText(e.target.value);
+    navigate('/customers');
   };
 
   useEffect(() => {
