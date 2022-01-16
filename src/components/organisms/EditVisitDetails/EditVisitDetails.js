@@ -84,7 +84,8 @@ const EditVisitDetails = () => {
       await res.json();
       setSubmitted(true);
       setIsLoading(false);
-      openModal();
+      navigate('/visits');
+      // openModal();
     };
     fetchEditVisit();
   };
