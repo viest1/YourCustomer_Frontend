@@ -5,7 +5,8 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    color: ${({ theme }) => theme.color.grey}
+    color: ${({ theme }) => theme.color.grey};
+    scroll-behavior: smooth;
   }
 
   *,
@@ -25,21 +26,21 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
   }
 
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(45deg, #00aeff, #a68eff);
-    border-radius: 10px;
-    -webkit-box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
-  }
+  //::-webkit-scrollbar {
+  //  width: 10px;
+  //  height: 10px;
+  //}
+  //
+  //::-webkit-scrollbar-track {
+  //  border-radius: 10px;
+  //  background-color: rgba(255, 255, 255, 0.1);
+  //}
+  //
+  //::-webkit-scrollbar-thumb {
+  //  background-image: linear-gradient(45deg, #00aeff, #a68eff);
+  //  border-radius: 10px;
+  //  -webkit-box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
+  //}
 
   img {
     width: 15px;

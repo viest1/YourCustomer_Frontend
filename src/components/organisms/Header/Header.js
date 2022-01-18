@@ -203,7 +203,9 @@ const Header = ({ setThemeState }) => {
   const navigate = useNavigate();
   const [customers, setCustomers] = useState([]);
   const ref = useRef();
+  const languageMenuRef = useRef();
   useOnClickOutside(ref, () => setIsOpenMenu(false));
+  useOnClickOutside(languageMenuRef, () => setLanguageMenuIsOpen(false));
   const fetchData = async () => {
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
     const resJSON = await res.json();
@@ -312,6 +314,9 @@ const Header = ({ setThemeState }) => {
   const handleOpenMenu = () => {
     setIsOpenMenu((prev) => !prev);
   };
+  const handleCloseMenuBar = () => {
+    setIsOpenMenu(false);
+  };
 
   return (
     <ContainerHeader>
@@ -366,14 +371,14 @@ const Header = ({ setThemeState }) => {
           </ContainerHamburger>
           <ContainerListMenu open={isOpenMenu}>
             <ListMenu>
-              <NavLinkItem text="Home" path="/" />
+              <NavLinkItem text="Home" path="/" onClick={handleCloseMenuBar} />
               {userData.token && (
                 <>
-                  <NavLinkItem text={t('navigation.addCustomer')} path="/add" />
-                  <NavLinkItem text={t('navigation.customers')} path="/customers" />
-                  <NavLinkItem text={t('navigation.visits')} path="/visits" />
-                  <NavLinkItem text={t('navigation.statistics')} path="/statistics" />
-                  <NavLinkItem text={t('navigation.settings')} path="/settings" />
+                  <NavLinkItem text={t('navigation.addCustomer')} path="/add" onClick={handleCloseMenuBar} />
+                  <NavLinkItem text={t('navigation.customers')} path="/customers" onClick={handleCloseMenuBar} />
+                  <NavLinkItem text={t('navigation.visits')} path="/visits" onClick={handleCloseMenuBar} />
+                  <NavLinkItem text={t('navigation.statistics')} path="/statistics" onClick={handleCloseMenuBar} />
+                  <NavLinkItem text={t('navigation.settings')} path="/settings" onClick={handleCloseMenuBar} />
                   <NavLinkItem text={t('navigation.logout')} path="/logout" onClick={handleLogout} />
                 </>
               )}
@@ -392,7 +397,7 @@ const Header = ({ setThemeState }) => {
         />
       </CSSTransition>
       <ContainerIcons>
-        <ContainerListLanguages>
+        <ContainerListLanguages ref={languageMenuRef}>
           {languageMenuIsOpen &&
             languages.map((item, index) => (
               <ButtonLanguage
