@@ -52,7 +52,8 @@
     "shop": "Shop",
     "fileUpload":  "File Upload",
     "tip": "Tip",
-    "comments": "Comments"
+    "comments": "Comments",
+    "correctPrice": "Correct Price"
   },
   "button": {
     "addNewCustomer": "Add New Customer",

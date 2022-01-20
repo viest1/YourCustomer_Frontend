@@ -5,13 +5,16 @@ import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerStatistics = styled.div`
-  padding: 2rem;
-  max-width: 1360px;
-  margin: 2rem auto 2rem auto;
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  //padding: 2rem;
+  max-width: 1660px;
+  margin: 0.5rem auto 0 auto;
+  //margin: 2rem auto 2rem auto;
+  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+  //background:grey;
 
   input {
+    margin-left: 1rem;
     background-color: ${({ theme }) => (theme.color.lighterBackground ? theme.color.black : theme.color.white)};
     border-radius: 8px;
     padding: 0.7rem;

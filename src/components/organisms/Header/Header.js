@@ -382,7 +382,7 @@ const Header = ({ setThemeState }) => {
                   <NavLinkItem text={t('navigation.logout')} path="/logout" onClick={handleLogout} />
                 </>
               )}
-              {!userData.token && <NavLinkItem text={t('login.l')} path="/login" />}
+              {!userData.token && <NavLinkItem text={t('login.l')} path="/login" onClick={handleCloseMenuBar} />}
             </ListMenu>
           </ContainerListMenu>
         </div>
@@ -404,6 +404,7 @@ const Header = ({ setThemeState }) => {
                 key={index}
                 onClick={() => {
                   i18next.changeLanguage(item.code);
+                  setLanguageMenuIsOpen(false);
                 }}
               >
                 <span className={`fi fi-${item.country_code}`} />

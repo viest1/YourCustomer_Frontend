@@ -98,28 +98,28 @@ const optionsPrice = [
   {
     label: 'Complete Service',
     options: [
-      { label: 'Small 60', value: '60 CompleteService Small' },
-      { label: 'Medium 70', value: '70 CompleteService Medium' },
-      { label: 'Big 80', value: '80 CompleteService Big' },
-      { label: 'Huge 100', value: '100 CompleteService Huge' },
+      { label: 'Small 65', value: '65 CompleteService Small' },
+      { label: 'Medium 75', value: '75 CompleteService Medium' },
+      { label: 'Big 85', value: '85 CompleteService Big' },
+      { label: 'Huge 105', value: '105 CompleteService Huge' },
     ],
   },
   {
     label: 'Hand Stripping',
     options: [
-      { label: 'Small 80', value: '80 HandStripping Small' },
-      { label: 'Medium 90', value: '90 HandStripping Medium' },
-      { label: 'Big 100', value: '100 HandStripping Big' },
-      { label: 'Huge 120', value: '120 HandStripping Huge' },
+      { label: 'Small 85', value: '85 HandStripping Small' },
+      { label: 'Medium 95', value: '95 HandStripping Medium' },
+      { label: 'Big 105', value: '105 HandStripping Big' },
+      { label: 'Huge 125', value: '125 HandStripping Huge' },
     ],
   },
   {
     label: 'Washing',
     options: [
-      { label: 'Small 40', value: '40 Washing Small' },
-      { label: 'Medium 50', value: '50 Washing Medium' },
-      { label: 'Big 65', value: '65 Washing Big' },
-      { label: 'Huge 85', value: '85 Washing Huge' },
+      { label: 'Small 45', value: '45 Washing Small' },
+      { label: 'Medium 55', value: '55 Washing Medium' },
+      { label: 'Big 70', value: '70 Washing Big' },
+      { label: 'Huge 90', value: '90 Washing Huge' },
     ],
   },
   {
@@ -197,6 +197,7 @@ const FormVisit = ({
   setImage,
   previewFile,
   previewSource,
+  editMode,
 }) => {
   const imageRef = useRef(null);
   const { t } = useContext(ListCustomersTestContext);
@@ -267,6 +268,17 @@ const FormVisit = ({
         <label htmlFor="price">{t('formVisit.price')}</label>
         <Select id="price" name="price" onChange={handleSelect} options={optionsPrice} value={inputs.price} />
       </div>
+      {editMode && (
+        <FormLabelAndInput
+          required={false}
+          type="number"
+          id="correctedPrice"
+          placeholder="Correct Price"
+          label={t('formVisit.correctPrice')}
+          handleInput={handleChange}
+          value={inputs.correctedPrice}
+        />
+      )}
       <div>
         <label htmlFor="extraPay">{t('formVisit.extraPay')}</label>
         <Select id="extraPay" name="extraPay" onChange={handleSelect} options={optionsExtraPay} value={inputs.extraPay} />

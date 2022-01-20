@@ -105,6 +105,7 @@ const AddCustomer = () => {
     inputs.timestamp = Date.now();
     inputs.addedDate = new Date().toISOString().slice(0, 10);
     inputs.userId = userData.userId;
+
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/add', {
       method: 'POST',
       headers: {

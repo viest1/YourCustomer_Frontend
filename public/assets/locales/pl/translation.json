@@ -49,7 +49,8 @@
     "shop": "Shop",
     "fileUpload":  "File Upload",
     "tip": "Tip",
-    "comments": "Comments"
+    "comments": "Comments",
+    "correctPrice": "Skoryguj Cenę"
   },
   "button": {
     "addNewCustomer": "Add New Customer",

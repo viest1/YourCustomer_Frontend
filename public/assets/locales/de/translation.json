@@ -52,7 +52,8 @@
     "shop": "Shop",
     "fileUpload":  "Datei Upload",
     "tip": "Tipp",
-    "comments": "Kommentare"
+    "comments": "Kommentare",
+    "correctPrice": "Preis korrigieren"
   },
   "button": {
     "addNewCustomer": "Neuen Kunden hinzufügen",

@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     color: ${({ theme }) => theme.color.grey};
     scroll-behavior: smooth;
+    background:#fafafa;
   }
 
   *,

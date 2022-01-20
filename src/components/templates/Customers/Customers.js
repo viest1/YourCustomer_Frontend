@@ -47,7 +47,7 @@ const Customers = () => {
         <LoadingSpinner />
       ) : searchingCustomers?.length || isSearching ? (
         <ContainerCardsCustomer>
-          {sortByTimestamp(searchingCustomers).map((item) => (
+          {sortByTimestamp(searchingCustomers)?.map((item) => (
             <CardCustomer t={t} item={item} key={item._id} />
           ))}
         </ContainerCardsCustomer>

@@ -39,7 +39,7 @@ const EditVisitDetails = () => {
   const [previewSource, setPreviewSource] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState();
-  const { modalIsOpen, openModal, closeModal } = useModal();
+  const { modalIsOpen, closeModal } = useModal();
   const { id } = useParams();
   const { userData, t } = useContext(ListCustomersTestContext);
   const { inputs, resetForm, handleChange, handleSelect } = useForm(visit);
@@ -70,6 +70,11 @@ const EditVisitDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (inputs.correctedPrice || inputs.correctedPrice === '0' || inputs.correctedPrice === 0) {
+      inputs.price = { ...inputs.price, value: `${inputs.correctedPrice} ${inputs.price.value.split(' ')[1]} ${inputs.price.value.split(' ')[2]}` };
+      inputs.correctedPrice = inputs.price.value.split(' ')[0];
+      inputs.comments = inputs.comments + ' Corrected: ' + inputs.correctedPrice + '€';
+    }
     const fetchEditVisit = async () => {
       setIsLoading(true);
       inputs.userId = userData.userId;
@@ -85,7 +90,6 @@ const EditVisitDetails = () => {
       setSubmitted(true);
       setIsLoading(false);
       navigate('/visits');
-      // openModal();
     };
     fetchEditVisit();
   };
@@ -109,6 +113,7 @@ const EditVisitDetails = () => {
             setPreviewSource={setPreviewSource}
             submitted={submitted}
             setSubmitted={setSubmitted}
+            editMode
           />
           <Button type="submit" text={t('button.editVisit')} />
         </form>
