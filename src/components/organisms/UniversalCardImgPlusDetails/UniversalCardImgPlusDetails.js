@@ -2,6 +2,127 @@ import React from 'react';
 import styled from 'styled-components';
 import RoundedImageWithArrows from '../../molecules/RoundedImageWithArrows/RoundedImageWithArrows';
 import Button from '../../atoms/Button/Button';
+// import { averageTimeInMinutes, averageValue, displayTimeInHHMM } from '../../../helpers/statistics';
+// import { ContainerStatisticsCardsOverall } from '../CardOverall/CardOverall.styles';
+// import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
+
+// <ContainerStatisticsCardsOverall>
+//   <UniversalCardImgPlusDetails
+//     arrValues={arrValues}
+//     noImage={true}
+//     noButton={true}
+//     noPhone={true}
+//     noImageText={
+//       <div>
+//         <h2>{t('statistics.totalMoney')}</h2>
+//         <h2>{sumAll() + '€'}</h2>
+//       </div>
+//     }
+//     width="100%"
+//     maxWidth="1360px"
+//     minWidth="650px"
+//     flexProp="0 0 30%"
+//   >
+//     <Container3ElemInCol arrTexts={arrTexts} flexProp="0 0 23.3%" />
+//     <Container3ElemInCol arrTexts={arrTexts2} flexProp="0 0 23.3%" />
+//     <Container3ElemInCol arrTexts={arrTexts3} flexProp="0 0 23.3%" />
+//   </UniversalCardImgPlusDetails>
+//   <UniversalCardImgPlusDetails
+//     arrValues={arrValues}
+//     noPhone={true}
+//     noButton={true}
+//     noImage={true}
+//     noImageText={
+//       <div>
+//         <h2>{t('statistics.totalMoneyFromVisits')}</h2>
+//         <h2>{sumPrice + '€'}</h2>
+//       </div>
+//     }
+//     width="100%"
+//     maxWidth="1360px"
+//     minWidth="650px"
+//     flexProp="0 0 30%"
+//     height="auto"
+//   >
+//     <Container3ElemInCol arrTexts={arrTexts5} />
+//     <Container3ElemInCol arrTexts={arrTexts7} />
+//   </UniversalCardImgPlusDetails>
+//   <UniversalCardImgPlusDetails
+//     arrValues={arrValues}
+//     noPhone={true}
+//     noImage={true}
+//     noImageText={
+//       <div>
+//         <h2>{t('statistics.totalMoneyShop')}</h2>
+//         <h2>{sumShop + '€'}</h2>
+//       </div>
+//     }
+//     width="100%"
+//     maxWidth="1360px"
+//     minWidth="650px"
+//     flexProp="0 0 30%"
+//     height="auto"
+//   >
+//     <Container3ElemInCol arrTexts={arrTexts6} flexProp="0 0 70%" />
+//   </UniversalCardImgPlusDetails>
+// </ContainerStatisticsCardsOverall>
+
+// const arrTexts = [
+//   t('navigation.customers'),
+//   customers.length,
+//   t('navigation.visits'),
+//   visits?.length,
+//   t('statistics.avgPriceForVisit'),
+//   `${averageValue(visits, 'price')}€`,
+// ];
+// const arrTexts2 = [
+//   t('statistics.avgTimeForVisit'),
+//   displayTimeInHHMM(visits),
+//   t('statistics.avgMoneyForVisit'),
+//   (visits.length ? sumAll() / visits.length : 0).toFixed(2) + '€',
+//   t('statistics.moneyPerHour'),
+//   (visits.length ? ((sumAll() / visits.length).toFixed(2) / averageTimeInMinutes(visits)) * 60 : 0).toFixed(2) + '€',
+// ];
+// const arrTexts3 = [t('formVisit.tip'), `${sumTip}€`, t('formVisit.premium'), `${sumPremium}€`, t('visit.extra'), `${sumExtraPay}€`];
+// const arrTexts5 = [
+//   t('formData.gender'),
+//   'Male: ' + sumFilter('gender', 'Male') + ' Female: ' + sumFilter('gender', 'Female'),
+//   t('formData.size'),
+//   `${t('small')}: ${sumFilterVisits('size', 'Small')}
+//     ${t('medium')}: ${sumFilterVisits('size', 'Medium')}
+//     ${t('big')}: ${sumFilterVisits('size', 'Big')}
+//     ${t('huge')}: ${sumFilterVisits('size', 'Huge')}`,
+//   t('service'),
+//   `${t('washing')}: ${sumTypeService('Washing')}
+// ${t('completeService')}: ${sumTypeService('CompleteService')}
+// ${t('handStripping')}: ${sumTypeService('HandStripping')}`,
+// ];
+// const arrTexts6 = [
+//   t('statistics.shopItems'),
+//   showItems &&
+//   Object.entries(shopItems()).map((item, index) => (
+//     <p key={index}>
+//       {item[0]}: {item[1]}*{findPrice(item[0])} = {findPrice(item[0]) * item[1]}
+//     </p>
+//   )),
+//   t('statistics.shopSold'),
+//   totalItemsShop(),
+//   'Empty',
+//   0,
+// ];
+// const arrTexts7 = [
+//   t('formVisit.behavior'),
+//   `${t('1')}: ${sumFilterVisits('behavior', '1')}
+// ${t('2')}: ${sumFilterVisits('behavior', '2')}
+// ${t('3')}: ${sumFilterVisits('behavior', '3')}
+// ${t('4')}: ${sumFilterVisits('behavior', '4')}
+// ${t('5')}: ${sumFilterVisits('behavior', '5')}`,
+//   t('statistics.newCustomers'),
+//   customers.filter((item) => item.visits.length === 1).length,
+//   t('statistics.oldCustomers'),
+//   customers.filter((item) => item.visits.length > 1).length,
+// ];
+// const arrValues = [visits, dateStats, t('button.showItems'), '100%', handleShowItems];
 
 export const ContainerCardCustomer = styled.div`
   padding: 0.5rem;
