@@ -9,7 +9,7 @@ export const Container = styled.div`
   padding: 2rem;
   max-width: 1360px;
   margin: 2rem auto 2rem auto;
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
   @media all and (max-width: 400px) {
     padding: 1rem;

@@ -14,13 +14,13 @@ export const ContainerCustomers = styled.div`
 `;
 
 export const ContainerCardsCustomer = styled.div`
-  padding: 2rem;
+  //padding: 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
   max-width: 1300px;
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
 `;
 

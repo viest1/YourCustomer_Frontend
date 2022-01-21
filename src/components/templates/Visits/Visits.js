@@ -6,7 +6,7 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 
 export const ContainerVisits = styled.div`
-  padding: 2rem;
+  //padding: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -14,7 +14,7 @@ export const ContainerVisits = styled.div`
   gap: 1rem;
   max-width: 1300px;
   margin: 0 auto;
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
 `;
 

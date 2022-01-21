@@ -32,7 +32,7 @@ const Statistics = () => {
   const [customers, setCustomers] = useState([]);
   const [filteringVisits, setFilteringVisits] = useState([]);
   const [filteringCustomers, setFilteringCustomers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [dateStats, setDateStats] = useState('');
   const { userData, t } = useContext(ListCustomersTestContext);
   const todayDateMonth = `${new Date().getFullYear()}-${
@@ -64,15 +64,19 @@ const Statistics = () => {
     <ContainerStatistics>
       <input type="month" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
       {isLoading ? (
-        <LoadingSpinner />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <LoadingSpinner />
+        </div>
       ) : (
         <div>
-          <CardOverall
-            t={t}
-            customers={dateStats ? filteringCustomers : customers}
-            visits={dateStats ? filteringVisits : visits}
-            dateStats={dateStats ? dateStats : t('statistics.overallTime')}
-          />
+          {customers && (
+            <CardOverall
+              t={t}
+              customers={dateStats ? filteringCustomers : customers}
+              visits={dateStats ? filteringVisits : visits}
+              dateStats={dateStats ? dateStats : t('statistics.overallTime')}
+            />
+          )}
         </div>
       )}
     </ContainerStatistics>

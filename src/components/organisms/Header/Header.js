@@ -212,9 +212,39 @@ const Header = ({ setThemeState }) => {
     setCustomers(resJSON.allCustomers);
   };
   useEffect(() => {
-    fetchData();
+    let timeout;
+    if (!(userData.exp - Date.now())) {
+      setUserData({
+        userId: '',
+        token: '',
+        name: '',
+        exp: '',
+      });
+      localStorage.removeItem('userDataListCustomersTest');
+    }
+    if (userData.exp) {
+      timeout = setTimeout(() => {
+        setUserData({
+          userId: '',
+          token: '',
+          name: '',
+          exp: '',
+        });
+        localStorage.removeItem('userDataListCustomersTest');
+        navigate('/');
+      }, 1000 * 60 * 60);
+    } else {
+      clearTimeout(timeout);
+    }
+    return () => clearTimeout(timeout);
+  }, [userData.token]);
+
+  useEffect(() => {
+    if (userData.token) {
+      fetchData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userData.token]);
 
   const handleInputSearch = (e) => {
     setSearchText(e.target.value);
