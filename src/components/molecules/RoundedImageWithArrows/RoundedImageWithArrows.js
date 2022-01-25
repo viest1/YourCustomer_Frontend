@@ -8,8 +8,8 @@ export const ContainerImage = styled.div`
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  margin-bottom: 10px;
-
+  margin-bottom: 4px;
+  text-align: center;
   img {
     width: 100%;
     height: 100%;
@@ -19,6 +19,8 @@ export const ContainerImage = styled.div`
 
   span {
     font-size: 0.7rem;
+    position: relative;
+    top: -10px;
   }
 
   a {
@@ -46,11 +48,20 @@ export const IconNext = styled(FcNext)`
 
 const RoundedImageWithArrows = ({ item, photo }) => {
   const { handleBack, handleNext, actuallyPhoto, counterPhoto, photos } = usePhoto(item, photo);
+  // let splittedCopyJoined;
+  // if(actuallyPhoto){
+  //   const splitted = actuallyPhoto && actuallyPhoto.split('/')
+  //   const splittedCopy = splitted;
+  //   splittedCopy.splice(6,0,'w_500,q_30')
+  //   splittedCopyJoined = splittedCopy.join('/')
+  // }
 
   return (
     <ContainerArrowsImage>
       <IconPrevious onClick={handleBack} />
       <ContainerImage>
+        {/*{console.log(actuallyPhoto)}*/}
+        {/*{console.log(splittedCopyJoined)}*/}
         <a href={actuallyPhoto}>
           <img src={actuallyPhoto || noPhoto} alt="dog" />
           <span>

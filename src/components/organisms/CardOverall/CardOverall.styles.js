@@ -34,7 +34,7 @@ export const Grid1 = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   padding: 1rem;
   gap: 2rem;
-  @media (max-width:1200px){
+  @media (max-width: 1200px) {
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   }
   div {
@@ -61,7 +61,7 @@ export const Grid2 = styled.div`
   //grid-template-columns: 1fr 2fr;
   gap: 2rem;
   margin: 1rem;
-  @media (min-width: 1200px){
+  @media (min-width: 1200px) {
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   }
   div {
@@ -80,8 +80,8 @@ export const Grid2 = styled.div`
   div > p:first-child {
     font-weight: bold;
   }
-  div > p{
-    margin-left:1rem;
+  div > p {
+    margin-left: 1rem;
   }
 `;
 
@@ -98,5 +98,5 @@ export const ContainerBar = styled.div`
   }
 `;
 export const ContainerBarShop = styled.div`
-  height:350px;
-`
+  height: 350px;
+`;

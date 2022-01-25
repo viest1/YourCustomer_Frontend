@@ -8,11 +8,13 @@ export const usePhoto = (arr, photo) => {
   const findPhotos = () => {
     if (photo?.length || photo === '') {
       if (photo?.length) {
-        setPhotos([...photos, photo]);
+        return setPhotos([...photos, photo]);
       }
     } else {
-      const arrayWithPhotos = arr?.filter((item) => item.photo).map((item) => item.photo);
-      setPhotos(arrayWithPhotos);
+      if (arr) {
+        const arrayWithPhotos = arr?.filter((item) => item.photo).map((item) => item.photo);
+        setPhotos(arrayWithPhotos);
+      }
     }
   };
 

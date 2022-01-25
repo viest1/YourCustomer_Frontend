@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FormVisit from '../FormVisit/FormVisit';
 import Button from '../../atoms/Button/Button';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
@@ -14,6 +14,7 @@ const AddNewVisit = () => {
   const [image, setImage] = useState();
   const [previewSource, setPreviewSource] = useState();
   const [isLoading, setIsLoading] = useState();
+  const [customer, setCustomer] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const { modalIsOpen, openModal, closeModal } = useModal();
   const [validationError, setValidationError] = useState();
@@ -69,11 +70,21 @@ const AddNewVisit = () => {
     fetchAddVisit();
   };
 
+  useEffect(() => {
+    const fetchCustomerData = async () => {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userData.userId}/customer/${id}`);
+      const resJSON = await res.json();
+      setCustomer(resJSON);
+    };
+    fetchCustomerData();
+  }, [id, userData.userId]);
+
   return (
     <ContainerEditVisit>
       <div>
         <Button text="Back" onClick={() => navigate(-1)} width="90px" />
         <Button text="Clear Form" onClick={() => clearForm()} width="90px" />
+        <h3>{customer[0]?.contactName}</h3>
       </div>
       <form onSubmit={handleSubmit}>
         <FormVisit

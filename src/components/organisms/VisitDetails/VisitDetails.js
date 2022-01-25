@@ -7,9 +7,9 @@ import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/Universa
 import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
 import { DivToButtonMoreVisits } from '../CustomerDetails/CustomerDetails';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import CardVisit from '../CardVisit/CardVisit';
 
 export const ContainerCardVisitDetails = styled.div`
-  padding: 3rem;
   max-width: 1200px;
   min-width: 350px;
   margin: 2rem auto 2rem auto;
@@ -41,12 +41,12 @@ export const ContainerCardVisitDetails = styled.div`
 `;
 
 export const Container = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
   min-height: 100vh;
-  margin: 2rem;
-
+  max-width: 500px;
+  margin: 0 auto;
   ${({ offCustomContainerStyles }) =>
     offCustomContainerStyles &&
     `
@@ -60,9 +60,8 @@ export const Container = styled.div`
 
 const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyles }) => {
   const [visitDetails, setVisitDetails] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isVisitProp, setIsVisitProp] = useState();
-  const { behavior, extra, customer, comments, photo, premium, price, service, shop, time, tip, visit, hour } = visitDetails;
   const { id } = useParams();
   const navigate = useNavigate();
   const { userData, t } = useContext(ListCustomersTestContext);
@@ -96,60 +95,12 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
     navigate(-1);
   };
 
-  const handleEdit = () => {
-    if (idProp) {
-      navigate(`/visits/${idProp}/edit`);
-    } else {
-      navigate(`/visits/${id}/edit`);
-    }
-  };
-
-  const handleOpenCustomerDetails = () => {
-    navigate(`/customers/${customerProp?._id || customer?._id}`);
-  };
-
-  const arrTexts = [t('formVisit.visit'), visit, t('formVisit.hour'), hour, t('formVisit.behavior'), behavior?.value];
-  const arrTexts2 = [t('visit.extra'), extra?.label, t('formVisit.comments'), comments, t('formVisit.premium'), premium?.label];
-  const arrTexts3 = [
-    t('formVisit.price'),
-    price?.value,
-    t('service'),
-    service?.value,
-    t('formVisit.shop'),
-    shop?.map((item, index) => (
-      <li style={{ listStyle: 'none' }}>
-        {index + 1}. {item.label}
-      </li>
-    )),
-  ];
-  const arrTexts4 = [t('formVisit.time'), time, t('formVisit.tip'), tip, 'Empty', ''];
-  const arrValues = [visit, customerProp?.contactName || customer?.contactName, t('button.edit'), '100%', handleEdit];
   return (
     <Container offCustomContainerStyles>
-      {console.log(visitDetails)}
       {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="90px" />}
       {!offCustomContainerStyles && <h2>{t('visit.visitDetails')}</h2>}
       {!isLoading ? (
-        <UniversalCardImgPlusDetails
-          photo={photo || visitProp?.photo || ''}
-          arrValues={arrValues}
-          flexProp="0 0 24%"
-          width="100%"
-          maxWidth="1300px"
-          minWidth="700px"
-          height="300px"
-          container1Padding="1rem"
-        >
-          <Container3ElemInCol key="1" arrTexts={arrTexts} flexProp="0 0 19%" />
-          <Container3ElemInCol key="2" arrTexts={arrTexts2} flexProp="0 0 19%" />
-          <Container3ElemInCol key="3" arrTexts={arrTexts3} flexProp="0 0 19%" />
-          <Container3ElemInCol key="4" arrTexts={arrTexts4} flexProp="0 0 19%" />
-          {!visitProp && (
-            <DivToButtonMoreVisits>
-              <Button text={t('button.goToCustomerData')} onClick={handleOpenCustomerDetails} />
-            </DivToButtonMoreVisits>
-          )}
-        </UniversalCardImgPlusDetails>
+        <CardVisit visit={visitDetails} t={t} visitDetails />
       ) : (
         <LoadingSpinner />
       )}

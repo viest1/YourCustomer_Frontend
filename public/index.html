@@ -10,7 +10,7 @@
     name='description'
   />
   <link rel="apple-touch-icon" href="./images/logo1.png" />
-  <link rel="manifest" href="./manifest.json" />
+  <link rel="manifest" href="/manifest.json" />
   <title>YourCustomer</title>
   <link href='https://fonts.googleapis.com' rel='preconnect'>
   <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
@@ -25,7 +25,7 @@
     window.addEventListener('load', () =>{
       navigator.serviceWorker.register('./serviceworker.js')
         .then((reg)=> console.log('Success: ', reg.scope))
-        .catch((err)=>console.log('Failuer: ', err))
+        .catch((err)=>console.log('Failure: ', err))
     })
   }
 </script>

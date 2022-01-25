@@ -305,7 +305,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
     'rgba(255, 206, 86, 1)',
     'rgba(75, 192, 192, 1)',
     'rgba(153, 102, 255, 1)',
-  ]
+  ];
 
   const dataBehavior = {
     labels: data.behavior.value.map((item) => item.title),

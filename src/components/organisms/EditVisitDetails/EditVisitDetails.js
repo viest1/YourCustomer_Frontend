@@ -99,6 +99,7 @@ const EditVisitDetails = () => {
       <div>
         <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
         <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
+        <h3>{visit?.customer?.contactName}</h3>
       </div>
       {visit ? (
         <form onSubmit={handleSubmit}>

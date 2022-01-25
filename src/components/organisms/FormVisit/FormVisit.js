@@ -309,11 +309,12 @@ const FormVisit = ({
           }}
         />
         <span>{t('formVisit.fileUpload')}</span>
-        {previewSource && (
-          <ImgStyled>
-            <img src={previewSource} alt="dog" />
-          </ImgStyled>
-        )}
+        {previewSource ||
+          (inputs.photo && (
+            <ImgStyled>
+              <img src={previewSource || inputs.photo} alt="dog" />
+            </ImgStyled>
+          ))}
       </ContainerInputFile>
       <FormLabelAndInput type="number" id="tip" placeholder="Type Here..." label={t('formVisit.tip')} handleInput={handleChange} value={inputs.tip} />
       <FormLabelAndInput

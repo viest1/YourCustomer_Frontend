@@ -237,7 +237,7 @@ const Header = ({ setThemeState }) => {
       clearTimeout(timeout);
     }
     return () => clearTimeout(timeout);
-  }, [userData.token]);
+  }, [userData.exp, setUserData, navigate]);
 
   useEffect(() => {
     if (userData.token) {
