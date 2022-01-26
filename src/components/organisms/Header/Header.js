@@ -207,37 +207,42 @@ const Header = ({ setThemeState }) => {
   useOnClickOutside(ref, () => setIsOpenMenu(false));
   useOnClickOutside(languageMenuRef, () => setLanguageMenuIsOpen(false));
   const fetchData = async () => {
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      }});
     const resJSON = await res.json();
     setCustomers(resJSON.allCustomers);
   };
-  useEffect(() => {
-    let timeout;
-    if (!(userData.exp - Date.now())) {
-      setUserData({
-        userId: '',
-        token: '',
-        name: '',
-        exp: '',
-      });
-      localStorage.removeItem('userDataListCustomersTest');
-    }
-    if (userData.exp) {
-      timeout = setTimeout(() => {
-        setUserData({
-          userId: '',
-          token: '',
-          name: '',
-          exp: '',
-        });
-        localStorage.removeItem('userDataListCustomersTest');
-        navigate('/');
-      }, 1000 * 60 * 60);
-    } else {
-      clearTimeout(timeout);
-    }
-    return () => clearTimeout(timeout);
-  }, [userData.exp, setUserData, navigate]);
+  // useEffect(() => {
+  //   let timeout;
+  //   if (!(userData.exp - Date.now())) {
+  //     setUserData({
+  //       userId: '',
+  //       token: '',
+  //       name: '',
+  //       exp: '',
+  //     });
+  //     localStorage.removeItem('userDataListCustomersTest');
+  //   }
+  //   if (userData.exp) {
+  //     timeout = setTimeout(() => {
+  //       setUserData({
+  //         userId: '',
+  //         token: '',
+  //         name: '',
+  //         exp: '',
+  //       });
+  //       localStorage.removeItem('userDataListCustomersTest');
+  //       navigate('/');
+  //     }, 1000 * 60 * 60);
+  //   } else {
+  //     clearTimeout(timeout);
+  //   }
+  //   return () => clearTimeout(timeout);
+  // }, [userData.exp, setUserData, navigate]);
 
   useEffect(() => {
     if (userData.token) {
@@ -309,6 +314,7 @@ const Header = ({ setThemeState }) => {
           openModal();
         }
         if (Date.now() > userData.exp) {
+          navigate('/');
           setUserData({
             userId: '',
             token: '',
@@ -337,10 +343,10 @@ const Header = ({ setThemeState }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalIsOpen]);
 
-  const handleLogoutTime = () => {
-    closeModal();
-    setUserData({ ...userData, exp: userData.exp + 1000 * 35 });
-  };
+  // const handleLogoutTime = () => {
+  //   closeModal();
+  //   setUserData({ ...userData, exp: userData.exp + 1000 * 35 });
+  // };
   const handleOpenMenu = () => {
     setIsOpenMenu((prev) => !prev);
   };
@@ -354,16 +360,17 @@ const Header = ({ setThemeState }) => {
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           {Date.now() < userData.exp ? (
             <div>
-              <h2 style={{ textAlign: 'center' }}>{t('modal.areYouThere')}</h2>
-              <Button text={t('button.stayLogged')} onClick={handleLogoutTime} />
-              <p style={{ textAlign: 'center' }}>
+              <h2 style={{ textAlign: 'center', color: 'white' }}>{t('modal.areYouThere')}</h2>
+              {/*<Button text={t('button.stayLogged')} style={{ color: 'white' }} onClick={handleLogoutTime} />*/}
+              <p style={{color:'white'}}>{t('modal.willLogout')}</p>
+              <p style={{ textAlign: 'center', color: 'white' }}>
                 {t('modal.automaticallyLogout')}: {remainingTime}
               </p>
             </div>
           ) : (
             <div>
-              <h2 style={{ textAlign: 'center' }}>{t('modal.sessionExp')}</h2>
-              <h2 style={{ textAlign: 'center' }}>{t('modal.loggedOut')}</h2>
+              <h2 style={{ textAlign: 'center', color: 'white' }}>{t('modal.sessionExp')}</h2>
+              <h2 style={{ textAlign: 'center', color: 'white' }}>{t('modal.loggedOut')}</h2>
             </div>
           )}
         </Modal>

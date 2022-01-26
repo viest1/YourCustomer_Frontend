@@ -56,7 +56,7 @@ const EditVisitDetails = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + userData.token,
+        Authorization: 'Bearer ' + userData?.token,
       },
     });
     const resJSON = await res.json();

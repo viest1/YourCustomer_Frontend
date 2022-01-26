@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CardMainContent from '../../organisms/CardMainContent/CardMainContent';
 import creativeWoman from '../../../assets/illustrations/undraw_creative_woman_re_u5tk.svg';
@@ -12,6 +12,7 @@ import Button from '../../atoms/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import Footer from '../../organisms/Footer/Footer';
+import { FcOk } from 'react-icons/fc';
 
 export const ContainerMainContent = styled.div`
   display: flex;
@@ -221,14 +222,36 @@ const topWave1 = () => {
 export const topWaveVar1 = topWave1();
 
 const MainContent = () => {
+  const [noHide, setNoHide] = useState(true);
   const navigate = useNavigate();
   const { userData, t } = useContext(ListCustomersTestContext);
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
+  useEffect(() => {
+    if (userData.loggedOut) {
+      setTimeout(() => setNoHide(false), 5000);
+    }
+  }, [userData.loggedOut]);
   return (
-    <ContainerMainContent>
+    <ContainerMainContent onClick={() => setNoHide(false)}>
       <ContainerHero>
+        {userData.loggedOut && noHide && (
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              borderRadius: '0.5rem',
+              background: 'white',
+              padding: '1rem',
+              boxShadow: '2px 4px 5px black',
+            }}
+          >
+            <FcOk fontSize={30} />
+            <h3>You was logout safely</h3>
+          </span>
+        )}
         <h2>{t('heroContent.presents')}</h2>
         <div>
           <h1>{t('heroContent.heroText')}</h1>

@@ -23,7 +23,8 @@ const GeneralProvider = ({ children }) => {
     token: '',
     name: '',
     email: '',
-    exp: 9999999999999,
+    exp: '',
+    loggedOut: false,
   });
   const { t } = useTranslation();
   return (

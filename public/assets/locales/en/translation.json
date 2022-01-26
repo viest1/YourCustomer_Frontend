@@ -124,7 +124,8 @@
     "areYouThere": "Are You There?",
     "automaticallyLogout": "Time to Automatically Logout",
     "sessionExp": "Your Session Expired!",
-    "loggedOut": "You Logged Out"
+    "loggedOut": "You Logged Out",
+    "willLogout": "You will Logout for a moment, finish your tasks or log in again"
   },
   "login": {
     "l": "Log In",

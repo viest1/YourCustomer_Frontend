@@ -40,10 +40,21 @@ const Statistics = () => {
   }`;
   const fetchCustomers = async () => {
     setIsLoading(true);
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers',
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + userData?.token,
+        }});
     const resJSON = await res.json();
     setCustomers(resJSON.allCustomers);
-    const resVisits = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits');
+    const resVisits = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits',{
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      }});
     const resJSONVisits = await resVisits.json();
     setVisits(resJSONVisits.allVisits);
     setIsLoading(false);

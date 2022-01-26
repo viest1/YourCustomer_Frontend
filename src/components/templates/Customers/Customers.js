@@ -6,6 +6,8 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const ContainerCustomers = styled.div`
   //padding: 2rem;
@@ -106,6 +108,8 @@ const Customers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { searchingCustomers, isSearching, userData, t } = useContext(ListCustomersTestContext);
   const [numberFilterResults, setNumberFilterResults] = useState(10);
+  const {handleLogout} = useAuth()
+  const navigate = useNavigate()
   const reducer = (state, action) => {
     let sortedArr = [];
     switch (action.type) {
@@ -160,8 +164,22 @@ const Customers = () => {
   const [state, dispatch] = useReducer(reducer, { type: 'Newest Created' });
   const fetchCustomers = async () => {
     setIsLoading(true);
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers');
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      },
+    });
     const resJSON = await res.json();
+    if(resJSON.error){
+      // userData.loggedOut = true;
+      // userData.token = '';
+      // navigate('/')
+      handleLogout();
+      return;
+    }
+    console.log(resJSON)
     setCustomers(resJSON.allCustomers);
     setIsLoading(false);
   };

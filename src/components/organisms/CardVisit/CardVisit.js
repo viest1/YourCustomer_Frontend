@@ -10,6 +10,9 @@ import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
 export const ContainerCard = styled.div`
   padding: 1rem;
   background: #6201ed;
+  //background: #29c0b1;
+  //background: #222437;
+  background: #2c50ed;
   background: white;
   border-radius: 1rem;
   display: flex;
@@ -17,6 +20,7 @@ export const ContainerCard = styled.div`
   text-align: center;
   position: relative;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  *{color:BLACK;}
   > div:first-child {
     margin: 0 auto;
   }
@@ -38,6 +42,9 @@ export const ContainerOneRow = styled.div`
   justify-content: space-between;
   p:last-child {
     font-weight: bold;
+  }
+  p > span{
+    color: #6201ed;
   }
 `;
 
@@ -102,7 +109,7 @@ const CardVisit = ({
         title: t('visit.price'),
         value: (
           <>
-            {price?.label} / <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#6201ed' }}>{sumPrice}</span>
+            {price?.label} / <span style={{ fontSize: '12px', fontWeight: 'bold' }}>{sumPrice}</span>
           </>
         ),
       },

@@ -69,15 +69,15 @@ export const useAuth = (inputs) => {
     login();
   };
 
-  const handleLogout = (e) => {
-    e.preventDefault();
+  const handleLogout = () => {
     setUserData({
       userId: '',
       token: '',
       name: '',
       exp: '',
+      loggedOut: true,
     });
-    localStorage.removeItem('userDataListCustomersTest');
+    // localStorage.removeItem('userDataListCustomersTest');
     navigate('/');
   };
 

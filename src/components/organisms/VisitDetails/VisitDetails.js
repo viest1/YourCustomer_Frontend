@@ -71,8 +71,8 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/visits/' + id, {
       method: 'POST',
       headers: {
-        'Content-type': 'application-json',
-        Authorization: 'Bearer ' + userData.token,
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
       },
     });
     const resJSON = await res.json();

@@ -15,9 +15,11 @@ export const customStyles = {
     minHeight: '200px',
     position: 'relative',
     padding: '2rem',
-    background: 'black',
+    background: '#6201ed',
     borderRadius: '1rem',
     textAlign: 'center',
+    color: 'white',
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
   },
 };
 
@@ -26,6 +28,10 @@ export const CloseIcon = styled(AiOutlineCloseCircle)`
   right: 20px;
   top: 20px;
   font-size: 20px;
+  color: white;
+  * {
+    color: white;
+  }
 
   &:hover {
     cursor: pointer;

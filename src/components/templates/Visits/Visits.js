@@ -10,6 +10,7 @@ import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { FcCheckmark, FcClearFilters } from 'react-icons/fc';
 import { CgCloseR } from 'react-icons/cg';
 import { RiCloseFill } from 'react-icons/ri';
+import { GrHomeOption } from 'react-icons/gr';
 
 export const ContainerVisits = styled.div`
   padding: 1rem;
@@ -28,7 +29,12 @@ const Visits = () => {
   const { userData, t } = useContext(ListCustomersTestContext);
   const fetchVisits = async () => {
     setIsLoading(true);
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits');
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits',{
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      }});
     const resJSON = await res.json();
     setVisits(resJSON.allVisits);
     setIsLoading(false);
@@ -57,8 +63,11 @@ const Visits = () => {
     let sortedArr = [];
     switch (action.type) {
       case 'Newest Created':
-        if (action.withPhoto){
-          sortedArr = [...visits]?.filter(item => item.photo).sort((a, b) => b.timestamp - a.timestamp).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = [...visits]
+            ?.filter((item) => item.photo)
+            .sort((a, b) => b.timestamp - a.timestamp)
+            .slice(0, numberFilterResults);
         } else {
           sortedArr = [...visits]?.sort((a, b) => b.timestamp - a.timestamp).slice(0, numberFilterResults);
         }
@@ -93,7 +102,8 @@ const Visits = () => {
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       default:
-        return;
+        setFilteringCustomers(filteringCustomers.filter((item) => item.photo));
+        return { ...state };
     }
   };
   const [state, dispatch] = useReducer(reducer, { type: 'Last Visit' });
@@ -105,11 +115,7 @@ const Visits = () => {
     dispatch({ type: state.type });
   }, [numberFilterResults]);
   useEffect(() => {
-    if (withPhoto) {
-      dispatch({ ...state, withPhoto: true });
-    } else {
-      dispatch({ ...state, withPhoto: false });
-    }
+    dispatch({ type: state.type });
   }, [withPhoto]);
 
   return (
@@ -156,10 +162,10 @@ const Visits = () => {
         <FilterButton>
           <p>With Photo</p>
           <span
-            style={{ display: 'flex', alignItems: 'center', background: 'white', borderRadius: '0.6rem' }}
+            style={{ display: 'flex', alignItems: 'center', border: '2px solid white', background: 'white', borderRadius: '0.2rem' }}
             onClick={() => setWithPhoto((prev) => !prev)}
           >
-            {withPhoto ? <FcCheckmark width={18} fontSize={18} /> : <RiCloseFill color="red" fontSize={18} />}
+            {withPhoto ? <FcCheckmark width={18} fontSize={18} /> : <span style={{ height: '18px', width: '18px' }} />}
           </span>
         </FilterButton>
       </ContainerFilters>
