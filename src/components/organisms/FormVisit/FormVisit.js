@@ -5,6 +5,8 @@ import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { shopProducts } from '../../../data/shop';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { MdAddAPhoto, MdEventAvailable, MdOutlineAccessTime, MdEuroSymbol } from 'react-icons/md';
+import { BsHourglassSplit } from 'react-icons/bs';
 
 export const ContainerFormVisit = styled.div`
   display: flex;
@@ -25,7 +27,7 @@ export const ContainerFormVisit = styled.div`
 
 export const ContainerInputFile = styled.div`
    {
-    background: #00bcbe;
+    background: ${({ themeType }) => themeType.button};
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
@@ -35,13 +37,13 @@ export const ContainerInputFile = styled.div`
     padding: 0.875em; /*14px/16px*/
     position: relative;
     text-align: center;
-    width: 120px;
+    width: 140px;
   }
 
   &:hover,
   &:active,
   &:focus {
-    background: #00a2a4;
+    background: ${({ themeType }) => themeType.button};
   }
 
   input {
@@ -203,7 +205,7 @@ const FormVisit = ({
   editMode,
 }) => {
   const imageRef = useRef(null);
-  const { t } = useContext(ListCustomersTestContext);
+  const { t, themeType } = useContext(ListCustomersTestContext);
   useEffect(() => {
     if (image) {
       previewFile();
@@ -224,30 +226,33 @@ const FormVisit = ({
       <FormLabelAndInput
         id="visit"
         type="date"
-        placeholder="Type Here..."
+        placeholder="Date"
         label={t('formVisit.visit')}
         handleInput={handleChange}
         value={inputs.visit}
+        icon={<MdEventAvailable />}
       />
       <FormLabelAndInput
         min="06:00"
         max="24:00"
         type="time"
         id="hour"
-        placeholder="Type Here..."
+        placeholder="Hour"
         label={t('formVisit.hour')}
         handleInput={handleChange}
         value={inputs.hour || ''}
+        icon={<MdOutlineAccessTime />}
       />
       <FormLabelAndInput
         min="00:01"
         max="04:00"
         type="time"
         id="time"
-        placeholder="Type Here..."
+        placeholder="Time"
         label={t('formVisit.time')}
         handleInput={handleChange}
         value={inputs.time || ''}
+        icon={<BsHourglassSplit />}
       />
       {/*<div>*/}
       {/*  <label htmlFor="service">Service</label>*/}
@@ -303,7 +308,7 @@ const FormVisit = ({
           value={inputs.shop?.length ? inputs.shop : null}
         />
       </div>
-      <ContainerInputFile>
+      <ContainerInputFile themeType={themeType}>
         <input
           type="file"
           ref={imageRef}
@@ -311,7 +316,10 @@ const FormVisit = ({
             setImage(e.target.files[0]);
           }}
         />
-        <span>{t('formVisit.fileUpload')}</span>
+        <span style={{ display: 'flex', gap: '0.7rem', alignItems: 'center', color: 'white', justifyContent: 'center' }}>
+          <MdAddAPhoto fill={'white'} />
+          {t('formVisit.fileUpload')}
+        </span>
         {previewSource ||
           (inputs.photo && (
             <ImgStyled>
@@ -319,7 +327,15 @@ const FormVisit = ({
             </ImgStyled>
           ))}
       </ContainerInputFile>
-      <FormLabelAndInput type="number" id="tip" placeholder="Type Here..." label={t('formVisit.tip')} handleInput={handleChange} value={inputs.tip} />
+      <FormLabelAndInput
+        icon={<MdEuroSymbol />}
+        type="number"
+        id="tip"
+        placeholder="Type Here..."
+        label={t('formVisit.tip')}
+        handleInput={handleChange}
+        value={inputs.tip}
+      />
       <FormLabelAndInput
         textarea
         id="comments"

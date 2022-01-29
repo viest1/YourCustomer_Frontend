@@ -29,7 +29,7 @@
     "textIcons": "Find us Here"
   },
   "formData": {
-    "title": "Customer Data",
+    "title": "Customer Information",
     "dogOwner": "Dog Owner",
     "dogName": "Dog Name",
     "contactName":"Contact Name",
@@ -41,7 +41,7 @@
     "size": "Size"
   },
   "formVisit": {
-    "title": "Customer Data",
+    "title": "Visit Information",
     "visit":  "Visit Date",
     "hour": "Visit Hour",
     "time":  "Time Visit",

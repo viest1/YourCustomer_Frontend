@@ -85,6 +85,7 @@ export const ContainerOptionsSort = styled.div`
   background: ${({ themeType }) => themeType.button};
   border-radius: 0.5rem;
   text-align: left;
+  box-shadow: 0 0 15px 2px black;
   ul {
     list-style: none;
     display: flex;
@@ -185,7 +186,6 @@ const Customers = () => {
       handleLogout();
       return;
     }
-    console.log(resJSON);
     setCustomers(resJSON.allCustomers);
     setIsLoading(false);
   };
@@ -203,14 +203,6 @@ const Customers = () => {
     dispatch({ type: state.type });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberFilterResults]);
-
-  // const filterData = [
-  //   {
-  //     title: 'Sort By',
-  //     value: '',
-  //     icon: <IoIosArrowDown color={'white'} />,
-  //   },
-  // ];
 
   return (
     <>
@@ -259,7 +251,9 @@ const Customers = () => {
         </ContainerFilters>
       </ContainerWithBackground>
       {isLoading ? (
-        <LoadingSpinner />
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '2rem' }}>
+          <LoadingSpinner />
+        </div>
       ) : searchingCustomers?.length || isSearching ? (
         <ContainerCardsCustomer>
           {sortByTimestamp(searchingCustomers)?.map((item) => (

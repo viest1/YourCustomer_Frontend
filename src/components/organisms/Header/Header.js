@@ -23,7 +23,10 @@ export const ContainerHeader = styled.div`
   align-items: center;
   justify-content: flex-end;
   font-size: ${({ theme }) => theme.fontSize.m};
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 9999;
   //position: fixed;
   //top: 0;
   //left: 0;
@@ -203,6 +206,7 @@ const Header = ({ setThemeState }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [remainingTime, setRemainingTime] = useState();
+  const [modalDisplayed, setModalDisplayed] = useState(false);
   const [languageMenuIsOpen, setLanguageMenuIsOpen] = useState(false);
   const searchInput = useRef(null);
   const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData, themeType, t } = useContext(ListCustomersTestContext);
@@ -295,8 +299,9 @@ const Header = ({ setThemeState }) => {
     }
     if (userData.token) {
       interval = setInterval(() => {
-        if (userData.exp - Date.now() < 30000) {
+        if (userData.exp - Date.now() < 30000 && !modalDisplayed) {
           openModal();
+          setModalDisplayed(true);
         }
         if (Date.now() > userData.exp) {
           navigate('/login');
@@ -338,6 +343,10 @@ const Header = ({ setThemeState }) => {
   const handleCloseMenuBar = () => {
     setIsOpenMenu(false);
   };
+  const handleLogoutWithClose = () => {
+    setIsOpenMenu(false);
+    handleLogout();
+  };
 
   return (
     <ContainerHeader themeType={themeType}>
@@ -371,7 +380,7 @@ const Header = ({ setThemeState }) => {
               <NavLinkItem text={t('navigation.visits')} path="/visits" />
               <NavLinkItem text={t('navigation.statistics')} path="/statistics" />
               <NavLinkItem text={t('navigation.settings')} path="/settings" />
-              <NavLinkItem text={t('navigation.logout')} path="/login" onClick={handleLogout} />
+              <NavLinkItem text={t('navigation.logout')} path="/login" onClick={handleLogoutWithClose} />
             </>
           )}
           {!userData.token && <NavLinkItem text={t('login.l')} path="/login" />}
@@ -401,7 +410,7 @@ const Header = ({ setThemeState }) => {
                   <NavLinkItem text={t('navigation.visits')} path="/visits" onClick={handleCloseMenuBar} />
                   <NavLinkItem text={t('navigation.statistics')} path="/statistics" onClick={handleCloseMenuBar} />
                   <NavLinkItem text={t('navigation.settings')} path="/settings" onClick={handleCloseMenuBar} />
-                  <NavLinkItem text={t('navigation.logout')} path="/login" onClick={handleLogout} />
+                  <NavLinkItem text={t('navigation.logout')} path="/login" onClick={handleLogoutWithClose} />
                 </>
               )}
               {!userData.token && <NavLinkItem text={t('login.l')} path="/login" onClick={handleCloseMenuBar} />}
@@ -437,7 +446,7 @@ const Header = ({ setThemeState }) => {
           </ContainerListLanguages>
           <LanguageIcon onClick={() => setLanguageMenuIsOpen((prev) => !prev)} />
         </span>
-        <SearchIcon onClick={handleOpenSearchBar} />
+        {userData.token && <SearchIcon onClick={handleOpenSearchBar} />}
         <DarkMode setThemeState={setThemeState} />
       </ContainerIcons>
     </ContainerHeader>

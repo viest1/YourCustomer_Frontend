@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import FormLabelAndInput from '../../atoms/FormLabelAndInput/FormLabelAndInput';
 import Select from 'react-select';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { GiSittingDog } from 'react-icons/gi';
+import { MdPhone, MdHomeWork, MdPerson, MdAssignmentInd } from 'react-icons/md';
+import { FaBirthdayCake } from 'react-icons/fa';
 
 export const ContainerFormData = styled.div`
   display: flex;
@@ -62,51 +65,57 @@ const FormData = ({ handleSelect, handleChange, inputs }) => {
     <ContainerFormData>
       <FormLabelAndInput
         id="dogOwner"
-        placeholder="Type Here..."
+        placeholder={t('formData.dogOwner')}
         label={t('formData.dogOwner')}
         required={false}
         handleInput={handleChange}
         value={inputs.dogOwner}
+        icon={<MdPerson />}
       />
       <FormLabelAndInput
         id="dogName"
-        placeholder="Type Here..."
+        placeholder={t('formData.dogName')}
         label={t('formData.dogName')}
         required={false}
         handleInput={handleChange}
         value={inputs.dogName}
+        icon={<GiSittingDog />}
       />
       <FormLabelAndInput
         id="contactName"
-        placeholder="Type Here..."
+        placeholder={t('formData.contactName')}
         label={t('formData.contactName')}
         handleInput={handleChange}
         value={inputs.contactName}
+        icon={<MdAssignmentInd />}
       />
       <FormLabelAndInput
         id="phone"
-        placeholder="Type Here..."
+        placeholder={t('formData.phone')}
         label={t('formData.phone')}
         required={false}
         handleInput={handleChange}
         value={inputs.phone}
+        icon={<MdPhone />}
       />
       <FormLabelAndInput
         id="address"
-        placeholder="Type Here..."
+        placeholder={t('formData.address')}
         label={t('formData.address')}
         required={false}
         handleInput={handleChange}
         value={inputs.address}
+        icon={<MdHomeWork />}
       />
       <FormLabelAndInput
         id="birthday"
         type="date"
-        placeholder="Type Here..."
+        placeholder={t('formData.birthday')}
         label={t('formData.birthday')}
         required={false}
         handleInput={handleChange}
         value={inputs.birthday}
+        icon={<FaBirthdayCake />}
       />
       <label htmlFor="gender">{t('formData.gender')}</label>
       <Select id="gender" name="gender" onChange={handleSelect} options={gender} value={inputs.gender} />

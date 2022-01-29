@@ -53,7 +53,6 @@ export const useAuth = (inputs) => {
       const resJSON = await res.json();
       if (!resJSON.userId) {
         setErrorMessageLogin(resJSON.message);
-        console.log(errorMessageLogin);
         return;
       }
       setUserData({
@@ -64,7 +63,6 @@ export const useAuth = (inputs) => {
         exp: resJSON.exp,
       });
       navigate('/');
-      console.log(resJSON);
     };
     login();
   };

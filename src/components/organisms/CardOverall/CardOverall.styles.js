@@ -73,7 +73,8 @@ export const Grid2 = styled.div`
     border-radius: 1rem;
   }
   > div {
-    box-shadow: ${({ theme }) => theme.color.lighterBackground ? `1px 1px 12px 0px rgba(255, 255, 255, 0.05)` : `1px 1px 12px 0px rgba(0, 0, 0, 0.15)`};
+    box-shadow: ${({ theme }) =>
+      theme.color.lighterBackground ? `1px 1px 2px 2px rgba(255, 255, 255, 0.05)` : `1px 1px 2px 2px rgba(0, 0, 0, 0.15)`};
   }
   * {
     color: ${({ theme }) => theme.color.black};

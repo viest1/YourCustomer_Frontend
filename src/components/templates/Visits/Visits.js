@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import CardVisit from '../../organisms/CardVisit/CardVisit';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
-import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ContainerFilters, ContainerOptionsSort, ContainerWithBackground, FilterButton } from '../Customers/Customers';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
@@ -39,6 +38,7 @@ const Visits = () => {
     });
     const resJSON = await res.json();
     setVisits(resJSON.allVisits);
+    dispatch({ type: 'Last Visit' });
     setIsLoading(false);
   };
 
@@ -61,13 +61,15 @@ const Visits = () => {
     const sumPrice = premiumValue + extraPayValue + priceValue;
     return sumPrice;
   };
+  const filterPhoto = () => {
+    return [...visits].filter((item) => item.photo);
+  };
   const reducer = (state, action) => {
     let sortedArr = [];
     switch (action.type) {
       case 'Newest Created':
         if (withPhoto) {
-          sortedArr = [...visits]
-            ?.filter((item) => item.photo)
+          sortedArr = filterPhoto()
             .sort((a, b) => b.timestamp - a.timestamp)
             .slice(0, numberFilterResults);
         } else {
@@ -76,31 +78,79 @@ const Visits = () => {
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Oldest Created':
-        sortedArr = [...visits]?.sort((a, b) => a.timestamp - b.timestamp).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => a.timestamp - b.timestamp)
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]?.sort((a, b) => a.timestamp - b.timestamp).slice(0, numberFilterResults);
+        }
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Most Expensive':
-        sortedArr = [...visits]?.sort((a, b) => calcSum(b) - calcSum(a)).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => calcSum(b) - calcSum(a))
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]?.sort((a, b) => calcSum(b) - calcSum(a)).slice(0, numberFilterResults);
+        }
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Cheapest':
-        sortedArr = [...visits]?.sort((a, b) => calcSum(a) - calcSum(b)).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => calcSum(a) - calcSum(b))
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]?.sort((a, b) => calcSum(a) - calcSum(b)).slice(0, numberFilterResults);
+        }
+
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Best Behavior':
-        sortedArr = [...visits]?.sort((a, b) => b.behavior?.label?.localeCompare(a.behavior?.label)).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => b.behavior?.label?.localeCompare(a.behavior?.label))
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]?.sort((a, b) => b.behavior?.label?.localeCompare(a.behavior?.label)).slice(0, numberFilterResults);
+        }
+
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Worst Behavior':
-        sortedArr = [...visits]?.sort((a, b) => a.behavior?.label?.localeCompare(b.behavior?.label)).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => a.behavior?.label?.localeCompare(b.behavior?.label))
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]?.sort((a, b) => a.behavior?.label?.localeCompare(b.behavior?.label)).slice(0, numberFilterResults);
+        }
+
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Last Visit':
-        sortedArr = [...visits]?.sort((a, b) => new Date(b.visit).getTime() - new Date(a.visit).getTime()).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => new Date(b.visit).getTime() + +b.hour.split(':')[0] - (new Date(a.visit).getTime() + +a.hour.split(':')[0]))
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]
+            ?.sort((a, b) => new Date(b.visit).getTime() + +b.hour.split(':')[0] - (new Date(a.visit).getTime() + +a.hour.split(':')[0]))
+            .slice(0, numberFilterResults);
+        }
+
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       case 'Oldest Visit':
-        sortedArr = [...visits]?.sort((a, b) => new Date(a.visit).getTime() - new Date(b.visit).getTime()).slice(0, numberFilterResults);
+        if (withPhoto) {
+          sortedArr = filterPhoto()
+            .sort((a, b) => new Date(a.visit).getTime() - new Date(b.visit).getTime())
+            .slice(0, numberFilterResults);
+        } else {
+          sortedArr = [...visits]?.sort((a, b) => new Date(a.visit).getTime() - new Date(b.visit).getTime()).slice(0, numberFilterResults);
+        }
         setFilteringCustomers(sortedArr);
         return { ...state, type: action.type };
       default:
@@ -180,18 +230,7 @@ const Visits = () => {
           <LoadingSpinner />
         </div>
       ) : (
-        <ContainerVisits>
-          {visits &&
-            !filteringCustomers.length &&
-            sortByTimestamp(visits, 'visit')
-              .slice(0, 10)
-              .map((item) => (
-                // {index === 0 && <p>{item.visit}</p>}
-                // {index > 0 && item.visit !== array[index - 1].visit && <p>{item.visit}</p>}
-                <CardVisit t={t} visit={item} key={item._id} />
-              ))}
-          {visits && filteringCustomers.length ? filteringCustomers.map((item) => <CardVisit t={t} visit={item} key={item._id} />) : null}
-        </ContainerVisits>
+        <ContainerVisits>{filteringCustomers && filteringCustomers?.map((item) => <CardVisit t={t} visit={item} key={item._id} />)}</ContainerVisits>
       )}
     </>
   );

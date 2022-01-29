@@ -48,20 +48,11 @@ export const IconNext = styled(FcNext)`
 
 const RoundedImageWithArrows = ({ item, photo }) => {
   const { handleBack, handleNext, actuallyPhoto, counterPhoto, photos } = usePhoto(item, photo);
-  // let splittedCopyJoined;
-  // if(actuallyPhoto){
-  //   const splitted = actuallyPhoto && actuallyPhoto.split('/')
-  //   const splittedCopy = splitted;
-  //   splittedCopy.splice(6,0,'w_500,q_30')
-  //   splittedCopyJoined = splittedCopy.join('/')
-  // }
 
   return (
     <ContainerArrowsImage>
       <IconPrevious onClick={handleBack} />
       <ContainerImage>
-        {/*{console.log(actuallyPhoto)}*/}
-        {/*{console.log(splittedCopyJoined)}*/}
         <a href={actuallyPhoto}>
           <img src={actuallyPhoto || noPhoto} alt="dog" />
           <span>

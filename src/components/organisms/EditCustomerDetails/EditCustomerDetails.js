@@ -12,7 +12,7 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerEditCustomer = styled.div`
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 2rem auto 2rem auto;
   display: flex;
   flex-direction: column;
@@ -99,8 +99,8 @@ const EditCustomerDetails = () => {
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           {!error ? (
             <div>
-              <h2>{t('modal.editCustomer')}</h2>
-              <p>{t('modal.wellDone')}</p>
+              <h2 style={{ color: 'white' }}>{t('modal.editCustomer')}</h2>
+              <p style={{ color: 'white' }}>{t('modal.wellDone')}</p>
             </div>
           ) : (
             <p>{error}</p>

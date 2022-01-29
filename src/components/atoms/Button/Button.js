@@ -11,10 +11,6 @@ export const ButtonStyles = styled.button`
     border: none;
     outline: none;
     color: #fff;
-    background: #111;
-    background: #6201ed;
-    background: #00aaff;
-    background: #222437;
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -52,9 +48,9 @@ export const ButtonStyles = styled.button`
     opacity: 1;
   }
 
-  /*.glow-on-hover:hover:before {*/
-  /*    opacity: 1;*/
-  /*}*/
+  //.glow-on-hover:hover:before {
+  //    opacity: 1;
+  //}
 
   &:after {
     z-index: -1;
@@ -62,9 +58,7 @@ export const ButtonStyles = styled.button`
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #00aaff;
-    background: #222437;
-    background: ${({ themeType }) => themeType.button};
+    background: ${({ themeType, loginBtn, theme }) => (loginBtn ? theme.color.main100 : themeType.button)};
     left: 0;
     top: 0;
     border-radius: 10px;
@@ -83,11 +77,11 @@ export const ButtonStyles = styled.button`
   }
 `;
 
-const Button = ({ text, type = 'button', onClick, width }) => {
+const Button = ({ text, type = 'button', onClick, width, loginBtn }) => {
   const { themeType } = useContext(ListCustomersTestContext);
   return (
     <div>
-      <ButtonStyles type={type} onClick={onClick} themeType={themeType} style={{ width: width }}>
+      <ButtonStyles loginBtn={loginBtn} type={type} onClick={onClick} themeType={themeType} style={{ width: width }}>
         {text}
       </ButtonStyles>
     </div>

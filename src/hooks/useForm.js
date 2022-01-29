@@ -45,14 +45,6 @@ export default function useForm(initial = {}) {
       });
     }
   };
-  // const handleSelectBreed = (e, action) => {
-  //   console.log(action)
-  //   setInputs({
-  //     // copy the existing state
-  //     ...inputs,
-  //     breed: e.value,
-  //   });
-  // };
 
   function resetForm() {
     setInputs(initial);

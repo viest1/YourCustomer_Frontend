@@ -21,6 +21,8 @@ export const ContainerCard = styled.div`
   text-align: center;
   position: relative;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  box-shadow: 2px 2px 3px black;
+  //max-width:500px;
   > div:first-child {
     margin: 0 auto;
   }
@@ -49,11 +51,14 @@ export const ContainerDates = styled.div`
 export const ContainerOneRow = styled.div`
   display: flex;
   justify-content: space-between;
+
   p:last-child {
     font-weight: bold;
   }
+
   p > span {
-    color: ${({ theme }) => theme.color.main200};
+    color: ${({ themeType }) => (themeType.layout === '#29c0b1' ? 'black' : '#00b8ff')};
+    font-size: 14px;
   }
 `;
 
@@ -212,7 +217,7 @@ const CardVisit = ({
       <h4>{customer?.contactName || customerName}</h4>
       <ContainerDates>
         {data.map((item, i) => (
-          <ContainerOneRow key={i}>
+          <ContainerOneRow key={i} themeType={themeType}>
             <p>{item.title}</p>
             <p>{item.value}</p>
           </ContainerOneRow>

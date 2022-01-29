@@ -12,13 +12,14 @@ export const ContainerFormAuth = styled.div`
   margin: 4rem auto;
   max-width: 650px;
   background: ${({ theme }) => theme.color.white100};
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.2);
   border-radius: 0.4rem;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  @media (max-width:650px){
-    max-width:95%;
+  @media (max-width: 650px) {
+    max-width: 95%;
   }
 `;
 
@@ -101,7 +102,7 @@ const FormAuth = () => {
             handleInput={handleChange}
             value={inputs.password}
           />
-          <Button type="submit" text={t('button.signup')} width={'100%'} />
+          <Button loginBtn type="submit" text={t('button.signup')} width={'100%'} />
           {errorMessageSignUp && <p>{errorMessageSignUp}</p>}
         </ContainerForm>
       ) : (
@@ -127,13 +128,13 @@ const FormAuth = () => {
             handleInput={handleChange}
             value={inputs.passwordLogin}
           />
-          <Button type="submit" text={t('button.login')} width={'100%'} />
+          <Button loginBtn type="submit" text={t('button.login')} width={'100%'} />
           {errorMessageLogin && <p>{errorMessageLogin}</p>}
         </ContainerForm>
       )}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '2rem 0 0 0' }}>
         <p>{isLoginMode ? t('login.notHave') : t('login.have')} </p>
-        <Button text={isLoginMode ? t('login.switchSign') : t('login.switchLogin')} onClick={handleLoginMode} width="200px" />
+        <Button loginBtn text={isLoginMode ? t('login.switchSign') : t('login.switchLogin')} onClick={handleLoginMode} width="200px" />
       </div>
     </ContainerFormAuth>
   );

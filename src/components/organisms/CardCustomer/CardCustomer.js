@@ -85,7 +85,7 @@ const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, conta
         {dataCustomer.map((item, i) => {
           if (!item.value) return null;
           return (
-            <ContainerOneRow key={i}>
+            <ContainerOneRow key={i} themeType={themeType}>
               <p>{item.title}</p>
               <p>{item.value}</p>
             </ContainerOneRow>

@@ -5,11 +5,12 @@ import SettingsItem from '../../organisms/SettingsItem/SettingsItem';
 import Button from '../../atoms/Button/Button';
 import useForm from '../../../hooks/useForm';
 import { MdOutlineFormatColorReset } from 'react-icons/md';
+import { FcCheckmark } from 'react-icons/fc';
 
 export const Container = styled.div`
-  padding: 2rem;
+  padding: 0 2rem;
   max-width: 860px;
-  margin: 2rem auto 2rem auto;
+  margin: 2rem auto;
   //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
   @media all and (max-width: 400px) {
@@ -21,6 +22,8 @@ export const ContainerFormsChangeData = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  padding: 3rem 0;
+  border-top: 1px solid grey;
 `;
 
 export const ContainerChangeData = styled.form`
@@ -29,26 +32,54 @@ export const ContainerChangeData = styled.form`
   gap: 1rem;
 `;
 
-// export const ContainerDataSettings = styled.div`
-//   display: flex;
-//   gap: 0.5rem;
-//   flex-direction: column;
-// `;
-
 export const LayoutCircle = styled.div`
   height: 30px;
   width: 30px;
   border-radius: 50%;
   border: 1px solid black;
   transition: transform 0.3s;
+  position: relative;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.2);
   }
+  span {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+  }
 `;
 
-const handleLayoutTheme = () => {};
+export const ContainerDataAccount = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 500px;
+  flex-wrap: wrap;
+  > div:first-child {
+    padding: 1rem;
+    border-radius: 50%;
+    background: ${({ themeType }) => themeType.nav};
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  > div:first-child h2 {
+    color: white;
+  }
+  @media (max-width: 530px) {
+    button:first-child {
+      display: none;
+    }
+  }
+`;
 
 const Settings = () => {
   const [errorMessage, setErrorMessage] = useState();
@@ -64,7 +95,6 @@ const Settings = () => {
   });
   const handleChangeEmailAndName = async (e) => {
     e.preventDefault();
-    console.log('click');
     inputs.timestamp = Date.now();
     inputs.userId = userData.userId;
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changeDataAccount', {
@@ -76,7 +106,6 @@ const Settings = () => {
       body: JSON.stringify(inputs),
     });
     const resJSON = await res.json();
-    console.log(resJSON);
     if (resJSON.message) {
       return setErrorMessage(resJSON.message);
     }
@@ -84,7 +113,6 @@ const Settings = () => {
   };
   const handleChangePassword = async (e) => {
     e.preventDefault();
-    console.log('click');
     inputs.timestamp = Date.now();
     inputs.userId = userData.userId;
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changePassword', {
@@ -96,7 +124,6 @@ const Settings = () => {
       body: JSON.stringify(inputs),
     });
     const resJSON = await res.json();
-    console.log(resJSON);
     if (resJSON.message) {
       setErrorMessagePassword(resJSON.message);
     }
@@ -134,74 +161,98 @@ const Settings = () => {
   ];
   return (
     <Container>
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <div
-          style={{
-            padding: '1rem',
-            borderRadius: '50%',
-            background: 'blue',
-            width: '90px',
-            height: '90px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <h2>{userData.name.split(' ')[0].split('')[0] + userData.name?.split(' ')[1] ? userData.name?.split(' ')[1]?.split('')[0] : 'null'}</h2>
+      <ContainerDataAccount themeType={themeType}>
+        <div>
+          <h2>{`${userData.name.split(' ')[0].split('')[0]}${
+            userData.name.split(' ').length > 1 ? userData.name.split(' ')[1].split('')[0] : ''
+          }`}</h2>
         </div>
         <div>
-          <h4>{userData.name}</h4>
+          <h2>{userData.name}</h2>
           <p>{userData.email}</p>
         </div>
-        <div></div>
+        <div>
+          <Button text={t('navigation.logout')} width={'120px'} />
+        </div>
+      </ContainerDataAccount>
+      <div style={{ padding: '1rem 0 0 0', borderBottom: '1px solid grey' }}>
+        <h2>Customize Your Layout</h2>
       </div>
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between', padding: '2rem 0 0 0' }}>
         <div>
           <p>Cards Layout</p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {dataLayout.map((item, i) => (
-            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, layout: item.color })} />
+            <>
+              <LayoutCircle
+                marked={themeType.layout === item.color}
+                key={i}
+                style={{ background: item.color }}
+                onClick={() => setThemeType({ ...themeType, layout: item.color })}
+              >
+                {themeType.layout === item.color && (
+                  <span>
+                    <FcCheckmark />
+                  </span>
+                )}
+              </LayoutCircle>
+            </>
           ))}
         </div>
       </div>
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between' }}>
-        {/*<SettingsItem text={t('settings.changeLayout')} onClick={handleChangeLayout} />*/}
         <div>
           <p>Buttons</p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {dataButton.map((item, i) => (
-            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, button: item.color })} />
+            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, button: item.color })}>
+              {themeType.button === item.color && (
+                <span>
+                  <FcCheckmark />
+                </span>
+              )}
+            </LayoutCircle>
           ))}
         </div>
       </div>
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between' }}>
-        {/*<SettingsItem text={t('settings.changeLayout')} onClick={handleChangeLayout} />*/}
         <div>
           <p>Navigation</p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {dataButton.map((item, i) => (
-            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, nav: item.color })} />
+            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, nav: item.color })}>
+              {themeType.nav === item.color && (
+                <span>
+                  <FcCheckmark />
+                </span>
+              )}
+            </LayoutCircle>
           ))}
         </div>
       </div>
-      <SettingsItem
-        text={t('settings.resetLayout')}
-        icon={
-          <MdOutlineFormatColorReset
-            fontSize={28}
-            onClick={() =>
-              setThemeType({
-                button: '#222437',
-                layout: '#6201ed',
-                nav: '#6201ed',
-              })
-            }
-          />
-        }
-      />
+      <div style={{ padding: '0 0 2rem 0' }}>
+        <SettingsItem
+          text={t('settings.resetLayout')}
+          icon={
+            <MdOutlineFormatColorReset
+              fontSize={28}
+              onClick={() =>
+                setThemeType({
+                  button: '#222437',
+                  layout: '#6201ed',
+                  nav: '#6201ed',
+                })
+              }
+            />
+          }
+        />
+      </div>
+      <div style={{ padding: '0 0 0 0' }}>
+        <h2>Change Your Data</h2>
+      </div>
       <ContainerFormsChangeData>
         <ContainerChangeData onSubmit={handleChangeEmailAndName}>
           {/*<ContainerDataSettings>*/}

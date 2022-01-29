@@ -59,6 +59,7 @@ export const ContainerForm = styled.form`
   label {
     color: ${({ theme }) => theme.color.black};
   }
+
   // * {
   //   color: ${({ theme }) => theme.color.black};
   // }
@@ -81,6 +82,15 @@ export const ContainerButtonSubmit = styled.div`
     width: 100%;
     color: white;
   }
+`;
+
+export const LegendStyle = styled.legend`
+  padding: 0.7rem 1.5rem;
+  background: ${({ themeType }) => themeType.layout};
+  border-radius: 0.6rem;
+  color: white;
+  font-size: 11px;
+  box-shadow: 2px 2px 3px black;
 `;
 
 const AddCustomer = () => {
@@ -127,14 +137,13 @@ const AddCustomer = () => {
       body: JSON.stringify(inputs),
     });
     const resJSON = await res.json();
-    if (!resJSON.message) {
-      console.log('yey', resJSON.message);
+    if (!resJSON.error) {
       resetForm();
       setSubmitted(true);
       setIsLoading(false);
       openModal();
     } else {
-      console.log('yey2', resJSON.message);
+      return;
     }
   };
 
@@ -146,11 +155,11 @@ const AddCustomer = () => {
     <ContainerForm onSubmit={handleSubmit} themeType={themeType}>
       <ContainerForms>
         <fieldset disabled={isLoading}>
-          <legend>{t('formData.title')}</legend>
+          <LegendStyle themeType={themeType}>{t('formData.title')}</LegendStyle>
           <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
         </fieldset>
         <fieldset disabled={isLoading}>
-          <legend>{t('formVisit.title')}</legend>
+          <LegendStyle themeType={themeType}>{t('formVisit.title')}</LegendStyle>
           <FormVisit
             previewSource={previewSource}
             previewFile={previewFile}

@@ -51,4 +51,7 @@ export const ContainerIcon = styled.span`
   left: 1rem;
   transform: translateY(-50%);
   pointer-events: none;
+  svg {
+    fill: ${({ themeType }) => themeType.layout};
+  }
 `;

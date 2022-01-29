@@ -43,11 +43,3 @@ export const displayTimeInHHMM = (arr) => {
   const minutes = time % 60;
   return `0${hour}:${minutes < 10 ? `0${minutes}` : minutes}`;
 };
-
-export const sumPremiumVisit = (arrPremium) => {
-  if (Array.isArray(arrPremium)) {
-    arrPremium.reduce((a, b) => console.log(a, b));
-  } else {
-    return 0;
-  }
-};

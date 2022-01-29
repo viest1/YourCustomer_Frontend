@@ -7,8 +7,8 @@ export const ContainerNotInput = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  svg:hover{
-    cursor:pointer;
+  svg:hover {
+    cursor: pointer;
     transform: scale(1.3);
   }
 `;

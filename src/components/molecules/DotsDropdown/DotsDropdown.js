@@ -40,7 +40,7 @@ export const DropdownDots = styled.div`
     padding: 0.6rem 1rem;
     transition: all 0.3s ease-in-out;
     color: black;
-    position:relative;
+    position: relative;
   }
   li:hover {
     background: black;
