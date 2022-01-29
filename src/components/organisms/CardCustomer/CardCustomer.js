@@ -1,12 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { averageValue, displayTimeInHHMM } from '../../../helpers/statistics';
-import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
-import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
+import React, { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RoundedImageWithArrows from '../../molecules/RoundedImageWithArrows/RoundedImageWithArrows';
 import { ContainerCard, ContainerDates, ContainerOneRow } from '../CardVisit/CardVisit';
 import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, contactName, dogName, phone, size, visits, _id }, noCustomerDetails }) => {
   const navigate = useNavigate();
@@ -19,6 +17,7 @@ const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, conta
   const handleDetailsCustomer = () => {
     navigate(`/customers/${_id}`);
   };
+  const { themeType } = useContext(ListCustomersTestContext);
   // const arrTexts = [
   //   t('customers.avgTime'),
   //   displayTimeInHHMM(item.visits),
@@ -79,12 +78,12 @@ const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, conta
   ];
 
   return (
-    <ContainerCard>
+    <ContainerCard themeType={themeType}>
       <RoundedImageWithArrows item={visits} />
       <h4>{contactName}</h4>
       <ContainerDates>
         {dataCustomer.map((item, i) => {
-          if (!item.value) return;
+          if (!item.value) return null;
           return (
             <ContainerOneRow key={i}>
               <p>{item.title}</p>

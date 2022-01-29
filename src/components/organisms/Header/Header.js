@@ -3,14 +3,13 @@ import DarkMode from '../../molecules/DarkMode/DarkMode';
 import NavLinkItem from '../../molecules/NavLinkItem/NavLinkItem';
 import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
-import { GrLanguage } from 'react-icons/gr';
+import { BsGlobe } from 'react-icons/bs';
 import FormLabelAndInput from '../../atoms/FormLabelAndInput/FormLabelAndInput';
 import { CSSTransition } from 'react-transition-group';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import { useNavigate } from 'react-router-dom';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
-import Button from '../../atoms/Button/Button';
 import { useAuth } from '../../../hooks/useAuth';
 import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
@@ -25,7 +24,11 @@ export const ContainerHeader = styled.div`
   justify-content: flex-end;
   font-size: ${({ theme }) => theme.fontSize.m};
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
-
+  //position: fixed;
+  //top: 0;
+  //left: 0;
+  //width: 100%;
+  //z-index: 99999;
   * {
     transition: 0.3s;
   }
@@ -39,7 +42,8 @@ export const ContainerHeader = styled.div`
   }
 
   a:hover {
-    background: ${({ theme }) => theme.color.main100};
+    background: ${({ themeType }) => themeType.nav};
+    color: white;
     box-shadow: ${({ theme }) => theme.boxShadow.inside};
   }
 
@@ -48,12 +52,13 @@ export const ContainerHeader = styled.div`
     display: block;
     width: 2px;
     height: 40px;
-    background: green;
+    background: ${({ theme }) => theme.color.main400};
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: -16px;
     border-radius: 2rem;
+    pointer-events: none;
   }
 `;
 
@@ -77,7 +82,7 @@ export const SearchIcon = styled(FaSearch)`
   }
 `;
 
-export const LanguageIcon = styled(GrLanguage)`
+export const LanguageIcon = styled(BsGlobe)`
   font-size: 22px;
   cursor: pointer;
 
@@ -137,12 +142,13 @@ export const ListMenu = styled.div`
     display: block;
     width: 2px;
     height: 30px;
-    background: green;
+    background: ${({ theme }) => theme.color.main400};
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     left: -1rem;
     border-radius: 2rem;
+    pointer-events: none;
   }
 `;
 
@@ -154,6 +160,9 @@ export const ContainerListLanguages = styled.div`
   flex-direction: column;
   display: flex;
   z-index: 1;
+  * {
+    color: black;
+  }
 `;
 
 export const ButtonLanguage = styled.button`
@@ -196,7 +205,7 @@ const Header = ({ setThemeState }) => {
   const [remainingTime, setRemainingTime] = useState();
   const [languageMenuIsOpen, setLanguageMenuIsOpen] = useState(false);
   const searchInput = useRef(null);
-  const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData, t } = useContext(ListCustomersTestContext);
+  const { setSearchingCustomers, isSearching, setIsSearching, userData, setUserData, themeType, t } = useContext(ListCustomersTestContext);
   const { handleLogout } = useAuth();
   const { modalIsOpen, openModal, closeModal } = useModal();
   const size = useWindowSize();
@@ -212,37 +221,11 @@ const Header = ({ setThemeState }) => {
       headers: {
         'Content-type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
-      }});
+      },
+    });
     const resJSON = await res.json();
     setCustomers(resJSON.allCustomers);
   };
-  // useEffect(() => {
-  //   let timeout;
-  //   if (!(userData.exp - Date.now())) {
-  //     setUserData({
-  //       userId: '',
-  //       token: '',
-  //       name: '',
-  //       exp: '',
-  //     });
-  //     localStorage.removeItem('userDataListCustomersTest');
-  //   }
-  //   if (userData.exp) {
-  //     timeout = setTimeout(() => {
-  //       setUserData({
-  //         userId: '',
-  //         token: '',
-  //         name: '',
-  //         exp: '',
-  //       });
-  //       localStorage.removeItem('userDataListCustomersTest');
-  //       navigate('/');
-  //     }, 1000 * 60 * 60);
-  //   } else {
-  //     clearTimeout(timeout);
-  //   }
-  //   return () => clearTimeout(timeout);
-  // }, [userData.exp, setUserData, navigate]);
 
   useEffect(() => {
     if (userData.token) {
@@ -259,17 +242,18 @@ const Header = ({ setThemeState }) => {
   useEffect(() => {
     if (searchText.length > 0) {
       setIsSearching(true);
+      const afterSearching = customers?.filter(
+        (item) =>
+          item.contactName.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.dogOwner?.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.dogName?.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.comments?.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setSearchingCustomers(afterSearching);
     } else {
       setIsSearching(false);
+      setSearchingCustomers([]);
     }
-    const afterSearching = customers?.filter(
-      (item) =>
-        item.contactName.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.dogOwner?.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.dogName?.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.comments?.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setSearchingCustomers(afterSearching);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
@@ -301,6 +285,7 @@ const Header = ({ setThemeState }) => {
   useEffect(() => {
     let interval;
     if (Date.now() > userData.exp) {
+      navigate('/login');
       setUserData({
         userId: '',
         token: '',
@@ -314,7 +299,7 @@ const Header = ({ setThemeState }) => {
           openModal();
         }
         if (Date.now() > userData.exp) {
-          navigate('/');
+          navigate('/login');
           setUserData({
             userId: '',
             token: '',
@@ -355,14 +340,14 @@ const Header = ({ setThemeState }) => {
   };
 
   return (
-    <ContainerHeader>
+    <ContainerHeader themeType={themeType}>
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           {Date.now() < userData.exp ? (
             <div>
               <h2 style={{ textAlign: 'center', color: 'white' }}>{t('modal.areYouThere')}</h2>
               {/*<Button text={t('button.stayLogged')} style={{ color: 'white' }} onClick={handleLogoutTime} />*/}
-              <p style={{color:'white'}}>{t('modal.willLogout')}</p>
+              <p style={{ color: 'white' }}>{t('modal.willLogout')}</p>
               <p style={{ textAlign: 'center', color: 'white' }}>
                 {t('modal.automaticallyLogout')}: {remainingTime}
               </p>
@@ -386,7 +371,7 @@ const Header = ({ setThemeState }) => {
               <NavLinkItem text={t('navigation.visits')} path="/visits" />
               <NavLinkItem text={t('navigation.statistics')} path="/statistics" />
               <NavLinkItem text={t('navigation.settings')} path="/settings" />
-              <NavLinkItem text={t('navigation.logout')} path="/logout" onClick={handleLogout} />
+              <NavLinkItem text={t('navigation.logout')} path="/login" onClick={handleLogout} />
             </>
           )}
           {!userData.token && <NavLinkItem text={t('login.l')} path="/login" />}
@@ -416,7 +401,7 @@ const Header = ({ setThemeState }) => {
                   <NavLinkItem text={t('navigation.visits')} path="/visits" onClick={handleCloseMenuBar} />
                   <NavLinkItem text={t('navigation.statistics')} path="/statistics" onClick={handleCloseMenuBar} />
                   <NavLinkItem text={t('navigation.settings')} path="/settings" onClick={handleCloseMenuBar} />
-                  <NavLinkItem text={t('navigation.logout')} path="/logout" onClick={handleLogout} />
+                  <NavLinkItem text={t('navigation.logout')} path="/login" onClick={handleLogout} />
                 </>
               )}
               {!userData.token && <NavLinkItem text={t('login.l')} path="/login" onClick={handleCloseMenuBar} />}
@@ -434,22 +419,24 @@ const Header = ({ setThemeState }) => {
         />
       </CSSTransition>
       <ContainerIcons>
-        <ContainerListLanguages ref={languageMenuRef}>
-          {languageMenuIsOpen &&
-            languages.map((item, index) => (
-              <ButtonLanguage
-                key={index}
-                onClick={() => {
-                  i18next.changeLanguage(item.code);
-                  setLanguageMenuIsOpen(false);
-                }}
-              >
-                <span className={`fi fi-${item.country_code}`} />
-                <span>{item.name}</span>
-              </ButtonLanguage>
-            ))}
-        </ContainerListLanguages>
-        <LanguageIcon onClick={() => setLanguageMenuIsOpen((prev) => !prev)} />
+        <span ref={languageMenuRef} style={{ display: 'flex', alignItems: 'center' }}>
+          <ContainerListLanguages>
+            {languageMenuIsOpen &&
+              languages.map((item, index) => (
+                <ButtonLanguage
+                  key={index}
+                  onClick={() => {
+                    i18next.changeLanguage(item.code);
+                    setLanguageMenuIsOpen(false);
+                  }}
+                >
+                  <span className={`fi fi-${item.country_code}`} />
+                  <span>{item.name}</span>
+                </ButtonLanguage>
+              ))}
+          </ContainerListLanguages>
+          <LanguageIcon onClick={() => setLanguageMenuIsOpen((prev) => !prev)} />
+        </span>
         <SearchIcon onClick={handleOpenSearchBar} />
         <DarkMode setThemeState={setThemeState} />
       </ContainerIcons>

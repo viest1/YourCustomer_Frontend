@@ -6,40 +6,46 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 
-export const ContainerCustomers = styled.div`
-  //padding: 2rem;
-  //background: ${({ theme }) => theme.color.main100};
-  //min-height: 100vh;
-  display: flex;
-  justify-content: center;
-`;
-
 export const ContainerCardsCustomer = styled.div`
-  padding: 1rem;
+  padding: 0.3rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1rem;
-  max-width: 1300px;
-  margin: 0 auto;
+  max-width: 95%;
+  margin: 1.2rem auto 0 auto;
   border-radius: 1rem;
+  @media (max-width: 535px) {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 400px));
+    justify-content: center;
+  }
 `;
 
 export const ContainerFilters = styled.div`
-  padding: 1rem;
+  padding: 1rem 0.3rem;
+  max-width: 95%;
+  margin: 0 auto;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+
   p {
     color: white;
   }
 `;
 
+export const ContainerWithBackground = styled.div`
+  background: ${({ theme }) => theme.color.white100};
+  box-shadow: 0px 4px 6px ${({ themeType }) => themeType.layout};
+  width: 100%;
+  transition: all 0.6s;
+`;
+
 export const FilterButton = styled.div`
   padding: 0.6rem 1rem;
   background: #00aaff;
+  background: ${({ themeType }) => themeType.button};
   border: none;
   border-radius: 0.5rem;
   display: flex;
@@ -49,6 +55,7 @@ export const FilterButton = styled.div`
   position: relative;
   transition: all 0.3s;
   width: auto;
+  font-size: 12px;
   span:hover {
     cursor: pointer;
   }
@@ -75,7 +82,7 @@ export const ContainerOptionsSort = styled.div`
   left: 0;
   z-index: 50;
   width: ${({ width }) => (width ? width : '205px')};
-  background: #00aaff;
+  background: ${({ themeType }) => themeType.button};
   border-radius: 0.5rem;
   text-align: left;
   ul {
@@ -106,10 +113,9 @@ const Customers = () => {
   const [openSortOptions, setOpenSortOptions] = useState(false);
   const [openNumberResultsOptions, setOpenNumberResultsOptions] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { searchingCustomers, isSearching, userData, t } = useContext(ListCustomersTestContext);
+  const { searchingCustomers, isSearching, userData, t, themeType } = useContext(ListCustomersTestContext);
   const [numberFilterResults, setNumberFilterResults] = useState(10);
-  const {handleLogout} = useAuth()
-  const navigate = useNavigate()
+  const { handleLogout } = useAuth();
   const reducer = (state, action) => {
     let sortedArr = [];
     switch (action.type) {
@@ -172,14 +178,14 @@ const Customers = () => {
       },
     });
     const resJSON = await res.json();
-    if(resJSON.error){
+    if (resJSON.error) {
       // userData.loggedOut = true;
       // userData.token = '';
       // navigate('/')
       handleLogout();
       return;
     }
-    console.log(resJSON)
+    console.log(resJSON);
     setCustomers(resJSON.allCustomers);
     setIsLoading(false);
   };
@@ -195,6 +201,7 @@ const Customers = () => {
 
   useEffect(() => {
     dispatch({ type: state.type });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberFilterResults]);
 
   // const filterData = [
@@ -207,48 +214,50 @@ const Customers = () => {
 
   return (
     <>
-      <ContainerFilters>
-        <FilterButton ref={ref} open={openSortOptions}>
-          <p>Sort By {state.type}</p>
-          <span style={{ display: 'flex', alignItems: 'center' }}>
-            <IoIosArrowDown color={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
-          </span>
-          {openSortOptions && (
-            <ContainerOptionsSort>
-              <ul onClick={() => setOpenSortOptions(false)}>
-                <li onClick={() => dispatch({ type: 'Last Visit' })}>Last Visit</li>
-                <li onClick={() => dispatch({ type: 'Oldest Visit' })}>Oldest Visit</li>
-                <li onClick={() => dispatch({ type: 'Newest Created' })}>Newest Created</li>
-                <li onClick={() => dispatch({ type: 'Oldest Created' })}>Oldest Created</li>
-                <li onClick={() => dispatch({ type: 'A-Z' })}>A-Z</li>
-                <li onClick={() => dispatch({ type: 'Z-A' })}>Z-A</li>
-                <li onClick={() => dispatch({ type: 'Most Visits' })}>Most Visits</li>
-                <li onClick={() => dispatch({ type: 'Less Visits' })}>Less Visits</li>
-                <li onClick={() => dispatch({ type: 'Breed A-Z' })}>Breed A-Z</li>
-                <li onClick={() => dispatch({ type: 'Breed Z-A' })}>Breed Z-A</li>
-              </ul>
-            </ContainerOptionsSort>
-          )}
-        </FilterButton>
-        <FilterButton ref={refResults}>
-          <p>Results {numberFilterResults}</p>
-          <span style={{ display: 'flex', alignItems: 'center' }}>
-            <IoIosArrowDown color={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
-          </span>
-          {openNumberResultsOptions && (
-            <ContainerOptionsSort width={'120px'}>
-              <ul onClick={() => setOpenNumberResultsOptions(false)}>
-                <li onClick={() => setNumberFilterResults(10)}>10</li>
-                <li onClick={() => setNumberFilterResults(20)}>20</li>
-                <li onClick={() => setNumberFilterResults(50)}>50</li>
-                <li onClick={() => setNumberFilterResults(100)}>100</li>
-                <li onClick={() => setNumberFilterResults(200)}>200</li>
-                <li onClick={() => setNumberFilterResults(999999)}>All</li>
-              </ul>
-            </ContainerOptionsSort>
-          )}
-        </FilterButton>
-      </ContainerFilters>
+      <ContainerWithBackground themeType={themeType}>
+        <ContainerFilters>
+          <FilterButton themeType={themeType} ref={ref} open={openSortOptions}>
+            <p>Sort By {state.type}</p>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <IoIosArrowDown color={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
+            </span>
+            {openSortOptions && (
+              <ContainerOptionsSort themeType={themeType}>
+                <ul onClick={() => setOpenSortOptions(false)}>
+                  <li onClick={() => dispatch({ type: 'Last Visit' })}>Last Visit</li>
+                  <li onClick={() => dispatch({ type: 'Oldest Visit' })}>Oldest Visit</li>
+                  <li onClick={() => dispatch({ type: 'Newest Created' })}>Newest Created</li>
+                  <li onClick={() => dispatch({ type: 'Oldest Created' })}>Oldest Created</li>
+                  <li onClick={() => dispatch({ type: 'A-Z' })}>A-Z</li>
+                  <li onClick={() => dispatch({ type: 'Z-A' })}>Z-A</li>
+                  <li onClick={() => dispatch({ type: 'Most Visits' })}>Most Visits</li>
+                  <li onClick={() => dispatch({ type: 'Less Visits' })}>Less Visits</li>
+                  <li onClick={() => dispatch({ type: 'Breed A-Z' })}>Breed A-Z</li>
+                  <li onClick={() => dispatch({ type: 'Breed Z-A' })}>Breed Z-A</li>
+                </ul>
+              </ContainerOptionsSort>
+            )}
+          </FilterButton>
+          <FilterButton ref={refResults} themeType={themeType}>
+            <p>Results {numberFilterResults}</p>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <IoIosArrowDown color={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
+            </span>
+            {openNumberResultsOptions && (
+              <ContainerOptionsSort width={'120px'} themeType={themeType}>
+                <ul onClick={() => setOpenNumberResultsOptions(false)}>
+                  <li onClick={() => setNumberFilterResults(10)}>10</li>
+                  <li onClick={() => setNumberFilterResults(20)}>20</li>
+                  <li onClick={() => setNumberFilterResults(50)}>50</li>
+                  <li onClick={() => setNumberFilterResults(100)}>100</li>
+                  <li onClick={() => setNumberFilterResults(200)}>200</li>
+                  <li onClick={() => setNumberFilterResults(999999)}>All</li>
+                </ul>
+              </ContainerOptionsSort>
+            )}
+          </FilterButton>
+        </ContainerFilters>
+      </ContainerWithBackground>
       {isLoading ? (
         <LoadingSpinner />
       ) : searchingCustomers?.length || isSearching ? (

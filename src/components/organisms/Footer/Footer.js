@@ -10,7 +10,7 @@ const Footer = ({ t }) => {
       {topWaveVar1}
       {/*{topWaveVar}*/}
       <Copyright>
-        <h2>Copyright {new Date().getFullYear()} by PLWebsites</h2>
+        <p>Copyright {new Date().getFullYear()} by PLWebsites</p>
       </Copyright>
       <h2>{t('footer.mainText')}</h2>
       <ContainerSocial>

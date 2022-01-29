@@ -1,16 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import Button from '../../atoms/Button/Button';
-import VisitDetails from '../VisitDetails/VisitDetails';
-import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
-import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
-import RoundedImageWithArrows from '../../molecules/RoundedImageWithArrows/RoundedImageWithArrows';
-import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
-import CardVisit, { ContainerCard, ContainerComment, ContainerDates, ContainerOneRow } from '../CardVisit/CardVisit';
-import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
+import CardVisit from '../CardVisit/CardVisit';
 import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import CardCustomer from '../CardCustomer/CardCustomer';
 
@@ -86,7 +80,6 @@ const CustomerDetails = () => {
   const [isLoadingVisits, setIsLoadingVisits] = useState(false);
   const [openVisits, setOpenVisits] = useState(false);
   const [visitsFetch, setVisitsFetch] = useState([]);
-  // const { dogOwner, address, birthday, breed, contactName, dogName, phone, size, visits } = customerDetails;
   const { id } = useParams();
   const navigate = useNavigate();
   const { userData, t } = useContext(ListCustomersTestContext);
@@ -113,83 +106,23 @@ const CustomerDetails = () => {
     navigate(-1);
   };
 
-
-
   const handleOpenVisits = () => {
     setOpenVisits((prev) => !prev);
     const fetchVisits = async () => {
       setIsLoadingVisits(true);
-      const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id + '/visits',
-        {
-          method: 'GET',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: 'Bearer ' + userData?.token,
-          }});
+      const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id + '/visits', {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + userData?.token,
+        },
+      });
       const resJSON = await res.json();
       setVisitsFetch(resJSON.visits);
       setIsLoadingVisits(false);
     };
     fetchVisits();
   };
-  // const arrTexts = [t('formData.dogOwner'), dogOwner, t('formData.phone'), phone, t('formData.dogName'), dogName];
-  // const arrTexts2 = [t('formData.address'), address, t('formData.birthday'), birthday, t('formData.breed'), breed?.label];
-  // const arrTexts3 = [t('formData.size'), size?.label, t('navigation.visits'), visits?.length, t('lastVisit'), dogName];
-  // const arrValues = [visits, contactName, t('button.edit'), '100%', handleEdit];
-
-  // const handleDetailsVisit = () => {
-  //   navigate(`/visits/${_id}`);
-  // };
-  // const handleDetailsCustomer = () => {
-  //   navigate(`/customers/${customer._id}`);
-  // };
-
-  // const arrTexts = [t('visit.time'), time, t('visit.price'), price?.label, t('visit.visit'), visit];
-  // const arrValues = [photo, customer?.contactName, t('button.details'), '100%', handleDetails];
-
-  const calcSum = (itemVisit) => {
-    const premiumValue = itemVisit.premium.reduce((a, b) => {
-      a += +b.value;
-      return +a;
-    }, 0);
-    const extraPayValue = +itemVisit.extraPay?.value;
-    const priceValue = +itemVisit.price?.value?.split(' ')[0];
-    const sumPrice = premiumValue + extraPayValue + priceValue;
-    return sumPrice;
-  };
-
-
-
-  // const data = [
-  //   {
-  //     title: t('visit.visit'),
-  //     value: visit,
-  //   },
-  //   {
-  //     title: t('visit.price'),
-  //     value: (
-  //       <>
-  //         {price?.label} / <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#6201ed' }}>{sumPrice}</span>
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     title: t('visit.time'),
-  //     value: time,
-  //   },
-  //   {
-  //     title: t('formVisit.premium'),
-  //     value: premium?.map((item) => ' ' + item.label),
-  //   },
-  //   {
-  //     title: t('formVisit.extraPay'),
-  //     value: extraPay?.label,
-  //   },
-  //   {
-  //     title: t('formVisit.behavior'),
-  //     value: behavior?.label,
-  //   },
-  // ];
 
   return (
     <Container>
@@ -201,11 +134,7 @@ const CustomerDetails = () => {
       </ContainerButtons>
       <h2>{t('customers.customerDetails')}</h2>
       <ContainerGridVisits>
-        {!isLoading ? (
-          <CardCustomer customer={customerDetails} t={t} noCustomerDetails />
-        ) : (
-          <LoadingSpinner />
-        )}
+        {!isLoading ? <CardCustomer customer={customerDetails} t={t} noCustomerDetails /> : <LoadingSpinner />}
       </ContainerGridVisits>
       {openVisits && (
         <div>

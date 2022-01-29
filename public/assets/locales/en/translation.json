@@ -110,7 +110,8 @@
     "password": "Password",
     "oldPassword": "Old Password",
     "newPassword": "New Password",
-    "repeatPassword": "Repeat New Password"
+    "repeatPassword": "Repeat New Password",
+    "resetLayout": "Reset Layout"
   },
   "modal": {
     "addVisit":"You added Visit correctly!",
@@ -132,7 +133,14 @@
     "password": "Password",
     "switchSign": "Switch to Sign Up",
     "switchLogin": "Switch to Log In",
-    "name": "Name"
+    "name": "Name",
+    "newHere": "New here?",
+    "signingEasy": "Signing up is easy. It only takes a few steps",
+    "have": "Already have an account?",
+    "notHave": "Don't have an account?",
+    "joinUs": "Join us today! It takes only few steps",
+    "welcomeBack": "Welcome back!",
+    "happy": "Happy to see you again!"
   },
   "service": "Service",
   "small":"Small",

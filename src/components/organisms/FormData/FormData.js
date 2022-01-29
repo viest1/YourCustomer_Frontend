@@ -8,6 +8,9 @@ export const ContainerFormData = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  label {
+    color: ${({ theme }) => theme.color.black};
+  }
 
   * {
     color: black;

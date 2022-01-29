@@ -7,6 +7,10 @@ export const ContainerNotInput = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  svg:hover{
+    cursor:pointer;
+    transform: scale(1.3);
+  }
 `;
 
 export const EditIcon = styled(AiFillEdit)`
@@ -17,7 +21,7 @@ export const EditIcon = styled(AiFillEdit)`
   }
 `;
 
-const SettingsItem = ({ text, data, element, type, onChange, id, onClick }) => {
+const SettingsItem = ({ text, data, element, type, onChange, id, onClick, icon = <EditIcon onClick={onClick} /> }) => {
   return (
     <div>
       {element === 'input' ? (
@@ -26,9 +30,9 @@ const SettingsItem = ({ text, data, element, type, onChange, id, onClick }) => {
         </div>
       ) : (
         <ContainerNotInput>
-          <h2>{text} </h2>
+          <p>{text} </p>
           {data && <p>{data}</p>}
-          <EditIcon onClick={onClick} />
+          {icon}
         </ContainerNotInput>
       )}
     </div>

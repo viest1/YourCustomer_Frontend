@@ -72,17 +72,18 @@ const AddNewVisit = () => {
 
   useEffect(() => {
     const fetchCustomerData = async () => {
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userData.userId}/customer/${id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: 'Bearer ' + userData?.token,
-          }});
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userData.userId}/customer/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + userData?.token,
+        },
+      });
       const resJSON = await res.json();
       setCustomer(resJSON);
     };
     fetchCustomerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, userData.userId]);
 
   return (

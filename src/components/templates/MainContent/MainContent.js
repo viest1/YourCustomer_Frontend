@@ -20,7 +20,7 @@ export const ContainerMainContent = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 2rem 0 2rem;
-  overflow-x: hidden;
+  overflow: hidden;
   //background:white;
   @media only screen and (max-width: 700px) {
     padding: 2rem 0.3rem 2rem 0.3rem;
@@ -58,9 +58,9 @@ export const ContainerHero = styled.div`
   line-height: 1.3;
   max-width: 1360px;
 
-  h2 {
-    color: #222121;
-  }
+  //h2 {
+  //  color: #222121;
+  //}
 
   @media only screen and (max-width: 700px) {
     padding: 0.5rem;
@@ -82,10 +82,13 @@ export const ContainerHero = styled.div`
       gap: 0.5rem;
     }
   }
+  h3 {
+    color: ${({ theme }) => theme.color.black};
+  }
 
   h1 {
     font-weight: bold;
-    color: black;
+    color: ${({ theme }) => theme.color.black};
     font-size: clamp(1.1rem, 0.8rem + 3vw, 3.5rem);
     //@media only screen and (max-width:700px){
     //  font-size:1.5rem;
@@ -95,6 +98,7 @@ export const ContainerHero = styled.div`
   h2 {
     font-size: clamp(1rem, 0.7rem + 3vw, 2.5rem);
     margin: 0;
+    color: ${({ theme }) => theme.color.black};
     //@media only screen and (max-width:700px){
     //  font-size:1rem;
     //}
@@ -133,7 +137,9 @@ export const Background = styled.div`
   justify-content: center;
   flex-direction: column;
   position: relative;
-
+  * {
+    color: white;
+  }
   & > div > h2 {
     text-align: center;
     width: 100%;
@@ -144,7 +150,6 @@ export const Background = styled.div`
 `;
 
 export const FooterContainer = styled.div`
-  background: white;
   position: relative;
   min-height: 500px;
   width: 99.4vw;
@@ -175,7 +180,7 @@ export const Copyright = styled.div`
   justify-content: center;
   z-index: 1;
   h2 {
-    color: black;
+    color: ${({ theme }) => theme.color.black};
     padding: 0;
     margin: 4px;
   }

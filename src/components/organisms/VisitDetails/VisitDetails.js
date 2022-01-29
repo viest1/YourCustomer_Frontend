@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import Button from '../../atoms/Button/Button';
-import UniversalCardImgPlusDetails from '../UniversalCardImgPlusDetails/UniversalCardImgPlusDetails';
-import Container3ElemInCol from '../../molecules/Container3ElemInCol/Container3ElemInCol';
-import { DivToButtonMoreVisits } from '../CustomerDetails/CustomerDetails';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import CardVisit from '../CardVisit/CardVisit';
 
@@ -99,11 +96,7 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
     <Container offCustomContainerStyles>
       {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="90px" />}
       {!offCustomContainerStyles && <h2>{t('visit.visitDetails')}</h2>}
-      {!isLoading ? (
-        <CardVisit visit={visitDetails} t={t} visitDetails />
-      ) : (
-        <LoadingSpinner />
-      )}
+      {!isLoading ? <CardVisit visit={visitDetails} t={t} visitDetails /> : <LoadingSpinner />}
     </Container>
   );
 };

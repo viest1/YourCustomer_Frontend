@@ -36,38 +36,50 @@ const initialValues = {
 
 export const ContainerForm = styled.form`
   width: 100%;
-  max-width: 700px;
-  margin: 2rem auto 2rem auto;
-  border-radius: 1rem;
-  padding: 2rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  background: ${({ theme }) => theme.color.white100};
+  overflow-x: hidden;
+  transition: all 0.4s;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   gap: 1rem;
-  transition: 0.4s;
-  @media all and (max-width: 500px) {
-    padding: 1rem;
-  }
-  @media all and (min-width: 1300px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    justify-content: center;
-    padding: 4rem;
-    fieldset {
-      width: 48%;
-    }
-
-    button {
-      width: 1050px;
-    }
-  }
-  position: relative;
-
+  padding: 2rem 0.2rem;
   fieldset {
-    padding: 1.5rem;
-    border-radius: 1rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    //box-shadow: 4px 4px 2px ${({ theme }) => theme.color.main100};
+    box-shadow: 4px 4px 6px ${({ themeType }) => themeType.layout};
+  }
+  button {
+    margin: 2rem auto 1rem auto;
+    width: 100%;
+    color: white;
+  }
+  label {
+    color: ${({ theme }) => theme.color.black};
+  }
+  // * {
+  //   color: ${({ theme }) => theme.color.black};
+  // }
+`;
+
+export const ContainerForms = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 600px));
+  justify-content: center;
+  gap: 1rem;
+`;
+
+export const ContainerButtonSubmit = styled.div`
+  display: flex;
+  //justify-content: center;
+  //margin: 1rem auto;
+  margin: 1rem auto;
+  width: 100%;
+  button {
+    width: 100%;
+    color: white;
   }
 `;
 
@@ -79,7 +91,7 @@ const AddCustomer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState();
   const { modalIsOpen, openModal, closeModal } = useModal();
-  const { userData, t } = useContext(ListCustomersTestContext);
+  const { userData, t, themeType } = useContext(ListCustomersTestContext);
 
   const previewFile = () => {
     const reader = new FileReader();
@@ -131,32 +143,34 @@ const AddCustomer = () => {
   }, [inputs]);
 
   return (
-    <ContainerForm onSubmit={handleSubmit}>
-      <fieldset disabled={isLoading}>
-        <legend>{t('formData.title')}</legend>
-        <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
-      </fieldset>
-      <fieldset disabled={isLoading}>
-        <legend>{t('formVisit.title')}</legend>
-        <FormVisit
-          previewSource={previewSource}
-          previewFile={previewFile}
-          inputs={inputs}
-          handleChange={handleChange}
-          handleSelect={handleSelect}
-          image={image}
-          setImage={setImage}
-          submitted={submitted}
-          setSubmitted={setSubmitted}
-          setPreviewSource={setPreviewSource}
-        />
-        {isLoading && (
-          <ContainerLoadingSpinner>
-            <LoadingSpinner asOverlay />
-          </ContainerLoadingSpinner>
-        )}
-      </fieldset>
-      <Button type="submit" text={t('button.addNewCustomer')} />
+    <ContainerForm onSubmit={handleSubmit} themeType={themeType}>
+      <ContainerForms>
+        <fieldset disabled={isLoading}>
+          <legend>{t('formData.title')}</legend>
+          <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
+        </fieldset>
+        <fieldset disabled={isLoading}>
+          <legend>{t('formVisit.title')}</legend>
+          <FormVisit
+            previewSource={previewSource}
+            previewFile={previewFile}
+            inputs={inputs}
+            handleChange={handleChange}
+            handleSelect={handleSelect}
+            image={image}
+            setImage={setImage}
+            submitted={submitted}
+            setSubmitted={setSubmitted}
+            setPreviewSource={setPreviewSource}
+          />
+          <Button type="submit" text={t('button.addNewCustomer')} />
+          {isLoading && (
+            <ContainerLoadingSpinner>
+              <LoadingSpinner asOverlay />
+            </ContainerLoadingSpinner>
+          )}
+        </fieldset>
+      </ContainerForms>
       {validationError && <p>{validationError}</p>}
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>

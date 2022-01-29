@@ -8,13 +8,14 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.color.grey};
     scroll-behavior: smooth;
     background:#fafafa;
+    background: ${({ theme }) => theme.color.white100};
   }
 
   *,
   *:before,
   *:after {
     box-sizing: inherit;
-    color: ${({ theme }) => theme.color.grey};
+    color: ${({ theme }) => theme.color.black};
   }
 
   #root {
@@ -57,9 +58,18 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .navLink-active {
-    color: ${({ theme }) => theme.color.main300};
+    color: white;
     background-color: ${({ theme }) => theme.color.main100};
     box-shadow: ${({ theme }) => theme.boxShadow.inside};
+  }
+  .navLink-active-bg2{
+    background-color: ${({ theme }) => theme.color.main200};
+  }
+  .navLink-active-bg3{
+    background-color: ${({ theme }) => theme.color.main300};
+  }
+  .navLink-active-bg4{
+    background-color: ${({ theme }) => theme.color.main400};
   }
 
   .search-input-enter, .navLink-transition-enter {

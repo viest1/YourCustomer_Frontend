@@ -4,10 +4,11 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import SettingsItem from '../../organisms/SettingsItem/SettingsItem';
 import Button from '../../atoms/Button/Button';
 import useForm from '../../../hooks/useForm';
+import { MdOutlineFormatColorReset } from 'react-icons/md';
 
 export const Container = styled.div`
   padding: 2rem;
-  max-width: 1360px;
+  max-width: 860px;
   margin: 2rem auto 2rem auto;
   //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
@@ -18,14 +19,14 @@ export const Container = styled.div`
 
 export const ContainerFormsChangeData = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 `;
 
 export const ContainerChangeData = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 `;
 
 // export const ContainerDataSettings = styled.div`
@@ -34,10 +35,25 @@ export const ContainerChangeData = styled.form`
 //   flex-direction: column;
 // `;
 
+export const LayoutCircle = styled.div`
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid black;
+  transition: transform 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+`;
+
+const handleLayoutTheme = () => {};
+
 const Settings = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [errorMessagePassword, setErrorMessagePassword] = useState();
-  const { userData, setUserData, setThemeType, t } = useContext(ListCustomersTestContext);
+  const { userData, setUserData, themeType, setThemeType, t } = useContext(ListCustomersTestContext);
   const { inputs, handleChange } = useForm({
     name: userData.name,
     email: userData.email,
@@ -85,14 +101,107 @@ const Settings = () => {
       setErrorMessagePassword(resJSON.message);
     }
   };
-  const handleChangeLayout = () => {
-    setThemeType((prev) => !prev);
-  };
+  const dataLayout = [
+    {
+      color: '#6201ed',
+    },
+    {
+      color: '#29c0b1',
+    },
+    {
+      color: '#222437',
+    },
+    {
+      color: '#2c50ed',
+    },
+    {
+      color: 'white',
+    },
+  ];
+  const dataButton = [
+    {
+      color: '#6201ed',
+    },
+    {
+      color: '#29c0b1',
+    },
+    {
+      color: '#222437',
+    },
+    {
+      color: '#2c50ed',
+    },
+  ];
   return (
     <Container>
-      <div>
-        <SettingsItem text={t('settings.changeLayout')} onClick={handleChangeLayout} />
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <div
+          style={{
+            padding: '1rem',
+            borderRadius: '50%',
+            background: 'blue',
+            width: '90px',
+            height: '90px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <h2>{userData.name.split(' ')[0].split('')[0] + userData.name?.split(' ')[1] ? userData.name?.split(' ')[1]?.split('')[0] : 'null'}</h2>
+        </div>
+        <div>
+          <h4>{userData.name}</h4>
+          <p>{userData.email}</p>
+        </div>
+        <div></div>
       </div>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between' }}>
+        <div>
+          <p>Cards Layout</p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {dataLayout.map((item, i) => (
+            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, layout: item.color })} />
+          ))}
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between' }}>
+        {/*<SettingsItem text={t('settings.changeLayout')} onClick={handleChangeLayout} />*/}
+        <div>
+          <p>Buttons</p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {dataButton.map((item, i) => (
+            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, button: item.color })} />
+          ))}
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '280px', justifyContent: 'space-between' }}>
+        {/*<SettingsItem text={t('settings.changeLayout')} onClick={handleChangeLayout} />*/}
+        <div>
+          <p>Navigation</p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {dataButton.map((item, i) => (
+            <LayoutCircle key={i} style={{ background: item.color }} onClick={() => setThemeType({ ...themeType, nav: item.color })} />
+          ))}
+        </div>
+      </div>
+      <SettingsItem
+        text={t('settings.resetLayout')}
+        icon={
+          <MdOutlineFormatColorReset
+            fontSize={28}
+            onClick={() =>
+              setThemeType({
+                button: '#222437',
+                layout: '#6201ed',
+                nav: '#6201ed',
+              })
+            }
+          />
+        }
+      />
       <ContainerFormsChangeData>
         <ContainerChangeData onSubmit={handleChangeEmailAndName}>
           {/*<ContainerDataSettings>*/}

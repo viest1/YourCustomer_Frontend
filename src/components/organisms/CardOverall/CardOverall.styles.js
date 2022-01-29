@@ -45,7 +45,7 @@ export const Grid1 = styled.div`
     gap: 0.6rem;
   }
   > div {
-    box-shadow: 5px 5px 18px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 5px 5px 12px 0px rgba(0, 0, 0, 0.15);
   }
   h3 {
     font-size: 14px;
@@ -68,14 +68,16 @@ export const Grid2 = styled.div`
     padding: 1rem;
     //background: #222437;
     //background: #6201ed;
-    background: white;
+    background: ${({ theme }) => theme.color.main300};
+    background: ${({ theme }) => theme.color.white100};
     border-radius: 1rem;
   }
   > div {
-    box-shadow: 5px 5px 18px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: ${({ theme }) => theme.color.lighterBackground ? `1px 1px 12px 0px rgba(255, 255, 255, 0.05)` : `1px 1px 12px 0px rgba(0, 0, 0, 0.15)`};
   }
   * {
-    color: black;
+    color: ${({ theme }) => theme.color.black};
+    //color:white;
   }
   div > p:first-child {
     font-weight: bold;

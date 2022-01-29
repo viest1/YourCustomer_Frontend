@@ -20,6 +20,7 @@ export const ContainerStatistics = styled.div`
     padding: 0.7rem;
     border: 1px solid hsl(0, 0%, 80%);
     margin-bottom: 0.5rem;
+    color: black;
 
     &:focus {
       outline: 2px solid #2684ff;
@@ -40,21 +41,22 @@ const Statistics = () => {
   }`;
   const fetchCustomers = async () => {
     setIsLoading(true);
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers',
-      {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: 'Bearer ' + userData?.token,
-        }});
-    const resJSON = await res.json();
-    setCustomers(resJSON.allCustomers);
-    const resVisits = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits',{
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
-      }});
+      },
+    });
+    const resJSON = await res.json();
+    setCustomers(resJSON.allCustomers);
+    const resVisits = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      },
+    });
     const resJSONVisits = await resVisits.json();
     setVisits(resJSONVisits.allVisits);
     setIsLoading(false);

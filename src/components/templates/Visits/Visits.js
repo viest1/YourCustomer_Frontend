@@ -5,36 +5,38 @@ import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import { IoIosArrowDown } from 'react-icons/io';
-import { ContainerFilters, ContainerOptionsSort, FilterButton } from '../Customers/Customers';
+import { ContainerFilters, ContainerOptionsSort, ContainerWithBackground, FilterButton } from '../Customers/Customers';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
-import { FcCheckmark, FcClearFilters } from 'react-icons/fc';
-import { CgCloseR } from 'react-icons/cg';
-import { RiCloseFill } from 'react-icons/ri';
-import { GrHomeOption } from 'react-icons/gr';
+import { FcCheckmark } from 'react-icons/fc';
 
 export const ContainerVisits = styled.div`
-  padding: 1rem;
+  padding: 0.3rem;
+  margin: 1.2rem auto 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1rem;
-  max-width: 1400px;
-  margin: 0 auto;
   border-radius: 1rem;
+  max-width: 95%;
+  @media (max-width: 535px) {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 400px));
+    justify-content: center;
+  }
 `;
 
 const Visits = () => {
   const [visits, setVisits] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [withPhoto, setWithPhoto] = useState(false);
-  const { userData, t } = useContext(ListCustomersTestContext);
+  const { userData, t, themeType } = useContext(ListCustomersTestContext);
   const fetchVisits = async () => {
     setIsLoading(true);
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits',{
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
-      }});
+      },
+    });
     const resJSON = await res.json();
     setVisits(resJSON.allVisits);
     setIsLoading(false);
@@ -113,62 +115,66 @@ const Visits = () => {
   useOnClickOutside(refResults, () => setOpenNumberResultsOptions(false));
   useEffect(() => {
     dispatch({ type: state.type });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberFilterResults]);
   useEffect(() => {
     dispatch({ type: state.type });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [withPhoto]);
 
   return (
     <>
-      <ContainerFilters>
-        <FilterButton ref={ref} open={openSortOptions}>
-          <p>Sort By {state.type}</p>
-          <span style={{ display: 'flex', alignItems: 'center' }}>
-            <IoIosArrowDown color={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
-          </span>
-          {openSortOptions && (
-            <ContainerOptionsSort>
-              <ul onClick={() => setOpenSortOptions(false)}>
-                <li onClick={() => dispatch({ type: 'Newest Created' })}>Newest Created</li>
-                <li onClick={() => dispatch({ type: 'Oldest Created' })}>Oldest Created</li>
-                <li onClick={() => dispatch({ type: 'Last Visit' })}>Last Visit</li>
-                <li onClick={() => dispatch({ type: 'Oldest Visit' })}>Oldest Visit</li>
-                <li onClick={() => dispatch({ type: 'Most Expensive' })}>Most Expensive</li>
-                <li onClick={() => dispatch({ type: 'Cheapest' })}>Cheapest</li>
-                <li onClick={() => dispatch({ type: 'Best Behavior' })}>Best Behavior</li>
-                <li onClick={() => dispatch({ type: 'Worst Behavior' })}>Worst Behavior</li>
-              </ul>
-            </ContainerOptionsSort>
-          )}
-        </FilterButton>
-        <FilterButton ref={refResults}>
-          <p>Results {numberFilterResults}</p>
-          <span style={{ display: 'flex', alignItems: 'center' }}>
-            <IoIosArrowDown color={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
-          </span>
-          {openNumberResultsOptions && (
-            <ContainerOptionsSort width={'120px'}>
-              <ul onClick={() => setOpenNumberResultsOptions(false)}>
-                <li onClick={() => setNumberFilterResults(10)}>10</li>
-                <li onClick={() => setNumberFilterResults(20)}>20</li>
-                <li onClick={() => setNumberFilterResults(50)}>50</li>
-                <li onClick={() => setNumberFilterResults(100)}>100</li>
-                <li onClick={() => setNumberFilterResults(200)}>200</li>
-                <li onClick={() => setNumberFilterResults(999999)}>All</li>
-              </ul>
-            </ContainerOptionsSort>
-          )}
-        </FilterButton>
-        <FilterButton>
-          <p>With Photo</p>
-          <span
-            style={{ display: 'flex', alignItems: 'center', border: '2px solid white', background: 'white', borderRadius: '0.2rem' }}
-            onClick={() => setWithPhoto((prev) => !prev)}
-          >
-            {withPhoto ? <FcCheckmark width={18} fontSize={18} /> : <span style={{ height: '18px', width: '18px' }} />}
-          </span>
-        </FilterButton>
-      </ContainerFilters>
+      <ContainerWithBackground themeType={themeType}>
+        <ContainerFilters>
+          <FilterButton ref={ref} open={openSortOptions} themeType={themeType}>
+            <p>Sort By {state.type}</p>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <IoIosArrowDown color={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
+            </span>
+            {openSortOptions && (
+              <ContainerOptionsSort themeType={themeType}>
+                <ul onClick={() => setOpenSortOptions(false)}>
+                  <li onClick={() => dispatch({ type: 'Newest Created' })}>Newest Created</li>
+                  <li onClick={() => dispatch({ type: 'Oldest Created' })}>Oldest Created</li>
+                  <li onClick={() => dispatch({ type: 'Last Visit' })}>Last Visit</li>
+                  <li onClick={() => dispatch({ type: 'Oldest Visit' })}>Oldest Visit</li>
+                  <li onClick={() => dispatch({ type: 'Most Expensive' })}>Most Expensive</li>
+                  <li onClick={() => dispatch({ type: 'Cheapest' })}>Cheapest</li>
+                  <li onClick={() => dispatch({ type: 'Best Behavior' })}>Best Behavior</li>
+                  <li onClick={() => dispatch({ type: 'Worst Behavior' })}>Worst Behavior</li>
+                </ul>
+              </ContainerOptionsSort>
+            )}
+          </FilterButton>
+          <FilterButton ref={refResults} themeType={themeType}>
+            <p>Results {numberFilterResults}</p>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <IoIosArrowDown color={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
+            </span>
+            {openNumberResultsOptions && (
+              <ContainerOptionsSort width={'120px'} themeType={themeType}>
+                <ul onClick={() => setOpenNumberResultsOptions(false)}>
+                  <li onClick={() => setNumberFilterResults(10)}>10</li>
+                  <li onClick={() => setNumberFilterResults(20)}>20</li>
+                  <li onClick={() => setNumberFilterResults(50)}>50</li>
+                  <li onClick={() => setNumberFilterResults(100)}>100</li>
+                  <li onClick={() => setNumberFilterResults(200)}>200</li>
+                  <li onClick={() => setNumberFilterResults(999999)}>All</li>
+                </ul>
+              </ContainerOptionsSort>
+            )}
+          </FilterButton>
+          <FilterButton themeType={themeType}>
+            <p>With Photo</p>
+            <span
+              style={{ display: 'flex', alignItems: 'center', border: '2px solid white', background: 'white', borderRadius: '0.2rem' }}
+              onClick={() => setWithPhoto((prev) => !prev)}
+            >
+              {withPhoto ? <FcCheckmark width={12} fontSize={12} /> : <span style={{ height: '12px', width: '12px' }} />}
+            </span>
+          </FilterButton>
+        </ContainerFilters>
+      </ContainerWithBackground>
       {isLoading ? (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
           <LoadingSpinner />

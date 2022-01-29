@@ -1,7 +1,7 @@
 import React from 'react';
 import { shopProducts } from '../../../data/shop';
 import { averageTimeInMinutes, averageValue, displayTimeInHHMM, sum, sumValue } from '../../../helpers/statistics';
-import { Pie, Line, Bar, Doughnut } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
 import { Grid1, Grid2, ContainerBar, ContainerDoughnut } from './CardOverall.styles';
 import { FaDog } from 'react-icons/fa';

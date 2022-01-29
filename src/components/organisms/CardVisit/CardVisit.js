@@ -1,32 +1,41 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RoundedImageWithArrows from '../../molecules/RoundedImageWithArrows/RoundedImageWithArrows';
 import styled from 'styled-components';
-import { BsThreeDots } from 'react-icons/bs';
 // import Button from '../../atoms/Button/Button';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
+import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 export const ContainerCard = styled.div`
   padding: 1rem;
-  background: #6201ed;
+  //background: #6201ed;
   //background: #29c0b1;
   //background: #222437;
-  background: #2c50ed;
-  background: white;
+  //background: #2c50ed;
+  //background: white;
+  background: ${({ themeType }) => themeType.layout};
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   text-align: center;
   position: relative;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
-  *{color:BLACK;}
   > div:first-child {
     margin: 0 auto;
   }
   p {
     font-size: 12px;
     margin: 4px;
+    color: ${({ themeType }) => (themeType.layout === 'white' ? 'black' : 'white')};
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span {
+    color: ${({ themeType }) => (themeType.layout === 'white' ? 'black' : 'white')};
   }
 `;
 
@@ -43,8 +52,8 @@ export const ContainerOneRow = styled.div`
   p:last-child {
     font-weight: bold;
   }
-  p > span{
-    color: #6201ed;
+  p > span {
+    color: ${({ theme }) => theme.color.main200};
   }
 `;
 
@@ -81,6 +90,7 @@ const CardVisit = ({
     navigate(`/customers/${customer._id}/addVisit`);
   };
   const [isDropdownOpen, setIsDropdownOpen] = useState();
+  const { themeType } = useContext(ListCustomersTestContext);
   const ref = useRef();
   useOnClickOutside(ref, () => setIsDropdownOpen(false));
   // const arrTexts = [t('visit.time'), time, t('visit.price'), price?.label, t('visit.visit'), visit];
@@ -109,7 +119,7 @@ const CardVisit = ({
         title: t('visit.price'),
         value: (
           <>
-            {price?.label} / <span style={{ fontSize: '12px', fontWeight: 'bold' }}>{sumPrice}</span>
+            {price?.label} / <span>{sumPrice}</span>
           </>
         ),
       },
@@ -141,7 +151,7 @@ const CardVisit = ({
         title: t('visit.price'),
         value: (
           <>
-            {price?.label} / <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#6201ed' }}>{sumPrice}</span>
+            {price?.label} / <span>{sumPrice}</span>
           </>
         ),
       },
@@ -197,7 +207,7 @@ const CardVisit = ({
   }
 
   return (
-    <ContainerCard>
+    <ContainerCard themeType={themeType}>
       <RoundedImageWithArrows item={visit} photo={photo || ''} />
       <h4>{customer?.contactName || customerName}</h4>
       <ContainerDates>

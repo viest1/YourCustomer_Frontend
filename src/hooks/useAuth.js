@@ -77,8 +77,8 @@ export const useAuth = (inputs) => {
       exp: '',
       loggedOut: true,
     });
-    // localStorage.removeItem('userDataListCustomersTest');
-    navigate('/');
+    localStorage.removeItem('userDataListCustomersTest');
+    navigate('/login');
   };
 
   useEffect(() => {
