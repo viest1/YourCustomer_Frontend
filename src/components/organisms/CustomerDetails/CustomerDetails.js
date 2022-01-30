@@ -78,7 +78,7 @@ const CustomerDetails = () => {
   const [customerDetails, setCustomerDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingVisits, setIsLoadingVisits] = useState(false);
-  const [openVisits, setOpenVisits] = useState(false);
+  const [openVisits, setOpenVisits] = useState(true);
   const [visitsFetch, setVisitsFetch] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -96,9 +96,23 @@ const CustomerDetails = () => {
     setCustomerDetails(resJSON);
     setIsLoading(false);
   };
+  const fetchVisits = async () => {
+    setIsLoadingVisits(true);
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id + '/visits', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      },
+    });
+    const resJSON = await res.json();
+    setVisitsFetch(resJSON.visits);
+    setIsLoadingVisits(false);
+  };
 
   useEffect(() => {
     fetchCustomer();
+    fetchVisits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -108,19 +122,6 @@ const CustomerDetails = () => {
 
   const handleOpenVisits = () => {
     setOpenVisits((prev) => !prev);
-    const fetchVisits = async () => {
-      setIsLoadingVisits(true);
-      const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id + '/visits', {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: 'Bearer ' + userData?.token,
-        },
-      });
-      const resJSON = await res.json();
-      setVisitsFetch(resJSON.visits);
-      setIsLoadingVisits(false);
-    };
     fetchVisits();
   };
 

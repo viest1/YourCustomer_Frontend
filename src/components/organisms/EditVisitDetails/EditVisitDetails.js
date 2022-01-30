@@ -9,6 +9,7 @@ import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { LegendStyle } from '../../templates/AddCustomer/AddCustomer';
 
 export const ContainerEditVisit = styled.div`
   padding: 2rem;
@@ -19,11 +20,33 @@ export const ContainerEditVisit = styled.div`
   gap: 1rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+  @media(max-width:600px){
+    padding:0.4rem;
+  }
 
-  form {
+  fieldset {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    box-shadow: 4px 4px 6px ${({ themeType }) => themeType.layout};
+    position: relative;
+    h3 {
+      padding: 0.7rem 1.5rem;
+      background: ${({ themeType }) => themeType.layout};
+      border-radius: 0.6rem;
+      color: white;
+      font-size: 11px;
+      box-shadow: 2px 2px 3px black;
+      position: absolute;
+      top: -47px;
+      right: 16px;
+      @media(max-width:400px){
+        max-width:150px;
+      }
+    }
   }
 
   & > div {
@@ -41,7 +64,7 @@ const EditVisitDetails = () => {
   const [isLoading, setIsLoading] = useState();
   const { modalIsOpen, closeModal } = useModal();
   const { id } = useParams();
-  const { userData, t } = useContext(ListCustomersTestContext);
+  const { userData, t, themeType } = useContext(ListCustomersTestContext);
   const { inputs, resetForm, handleChange, handleSelect } = useForm(visit);
   const previewFile = () => {
     const reader = new FileReader();
@@ -95,28 +118,31 @@ const EditVisitDetails = () => {
   };
 
   return (
-    <ContainerEditVisit>
+    <ContainerEditVisit themeType={themeType}>
       <div>
         <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
         <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
-        <h3>{visit?.customer?.contactName}</h3>
       </div>
       {visit ? (
         <form onSubmit={handleSubmit}>
-          <FormVisit
-            inputs={inputs}
-            handleChange={handleChange}
-            handleSelect={handleSelect}
-            previewSource={previewSource}
-            previewFile={previewFile}
-            image={image}
-            setImage={setImage}
-            setPreviewSource={setPreviewSource}
-            submitted={submitted}
-            setSubmitted={setSubmitted}
-            editMode
-          />
-          <Button type="submit" text={t('button.editVisit')} />
+          <fieldset>
+            <h3>{visit?.customer?.contactName}</h3>
+            <LegendStyle themeType={themeType}>{t('button.editVisit')}</LegendStyle>
+            <FormVisit
+              inputs={inputs}
+              handleChange={handleChange}
+              handleSelect={handleSelect}
+              previewSource={previewSource}
+              previewFile={previewFile}
+              image={image}
+              setImage={setImage}
+              setPreviewSource={setPreviewSource}
+              submitted={submitted}
+              setSubmitted={setSubmitted}
+              editMode
+            />
+            <Button type="submit" text={t('button.editVisit')} width={'100%'} />
+          </fieldset>
         </form>
       ) : (
         <ContainerLoadingSpinner>

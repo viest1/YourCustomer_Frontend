@@ -187,6 +187,7 @@ const Customers = () => {
       return;
     }
     setCustomers(resJSON.allCustomers);
+    dispatch({ type: 'Newest Created' });
     setIsLoading(false);
   };
   const ref = useRef();
@@ -262,11 +263,7 @@ const Customers = () => {
         </ContainerCardsCustomer>
       ) : (
         <ContainerCardsCustomer>
-          {!filteringCustomers?.length
-            ? sortByTimestamp(customers)
-                .slice(0, 10)
-                .map((item) => <CardCustomer t={t} customer={item} key={item._id} />)
-            : filteringCustomers?.map((item) => <CardCustomer t={t} customer={item} key={item._id} />)}
+          {filteringCustomers ? filteringCustomers?.map((item) => <CardCustomer t={t} customer={item} key={item._id} />) : 'Something Wrong'}
         </ContainerCardsCustomer>
       )}
     </>

@@ -9,6 +9,7 @@ import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { LegendStyle } from '../../templates/AddCustomer/AddCustomer';
 
 const AddNewVisit = () => {
   const [image, setImage] = useState();
@@ -36,7 +37,7 @@ const AddNewVisit = () => {
     time: '01:45',
     hour: '14:45',
   });
-  const { userData, t } = useContext(ListCustomersTestContext);
+  const { userData, t, themeType } = useContext(ListCustomersTestContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,27 +88,30 @@ const AddNewVisit = () => {
   }, [id, userData.userId]);
 
   return (
-    <ContainerEditVisit>
+    <ContainerEditVisit themeType={themeType}>
       <div>
         <Button text="Back" onClick={() => navigate(-1)} width="90px" />
         <Button text="Clear Form" onClick={() => clearForm()} width="90px" />
-        <h3>{customer[0]?.contactName}</h3>
       </div>
       <form onSubmit={handleSubmit}>
-        <FormVisit
-          inputs={inputs}
-          handleChange={handleChange}
-          handleSelect={handleSelect}
-          previewSource={previewSource}
-          previewFile={previewFile}
-          image={image}
-          setImage={setImage}
-          setPreviewSource={setPreviewSource}
-          submitted={submitted}
-          setSubmitted={setSubmitted}
-        />
-        <Button type="submit" text="Add New Visit" />
-        {validationError && <p>{validationError}</p>}
+        <fieldset>
+          <h3>{customer[0]?.contactName}</h3>
+          <LegendStyle themeType={themeType}>{t('button.editVisit')}</LegendStyle>
+          <FormVisit
+            inputs={inputs}
+            handleChange={handleChange}
+            handleSelect={handleSelect}
+            previewSource={previewSource}
+            previewFile={previewFile}
+            image={image}
+            setImage={setImage}
+            setPreviewSource={setPreviewSource}
+            submitted={submitted}
+            setSubmitted={setSubmitted}
+          />
+          <Button type="submit" text="Add New Visit" width={'100%'} />
+          {validationError && <p>{validationError}</p>}
+        </fieldset>
       </form>
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>

@@ -33,7 +33,7 @@ export const ContainerInputFile = styled.div`
     border-radius: 15px;
     font-size: 1em;
     font-weight: bold;
-    margin: 1.25em auto; /*20px/16px 0*/
+    margin: 1.25em 0; /*20px/16px 0*/
     padding: 0.875em; /*14px/16px*/
     position: relative;
     text-align: center;
@@ -45,7 +45,6 @@ export const ContainerInputFile = styled.div`
   &:focus {
     background: ${({ themeType }) => themeType.button};
   }
-
   input {
     position: absolute;
     top: 0;
@@ -71,12 +70,13 @@ export const ContainerInputFile = styled.div`
 export const ImgStyled = styled.div`
   display: block;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   position: absolute;
   z-index: 2;
-  top: -22px;
-  left: -120px;
+  top: 65%;
+  transform: translateY(-50%);
+  left: 180px;
 
   img {
     width: 100%;
@@ -320,12 +320,17 @@ const FormVisit = ({
           <MdAddAPhoto fill={'white'} />
           {t('formVisit.fileUpload')}
         </span>
-        {previewSource ||
-          (inputs.photo && (
+        {previewSource ? (
+          <ImgStyled>
+            <img src={previewSource} alt="dog" />
+          </ImgStyled>
+        ) : (
+          inputs.photo && (
             <ImgStyled>
-              <img src={previewSource || inputs.photo} alt="dog" />
+              <img src={inputs.photo} alt="dog" />
             </ImgStyled>
-          ))}
+          )
+        )}
       </ContainerInputFile>
       <FormLabelAndInput
         icon={<MdEuroSymbol />}

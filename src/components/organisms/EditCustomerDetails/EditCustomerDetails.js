@@ -9,6 +9,7 @@ import Modal from '../Modal/Modal';
 import useModal from '../Modal/useModal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { LegendStyle } from '../../templates/AddCustomer/AddCustomer';
 
 export const ContainerEditCustomer = styled.div`
   padding: 2rem;
@@ -20,10 +21,14 @@ export const ContainerEditCustomer = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
 
-  form {
+  fieldset {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    box-shadow: 4px 4px 6px ${({ themeType }) => themeType.layout};
   }
 
   & > div {
@@ -39,7 +44,7 @@ const EditCustomerDetails = () => {
   const { inputs, resetForm, handleChange, handleSelect } = useForm(customer);
   const { modalIsOpen, openModal, closeModal } = useModal();
   const [error, setError] = useState(null);
-  const { userData, t } = useContext(ListCustomersTestContext);
+  const { userData, t, themeType } = useContext(ListCustomersTestContext);
   const fetchCustomer = async () => {
     inputs.userId = userData.userId;
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/customers/' + id, {
@@ -80,15 +85,18 @@ const EditCustomerDetails = () => {
   };
 
   return (
-    <ContainerEditCustomer>
+    <ContainerEditCustomer themeType={themeType}>
       <div>
         <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
         <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
       </div>
       {customer ? (
         <form onSubmit={handleSubmit}>
-          <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
-          <Button type="submit" text={t('button.editCustomer')} />
+          <fieldset>
+            <LegendStyle themeType={themeType}>{t('button.editCustomer')}</LegendStyle>
+            <FormData inputs={inputs} handleChange={handleChange} handleSelect={handleSelect} />
+            <Button type="submit" text={t('button.editCustomer')} width={'100%'} />
+          </fieldset>
         </form>
       ) : (
         <ContainerLoadingSpinner>

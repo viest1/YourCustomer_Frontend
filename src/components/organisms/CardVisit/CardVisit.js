@@ -2,10 +2,10 @@ import React, { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RoundedImageWithArrows from '../../molecules/RoundedImageWithArrows/RoundedImageWithArrows';
 import styled from 'styled-components';
-// import Button from '../../atoms/Button/Button';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import { MdOutlineEditNote } from 'react-icons/md';
 
 export const ContainerCard = styled.div`
   padding: 1rem;
@@ -20,7 +20,6 @@ export const ContainerCard = styled.div`
   flex-direction: column;
   text-align: center;
   position: relative;
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
   box-shadow: 2px 2px 3px black;
   //max-width:500px;
   > div:first-child {
@@ -39,6 +38,9 @@ export const ContainerCard = styled.div`
   span {
     color: ${({ themeType }) => (themeType.layout === 'white' ? 'black' : 'white')};
   }
+  //h4:hover {
+  //  cursor: pointer;
+  //}
 `;
 
 export const ContainerDates = styled.div`
@@ -74,6 +76,15 @@ export const ContainerComment = styled.div`
   font-weight: 700;
 `;
 
+export const ContainerIcons = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  *{
+    color: ${({ themeType }) => (themeType.layout === 'white' ? 'black' : 'white')};
+  }
+`;
+
 const CardVisit = ({
   visit: { time, customer, _id, photo, price, extraPay, premium, behavior, visit, comments, hour, service, shop, tip },
   t,
@@ -89,10 +100,10 @@ const CardVisit = ({
     navigate(`/visits/${_id}/edit`);
   };
   const handleDetailsCustomer = () => {
-    navigate(`/customers/${customer._id}`);
+    navigate(`/customers/${customer || customer._id}`);
   };
   const handleAddVisit = () => {
-    navigate(`/customers/${customer._id}/addVisit`);
+    navigate(`/customers/${customer || customer._id}/addVisit`);
   };
   const [isDropdownOpen, setIsDropdownOpen] = useState();
   const { themeType } = useContext(ListCustomersTestContext);
@@ -119,6 +130,7 @@ const CardVisit = ({
       {
         title: t('visit.visit'),
         value: visit,
+        onClick: handleDetailsVisit,
       },
       {
         title: t('visit.price'),
@@ -151,6 +163,7 @@ const CardVisit = ({
       {
         title: t('visit.visit'),
         value: visit,
+        onClick: handleDetailsVisit,
       },
       {
         title: t('visit.price'),
@@ -214,12 +227,15 @@ const CardVisit = ({
   return (
     <ContainerCard themeType={themeType}>
       <RoundedImageWithArrows item={visit} photo={photo || ''} />
-      <h4>{customer?.contactName || customerName}</h4>
+      <h4 onClick={handleDetailsCustomer}>{customer?.contactName || customerName}</h4>
+      <ContainerIcons themeType={themeType}>
+        <MdOutlineEditNote fontSize={26} />
+      </ContainerIcons>
       <ContainerDates>
         {data.map((item, i) => (
           <ContainerOneRow key={i} themeType={themeType}>
             <p>{item.title}</p>
-            <p>{item.value}</p>
+            <p onClick={item.onClick}>{item.value}</p>
           </ContainerOneRow>
         ))}
       </ContainerDates>
@@ -240,6 +256,7 @@ const CardVisit = ({
             <>
               <li onClick={handleDetailsVisit}>Details Visit</li>
               {noCustomerDetails ? null : <li onClick={handleDetailsCustomer}>Details Customer</li>}
+              {noCustomerDetails ? <li onClick={handleEditVisit}>Edit Visit</li> : null}
               <li onClick={handleAddVisit}>Add Visit</li>
             </>
           )}

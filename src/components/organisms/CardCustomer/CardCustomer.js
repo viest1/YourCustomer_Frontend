@@ -17,6 +17,11 @@ const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, conta
   const handleDetailsCustomer = () => {
     navigate(`/customers/${_id}`);
   };
+  const lastVisitId = visits && visits[visits.length - 1]._id;
+  const handleDetailsVisit = () => {
+    navigate(`/visits/${lastVisitId}`);
+  };
+
   const { themeType } = useContext(ListCustomersTestContext);
   // const arrTexts = [
   //   t('customers.avgTime'),
@@ -70,6 +75,7 @@ const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, conta
     {
       title: t('lastVisit'),
       value: visits && visits[visits.length - 1]?.visit,
+      onClick: handleDetailsVisit,
     },
     {
       title: t('formVisit.time'),
@@ -80,14 +86,14 @@ const CardCustomer = ({ t, customer: { dogOwner, address, birthday, breed, conta
   return (
     <ContainerCard themeType={themeType}>
       <RoundedImageWithArrows item={visits} />
-      <h4>{contactName}</h4>
+      <h4 onClick={handleDetailsCustomer}>{contactName}</h4>
       <ContainerDates>
         {dataCustomer.map((item, i) => {
           if (!item.value) return null;
           return (
             <ContainerOneRow key={i} themeType={themeType}>
               <p>{item.title}</p>
-              <p>{item.value}</p>
+              <p onClick={item.onClick}>{item.value}</p>
             </ContainerOneRow>
           );
         })}

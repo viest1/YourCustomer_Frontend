@@ -184,20 +184,18 @@ const Settings = () => {
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {dataLayout.map((item, i) => (
-            <>
-              <LayoutCircle
-                marked={themeType.layout === item.color}
-                key={i}
-                style={{ background: item.color }}
-                onClick={() => setThemeType({ ...themeType, layout: item.color })}
-              >
-                {themeType.layout === item.color && (
-                  <span>
-                    <FcCheckmark />
-                  </span>
-                )}
-              </LayoutCircle>
-            </>
+            <LayoutCircle
+              marked={themeType.layout === item.color}
+              key={i}
+              style={{ background: item.color }}
+              onClick={() => setThemeType({ ...themeType, layout: item.color })}
+            >
+              {themeType.layout === item.color && (
+                <span>
+                  <FcCheckmark />
+                </span>
+              )}
+            </LayoutCircle>
           ))}
         </div>
       </div>
