@@ -20,8 +20,8 @@ export const ContainerEditVisit = styled.div`
   gap: 1rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
-  @media(max-width:600px){
-    padding:0.4rem;
+  @media (max-width: 600px) {
+    padding: 0.4rem;
   }
 
   fieldset {
@@ -43,8 +43,8 @@ export const ContainerEditVisit = styled.div`
       position: absolute;
       top: -47px;
       right: 16px;
-      @media(max-width:400px){
-        max-width:150px;
+      @media (max-width: 400px) {
+        max-width: 150px;
       }
     }
   }

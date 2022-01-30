@@ -5,15 +5,10 @@ import styled from 'styled-components';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
-import { MdOutlineEditNote } from 'react-icons/md';
+// import { MdOutlineEditNote } from 'react-icons/md';
 
 export const ContainerCard = styled.div`
   padding: 1rem;
-  //background: #6201ed;
-  //background: #29c0b1;
-  //background: #222437;
-  //background: #2c50ed;
-  //background: white;
   background: ${({ themeType }) => themeType.layout};
   border-radius: 1rem;
   display: flex;
@@ -21,7 +16,6 @@ export const ContainerCard = styled.div`
   text-align: center;
   position: relative;
   box-shadow: 2px 2px 3px black;
-  //max-width:500px;
   > div:first-child {
     margin: 0 auto;
   }
@@ -80,7 +74,7 @@ export const ContainerIcons = styled.div`
   position: absolute;
   right: 10px;
   top: 40px;
-  *{
+  * {
     color: ${({ themeType }) => (themeType.layout === 'white' ? 'black' : 'white')};
   }
 `;
@@ -100,10 +94,10 @@ const CardVisit = ({
     navigate(`/visits/${_id}/edit`);
   };
   const handleDetailsCustomer = () => {
-    navigate(`/customers/${customer || customer._id}`);
+    navigate(`/customers/${customer._id || customer}`);
   };
   const handleAddVisit = () => {
-    navigate(`/customers/${customer || customer._id}/addVisit`);
+    navigate(`/customers/${customer._id || customer}/addVisit`);
   };
   const [isDropdownOpen, setIsDropdownOpen] = useState();
   const { themeType } = useContext(ListCustomersTestContext);
@@ -228,9 +222,9 @@ const CardVisit = ({
     <ContainerCard themeType={themeType}>
       <RoundedImageWithArrows item={visit} photo={photo || ''} />
       <h4 onClick={handleDetailsCustomer}>{customer?.contactName || customerName}</h4>
-      <ContainerIcons themeType={themeType}>
-        <MdOutlineEditNote fontSize={26} />
-      </ContainerIcons>
+      {/*<ContainerIcons themeType={themeType}>*/}
+      {/*  <MdOutlineEditNote fontSize={26} />*/}
+      {/*</ContainerIcons>*/}
       <ContainerDates>
         {data.map((item, i) => (
           <ContainerOneRow key={i} themeType={themeType}>
