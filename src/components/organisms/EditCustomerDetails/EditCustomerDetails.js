@@ -10,6 +10,8 @@ import useModal from '../Modal/useModal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { LegendStyle } from '../../templates/AddCustomer/AddCustomer';
+import { MdArrowBack } from 'react-icons/md';
+import { BiReset } from 'react-icons/bi';
 
 export const ContainerEditCustomer = styled.div`
   padding: 2rem;
@@ -20,6 +22,12 @@ export const ContainerEditCustomer = styled.div`
   gap: 1rem;
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
+  > div:first-child {
+    margin-left: 0.2rem;
+  }
+  @media (max-width: 600px) {
+    padding: 0.6rem;
+  }
 
   fieldset {
     display: flex;
@@ -87,8 +95,8 @@ const EditCustomerDetails = () => {
   return (
     <ContainerEditCustomer themeType={themeType}>
       <div>
-        <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
-        <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
+        <Button text={t('button.back')} onClick={() => navigate(-1)} icon={<MdArrowBack fill={'white'} />} width="90px" />
+        <Button text={t('button.resetForm')} onClick={() => resetForm()} icon={<BiReset fill={'white'} />} />
       </div>
       {customer ? (
         <form onSubmit={handleSubmit}>

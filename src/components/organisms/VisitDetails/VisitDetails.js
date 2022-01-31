@@ -5,6 +5,7 @@ import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import Button from '../../atoms/Button/Button';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import CardVisit from '../CardVisit/CardVisit';
+import { MdArrowBack } from 'react-icons/md';
 
 export const ContainerCardVisitDetails = styled.div`
   max-width: 1200px;
@@ -39,9 +40,7 @@ export const ContainerCardVisitDetails = styled.div`
 
 export const Container = styled.div`
   padding: 1rem;
-  box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
-  min-height: 100vh;
   max-width: 500px;
   margin: 0 auto;
   ${({ offCustomContainerStyles }) =>
@@ -50,18 +49,22 @@ export const Container = styled.div`
   box-shadow: none;
   min-height:auto;
   `}
-  h2 {
+  > h2 {
     text-align: center;
+    text-decoration: underline dotted;
+  }
+  > div:first-child {
+    //box-shadow: 0px 4px 6px ${({ themeType }) => themeType.layout};
+    //border-bottom: 1px solid black;
   }
 `;
 
-const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyles }) => {
+const VisitDetails = ({ visitProp }) => {
   const [visitDetails, setVisitDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isVisitProp, setIsVisitProp] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { userData, t } = useContext(ListCustomersTestContext);
+  const { userData, t, themeType } = useContext(ListCustomersTestContext);
 
   const fetchVisit = async () => {
     setIsLoading(true);
@@ -80,10 +83,8 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   useEffect(() => {
     if (visitProp) {
       setVisitDetails(visitProp);
-      setIsVisitProp(true);
     } else {
       fetchVisit();
-      setIsVisitProp(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -93,9 +94,11 @@ const VisitDetails = ({ visitProp, customerProp, idProp, offCustomContainerStyle
   };
 
   return (
-    <Container offCustomContainerStyles>
-      {!isVisitProp && <Button text={t('button.back')} onClick={handleBack} width="90px" />}
-      {!offCustomContainerStyles && <h2>{t('visit.visitDetails')}</h2>}
+    <Container themeType={themeType}>
+      <div style={{ borderBottom: '1px solid grey', padding: '0 0 1rem 0' }}>
+        <Button text={t('button.back')} onClick={handleBack} icon={<MdArrowBack fill={'white'} />} />
+      </div>
+      <h2>{t('visit.visitDetails')}</h2>
       {!isLoading ? <CardVisit visit={visitDetails} t={t} visitDetails /> : <LoadingSpinner />}
     </Container>
   );

@@ -4,7 +4,25 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 const FormLabelAndInput = React.forwardRef(
   (
-    { id, placeholder, label, type = 'text', required = true, handleInput, is2Columns, value, isNotValid, onBlur, min, max, textarea, icon, padding },
+    {
+      id,
+      placeholder,
+      label,
+      type = 'text',
+      required = true,
+      handleInput,
+      is2Columns,
+      value,
+      isNotValid,
+      onBlur,
+      min,
+      max,
+      textarea,
+      icon,
+      padding,
+      noPointer,
+      width,
+    },
     ref
   ) => {
     const { themeType } = useContext(ListCustomersTestContext);
@@ -25,7 +43,9 @@ const FormLabelAndInput = React.forwardRef(
           />
         ) : icon ? (
           <div style={{ position: 'relative' }}>
-            <ContainerIcon themeType={themeType}>{icon}</ContainerIcon>
+            <ContainerIcon themeType={themeType} noPointer>
+              {icon}
+            </ContainerIcon>
             <InputSearch
               type={type}
               id={id}
@@ -40,6 +60,7 @@ const FormLabelAndInput = React.forwardRef(
               max={max}
               ref={ref}
               padding={padding || '0.8rem 10px 0.8rem 3rem'}
+              width={width}
             />
           </div>
         ) : (
@@ -56,6 +77,7 @@ const FormLabelAndInput = React.forwardRef(
             min={min}
             max={max}
             ref={ref}
+            width={width}
           />
         )}
       </Container>

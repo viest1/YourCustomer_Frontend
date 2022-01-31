@@ -5,9 +5,10 @@ import styled from 'styled-components';
 
 export const ButtonStyles = styled.button`
    {
-    width: 220px;
+    //width: 220px;
     /* default: 220px */
-    height: 40px;
+    //height: 40px;
+    padding: 0.7rem 2rem;
     border: none;
     outline: none;
     color: #fff;
@@ -15,6 +16,15 @@ export const ButtonStyles = styled.button`
     position: relative;
     z-index: 0;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &:before {
@@ -77,11 +87,12 @@ export const ButtonStyles = styled.button`
   }
 `;
 
-const Button = ({ text, type = 'button', onClick, width, loginBtn }) => {
+const Button = ({ text, type = 'button', onClick, width, height, loginBtn, icon }) => {
   const { themeType } = useContext(ListCustomersTestContext);
   return (
     <div>
-      <ButtonStyles loginBtn={loginBtn} type={type} onClick={onClick} themeType={themeType} style={{ width: width }}>
+      <ButtonStyles loginBtn={loginBtn} type={type} onClick={onClick} themeType={themeType} style={{ width: width, height: height }}>
+        {icon && <span>{icon}</span>}
         {text}
       </ButtonStyles>
     </div>

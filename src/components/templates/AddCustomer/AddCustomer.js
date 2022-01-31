@@ -43,7 +43,7 @@ export const ContainerForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 2rem 0.2rem;
+  padding: 2rem 0.6rem;
   fieldset {
     padding: 1rem;
     border-radius: 0.8rem;

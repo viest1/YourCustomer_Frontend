@@ -7,37 +7,34 @@ import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import CardVisit from '../CardVisit/CardVisit';
 import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import CardCustomer from '../CardCustomer/CardCustomer';
+import { MdArrowBack } from 'react-icons/md';
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
-export const ContainerCardVisitDetails = styled.div`
-  //padding: 3rem;
-  max-width: 1200px;
-  min-width: 350px;
-  margin: 0 auto;
-  display: flex;
-  //flex-wrap: wrap;
-  overflow-x: auto;
-  justify-content: space-between;
-  //background: ${({ theme }) => theme.color.main100};
-
-  * {
-    display: block;
-    width: 30%;
-    min-width: 250px;
-  }
-
-  img {
-    width: 200px;
-    min-width: 200px;
-    height: auto;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  button {
-    width: 80px !important;
-    min-width: 80px;
-  }
-`;
+// export const ContainerCardVisitDetails = styled.div`
+//   min-width: 350px;
+//   display: flex;
+//   overflow-x: auto;
+//   justify-content: space-between;
+//
+//   * {
+//     display: block;
+//     width: 30%;
+//     min-width: 250px;
+//   }
+//
+//   img {
+//     width: 200px;
+//     min-width: 200px;
+//     height: auto;
+//     border-radius: 50%;
+//     object-fit: cover;
+//   }
+//
+//   button {
+//     width: 80px !important;
+//     min-width: 80px;
+//   }
+// `;
 
 export const Container = styled.div`
   padding: 1rem;
@@ -45,29 +42,46 @@ export const Container = styled.div`
   border-radius: 1rem;
   min-height: 100vh;
   //margin: 2rem;
+  max-width: 95%;
+  margin: 0 auto;
 
   h2 {
     text-align: center;
+    padding: 1rem 0 1rem 0;
+    text-decoration: underline black dotted;
+  }
+  @media (min-width: 1660px) {
+    max-width: 1660px;
   }
 `;
 
-export const DivToButtonMoreVisits = styled.div`
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-`;
+export const DivToButtonMoreVisits = styled.div``;
 
 export const ContainerButtons = styled.div`
   display: flex;
   gap: 1rem;
   margin: 1rem 0 1rem 0;
+  //border-bottom: 1px solid grey;
 `;
 
 export const ContainerGridVisits = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: ${({ visitsLessThan2 }) =>
+    visitsLessThan2 ? 'repeat(auto-fit, minmax(250px, 550px))' : 'repeat(auto-fit, minmax(250px, 1fr))'};
+  justify-content: ${({ visitsLessThan2 }) => (visitsLessThan2 ? 'center' : 'flex-start')};
   gap: 1rem;
-  max-width: 1300px;
+  max-width: 1660px;
+  border-radius: 1rem;
+  @media (max-width: 450px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+`;
+export const ContainerGridCustomer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 550px));
+  justify-content: center;
+  max-width: 1660px;
+  gap: 1rem;
   border-radius: 1rem;
   @media (max-width: 450px) {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -128,19 +142,23 @@ const CustomerDetails = () => {
   return (
     <Container>
       <ContainerButtons>
-        <Button text={t('button.back')} onClick={handleBack} width="90px" />
+        <Button icon={<MdArrowBack fill={'white'} fontSize={16} />} text={t('button.back')} onClick={handleBack} width="90px" />
         <DivToButtonMoreVisits>
-          <Button text={!openVisits ? t('button.watchVisits') : t('button.hideVisits')} onClick={handleOpenVisits} />
+          <Button
+            icon={!openVisits ? <IoIosEye fill={'white'} fontSize={16} /> : <IoIosEyeOff fill={'white'} fontSize={16} />}
+            text={!openVisits ? t('button.watchVisits') : t('button.hideVisits')}
+            onClick={handleOpenVisits}
+          />
         </DivToButtonMoreVisits>
       </ContainerButtons>
-      <h2>{t('customers.customerDetails')}</h2>
-      <ContainerGridVisits>
+      <h2 style={{ borderTop: '1px solid grey' }}>{t('customers.customerDetails')}</h2>
+      <ContainerGridCustomer>
         {!isLoading ? <CardCustomer customer={customerDetails} t={t} noCustomerDetails /> : <LoadingSpinner />}
-      </ContainerGridVisits>
+      </ContainerGridCustomer>
       {openVisits && (
         <div>
           <h2>Visits Total: {visitsFetch?.length} </h2>
-          <ContainerGridVisits>
+          <ContainerGridVisits visitsLessThan2={visitsFetch?.length < 2}>
             {!isLoadingVisits ? (
               sortByTimestamp(visitsFetch).map((itemVisit, i) => (
                 // <VisitDetails offCustomContainerStyles idProp={item._id} key={item._id} visitProp={item} customerProp={customerDetails} />

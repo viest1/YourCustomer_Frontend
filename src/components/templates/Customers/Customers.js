@@ -20,6 +20,9 @@ export const ContainerCardsCustomer = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(230px, 400px));
     justify-content: center;
   }
+  @media (min-width: 1700px) {
+    max-width: 1660px;
+  }
 `;
 
 export const ContainerFilters = styled.div`
@@ -33,11 +36,14 @@ export const ContainerFilters = styled.div`
   p {
     color: white;
   }
+  @media (min-width: 1700px) {
+    max-width: 1660px;
+  }
 `;
 
 export const ContainerWithBackground = styled.div`
   background: ${({ theme }) => theme.color.white100};
-  box-shadow: 0px 4px 6px ${({ themeType }) => themeType.layout};
+  box-shadow: 0 4px 6px ${({ themeType }) => themeType.layout};
   width: 100%;
   transition: all 0.6s;
 `;
@@ -212,7 +218,7 @@ const Customers = () => {
           <FilterButton themeType={themeType} ref={ref} open={openSortOptions}>
             <p>Sort By {state.type}</p>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <IoIosArrowDown color={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
+              <IoIosArrowDown fill={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
             </span>
             {openSortOptions && (
               <ContainerOptionsSort themeType={themeType}>
@@ -231,10 +237,10 @@ const Customers = () => {
               </ContainerOptionsSort>
             )}
           </FilterButton>
-          <FilterButton ref={refResults} themeType={themeType}>
+          <FilterButton ref={refResults} themeType={themeType} open={openNumberResultsOptions}>
             <p>Results {numberFilterResults}</p>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <IoIosArrowDown color={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
+              <IoIosArrowDown fill={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
             </span>
             {openNumberResultsOptions && (
               <ContainerOptionsSort width={'120px'} themeType={themeType}>

@@ -10,6 +10,7 @@ import Modal from '../Modal/Modal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { LegendStyle } from '../../templates/AddCustomer/AddCustomer';
+import { MdArrowBack, MdClear } from 'react-icons/md';
 
 const AddNewVisit = () => {
   const [image, setImage] = useState();
@@ -90,13 +91,13 @@ const AddNewVisit = () => {
   return (
     <ContainerEditVisit themeType={themeType}>
       <div>
-        <Button text="Back" onClick={() => navigate(-1)} width="90px" />
-        <Button text="Clear Form" onClick={() => clearForm()} width="90px" />
+        <Button text="Back" icon={<MdArrowBack fill={'white'} />} onClick={() => navigate(-1)} width="90px" />
+        <Button text="Clear Form" onClick={() => clearForm()} icon={<MdClear fill={'white'} />} />
       </div>
       <form onSubmit={handleSubmit}>
         <fieldset>
           <h3>{customer[0]?.contactName}</h3>
-          <LegendStyle themeType={themeType}>{t('button.editVisit')}</LegendStyle>
+          <LegendStyle themeType={themeType}>{t('button.addNewVisit')}</LegendStyle>
           <FormVisit
             inputs={inputs}
             handleChange={handleChange}
@@ -109,7 +110,7 @@ const AddNewVisit = () => {
             submitted={submitted}
             setSubmitted={setSubmitted}
           />
-          <Button type="submit" text="Add New Visit" width={'100%'} />
+          <Button type="submit" text={t('button.addNewVisit')} width={'100%'} />
           {validationError && <p>{validationError}</p>}
         </fieldset>
       </form>

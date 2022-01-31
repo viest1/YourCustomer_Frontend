@@ -14,6 +14,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
 import i18next from 'i18next';
+import { MdClear } from 'react-icons/md';
 
 export const ContainerHeader = styled.div`
   padding: 2rem;
@@ -27,11 +28,11 @@ export const ContainerHeader = styled.div`
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
   position: relative;
   z-index: 9999;
-  //position: fixed;
-  //top: 0;
-  //left: 0;
-  //width: 100%;
-  //z-index: 99999;
+  @media (max-width: 1289px) {
+    gap: 1rem;
+    justify-content: space-between;
+    //padding:2rem 0;
+  }
   * {
     transition: 0.3s;
   }
@@ -101,16 +102,22 @@ export const LanguageIcon = styled(BsGlobe)`
 
 export const Title = styled.h2`
   position: absolute;
-  top: 15px;
+  top: 25%;
+  transform: translateY(-25%);
   left: 22px;
 `;
 
 export const ContainerHamburger = styled.div`
-  margin-right: auto;
-  position: absolute;
-  left: 25px;
-  top: 29px;
+  //margin-right: auto;
+  //position: absolute;
+  //left: 25px;
+  //top: 50%;
+  //transform: translateY(-50%);
+  position: relative;
   z-index: 2;
+  @media (max-width: 353px) {
+    display: ${({ hide }) => (hide ? 'none' : 'block')};
+  }
 `;
 
 export const ContainerListMenu = styled.div`
@@ -156,13 +163,22 @@ export const ListMenu = styled.div`
 `;
 
 export const ContainerListLanguages = styled.div`
-  background: white;
+  //background: white;
+  //position: absolute;
+  //right: 130px;
+  //top: 57px;
+  //flex-direction: column;
+  //display: flex;
+  //z-index: 1;
   position: absolute;
-  right: 130px;
-  top: 57px;
-  flex-direction: column;
-  display: flex;
-  z-index: 1;
+  top: 70px;
+  right: 0;
+  z-index: 50;
+  width: ${({ width }) => (width ? width : '155px')};
+  background: ${({ themeType }) => themeType.button};
+  border-radius: 0.2rem;
+  text-align: left;
+  //box-shadow: 0 0 3px 2px black;
   * {
     color: black;
   }
@@ -176,6 +192,11 @@ export const ButtonLanguage = styled.button`
   border: none;
   outline: none;
   padding: 0.7rem 1.5rem 0.7rem 1.5rem;
+  background: ${({ themeType }) => themeType.button};
+  border-radius: 0.2rem;
+  * {
+    color: white;
+  }
   &:hover {
     background: #00aaff;
     cursor: pointer;
@@ -279,7 +300,7 @@ const Header = ({ setThemeState }) => {
   }, [isOpenSearch]);
 
   useEffect(() => {
-    if (size.width < 1090) {
+    if (size.width < 1290) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -347,6 +368,10 @@ const Header = ({ setThemeState }) => {
     setIsOpenMenu(false);
     handleLogout();
   };
+  const handleClearSearchInput = () => {
+    setSearchText('');
+    setIsOpenSearch(false);
+  };
 
   return (
     <ContainerHeader themeType={themeType}>
@@ -387,7 +412,7 @@ const Header = ({ setThemeState }) => {
         </>
       ) : (
         <div ref={ref}>
-          <ContainerHamburger>
+          <ContainerHamburger hide={isOpenSearch}>
             <div className={isOpenMenu ? 'icon nav-icon-1 open' : 'icon nav-icon-1'} onClick={handleOpenMenu}>
               <span></span>
               <span></span>
@@ -425,14 +450,19 @@ const Header = ({ setThemeState }) => {
           value={searchText}
           handleInput={handleInputSearch}
           onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
+          icon={<MdClear onClick={handleClearSearchInput} />}
+          noPointer
+          padding={'0.7rem 0 0.7rem 3rem'}
+          width={size.width > 1290 && size.width < 1400 ? '150px' : '100%'}
         />
       </CSSTransition>
       <ContainerIcons>
         <span ref={languageMenuRef} style={{ display: 'flex', alignItems: 'center' }}>
-          <ContainerListLanguages>
+          <ContainerListLanguages themeType={themeType}>
             {languageMenuIsOpen &&
               languages.map((item, index) => (
                 <ButtonLanguage
+                  themeType={themeType}
                   key={index}
                   onClick={() => {
                     i18next.changeLanguage(item.code);

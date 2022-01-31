@@ -10,6 +10,8 @@ import Modal from '../Modal/Modal';
 import { ContainerLoadingSpinner } from '../../../assets/styles/GlobalStyle';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { LegendStyle } from '../../templates/AddCustomer/AddCustomer';
+import { MdArrowBack } from 'react-icons/md';
+import { BiReset } from 'react-icons/bi';
 
 export const ContainerEditVisit = styled.div`
   padding: 2rem;
@@ -21,7 +23,10 @@ export const ContainerEditVisit = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
   @media (max-width: 600px) {
-    padding: 0.4rem;
+    padding: 0.6rem;
+  }
+  > div:first-child {
+    margin-left: 0.2rem;
   }
 
   fieldset {
@@ -120,8 +125,8 @@ const EditVisitDetails = () => {
   return (
     <ContainerEditVisit themeType={themeType}>
       <div>
-        <Button text={t('button.back')} onClick={() => navigate(-1)} width="90px" />
-        <Button text={t('button.resetForm')} onClick={() => resetForm()} width="90px" />
+        <Button text={t('button.back')} icon={<MdArrowBack fill={'white'} />} onClick={() => navigate(-1)} width="90px" />
+        <Button text={t('button.resetForm')} onClick={() => resetForm()} icon={<BiReset fill={'white'} />} />
       </div>
       {visit ? (
         <form onSubmit={handleSubmit}>

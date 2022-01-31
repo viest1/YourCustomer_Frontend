@@ -6,7 +6,7 @@ export const InputSearch = styled.input`
   border-radius: 8px;
   padding: ${({ padding }) => (padding ? padding : '0.7rem')};
   display: block;
-  width: 100%;
+  width: ${({ width }) => (width ? width : '100%')};
   border: 1px solid hsl(0, 0%, 80%);
   color: black !important;
   * {
@@ -50,7 +50,7 @@ export const ContainerIcon = styled.span`
   top: 54%;
   left: 1rem;
   transform: translateY(-50%);
-  pointer-events: none;
+  pointer-events: ${({ noPointer }) => (noPointer ? 'auto' : 'none')};
   svg {
     fill: ${({ themeType }) => themeType.layout};
   }

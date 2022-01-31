@@ -20,6 +20,9 @@ export const ContainerVisits = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(230px, 400px));
     justify-content: center;
   }
+  @media (min-width: 1700px) {
+    max-width: 1660px;
+  }
 `;
 
 const Visits = () => {
@@ -179,7 +182,7 @@ const Visits = () => {
           <FilterButton ref={ref} open={openSortOptions} themeType={themeType}>
             <p>Sort By {state.type}</p>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <IoIosArrowDown color={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
+              <IoIosArrowDown fill={'white'} onClick={() => setOpenSortOptions((prev) => !prev)} />
             </span>
             {openSortOptions && (
               <ContainerOptionsSort themeType={themeType}>
@@ -196,10 +199,10 @@ const Visits = () => {
               </ContainerOptionsSort>
             )}
           </FilterButton>
-          <FilterButton ref={refResults} themeType={themeType}>
+          <FilterButton ref={refResults} themeType={themeType} open={openNumberResultsOptions}>
             <p>Results {numberFilterResults}</p>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <IoIosArrowDown color={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
+              <IoIosArrowDown fill={'white'} onClick={() => setOpenNumberResultsOptions((prev) => !prev)} />
             </span>
             {openNumberResultsOptions && (
               <ContainerOptionsSort width={'120px'} themeType={themeType}>
