@@ -225,117 +225,118 @@ const FormAuth = () => {
     );
   }
 
+  if (tokenResetPassword) {
+    return (
+      <ContainerFormAuth>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Logo /> <h2>YourCustomer</h2>
+        </div>
+        <div>
+          <h2>{'Setting New Password'}</h2>
+          <p>Enter Your New Password and Click Button</p>
+        </div>
+        <ContainerForm onSubmit={handleResetPassword}>
+          <FormLabelAndInput
+            placeholder={'Password'}
+            padding={'1.1rem 4rem'}
+            icon={<PasswordIcon />}
+            type="password"
+            label={t('login.password')}
+            id="passwordReset"
+            handleInput={handleChange}
+            value={inputs.passwordReset}
+          />
+          {messageError ||
+            (message && (
+              <div>
+                <p>{messageError ? messageError : message}</p>
+              </div>
+            ))}
+          <Button loginBtn type="submit" text={'Set New Password'} width={'100%'} />
+        </ContainerForm>
+      </ContainerFormAuth>
+    );
+  }
+
   return (
     <ContainerFormAuth>
-      {tokenResetPassword ? (
-        <>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <Logo /> <h2>YourCustomer</h2>
-          </div>
-          <div>
-            <h2>{'Setting New Password'}</h2>
-            <p>Enter Your New Password and Click Button</p>
-          </div>
-          <ContainerForm onSubmit={handleResetPassword}>
-            <FormLabelAndInput
-              placeholder={'Password'}
-              padding={'1.1rem 4rem'}
-              icon={<PasswordIcon />}
-              type="password"
-              label={t('login.password')}
-              id="passwordReset"
-              handleInput={handleChange}
-              value={inputs.passwordReset}
-            />
-            {messageError ||
-              (message && (
-                <div>
-                  <p>{messageError ? messageError : message}</p>
-                </div>
-              ))}
-            <Button loginBtn type="submit" text={'Set New Password'} width={'100%'} />
-          </ContainerForm>
-        </>
+      <h2>YourCustomer</h2>
+      <div>
+        <h2>{isLoginMode ? t('login.welcomeBack') : t('login.newHere')}</h2>
+        <p>{isLoginMode ? t('login.happy') : t('login.joinUs')}</p>
+      </div>
+      {!isLoginMode ? (
+        <ContainerForm onSubmit={handleSubmitSignUp}>
+          {/*<h2>{t('button.signup')}</h2>*/}
+          <FormLabelAndInput
+            placeholder={'Name'}
+            padding={'1.1rem 4rem'}
+            icon={<NameIcon />}
+            label={t('login.name')}
+            id="name"
+            handleInput={handleChange}
+            value={inputs.name}
+          />
+          <FormLabelAndInput
+            placeholder={'name@gmail.com'}
+            padding={'1.1rem 4rem'}
+            icon={<EmailIcon />}
+            type="email"
+            label="Email"
+            id="email"
+            handleInput={handleChange}
+            value={inputs.email}
+          />
+          <FormLabelAndInput
+            placeholder={'Password'}
+            padding={'1.1rem 4rem'}
+            icon={<PasswordIcon />}
+            type="password"
+            label={t('login.password')}
+            id="password"
+            handleInput={handleChange}
+            value={inputs.password}
+          />
+          <ForgotPassword type={'button'} onClick={() => setResetPasswordMode(true)}>
+            Forgot password?
+          </ForgotPassword>
+          <Button loginBtn type="submit" text={t('button.signup')} width={'100%'} />
+          {errorMessageSignUp && <p>{errorMessageSignUp}</p>}
+        </ContainerForm>
       ) : (
-        <>
-          <h2>YourCustomer</h2>
-          <div>
-            <h2>{isLoginMode ? t('login.welcomeBack') : t('login.newHere')}</h2>
-            <p>{isLoginMode ? t('login.happy') : t('login.joinUs')}</p>
-          </div>
-          {!isLoginMode ? (
-            <ContainerForm onSubmit={handleSubmitSignUp}>
-              {/*<h2>{t('button.signup')}</h2>*/}
-              <FormLabelAndInput
-                placeholder={'Name'}
-                padding={'1.1rem 4rem'}
-                icon={<NameIcon />}
-                label={t('login.name')}
-                id="name"
-                handleInput={handleChange}
-                value={inputs.name}
-              />
-              <FormLabelAndInput
-                placeholder={'name@gmail.com'}
-                padding={'1.1rem 4rem'}
-                icon={<EmailIcon />}
-                type="email"
-                label="Email"
-                id="email"
-                handleInput={handleChange}
-                value={inputs.email}
-              />
-              <FormLabelAndInput
-                placeholder={'Password'}
-                padding={'1.1rem 4rem'}
-                icon={<PasswordIcon />}
-                type="password"
-                label={t('login.password')}
-                id="password"
-                handleInput={handleChange}
-                value={inputs.password}
-              />
-              <ForgotPassword type={'button'} onClick={() => setResetPasswordMode(true)}>
-                Forgot password?
-              </ForgotPassword>
-              <Button loginBtn type="submit" text={t('button.signup')} width={'100%'} />
-              {errorMessageSignUp && <p>{errorMessageSignUp}</p>}
-            </ContainerForm>
-          ) : (
-            <ContainerForm onSubmit={handleSubmitLogin}>
-              {/*<h2>{t('button.login')}</h2>*/}
-              <FormLabelAndInput
-                placeholder={'name@gmail.com'}
-                padding={'1.1rem 4rem'}
-                icon={<EmailIcon />}
-                type="email"
-                label="Email"
-                id="emailLogin"
-                handleInput={handleChange}
-                value={inputs.emailLogin}
-              />
-              <FormLabelAndInput
-                placeholder={'Password'}
-                padding={'1.1rem 4rem'}
-                icon={<PasswordIcon />}
-                type="password"
-                label={t('login.password')}
-                id="passwordLogin"
-                handleInput={handleChange}
-                value={inputs.passwordLogin}
-              />
-              <ForgotPassword type={'button'} onClick={() => setResetPasswordMode(true)}>
-                Forgot password?
-              </ForgotPassword>
-              <Button loginBtn type="submit" text={t('button.login')} width={'100%'} />
-              {errorMessageLogin && <p>{errorMessageLogin}</p>}
-            </ContainerForm>
-          )}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '2rem 0 0 0' }}>
-            <p>{isLoginMode ? t('login.notHave') : t('login.have')} </p>
-            <Button loginBtn text={isLoginMode ? t('login.switchSign') : t('login.switchLogin')} onClick={handleLoginMode} width="200px" />
-          </div>
-        </>
+        <ContainerForm onSubmit={handleSubmitLogin}>
+          {/*<h2>{t('button.login')}</h2>*/}
+          <FormLabelAndInput
+            placeholder={'name@gmail.com'}
+            padding={'1.1rem 4rem'}
+            icon={<EmailIcon />}
+            type="email"
+            label="Email"
+            id="emailLogin"
+            handleInput={handleChange}
+            value={inputs.emailLogin}
+          />
+          <FormLabelAndInput
+            placeholder={'Password'}
+            padding={'1.1rem 4rem'}
+            icon={<PasswordIcon />}
+            type="password"
+            label={t('login.password')}
+            id="passwordLogin"
+            handleInput={handleChange}
+            value={inputs.passwordLogin}
+          />
+          <ForgotPassword type={'button'} onClick={() => setResetPasswordMode(true)}>
+            Forgot password?
+          </ForgotPassword>
+          <Button loginBtn type="submit" text={t('button.login')} width={'100%'} />
+          {errorMessageLogin && <p>{errorMessageLogin}</p>}
+        </ContainerForm>
+      )}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '2rem 0 0 0' }}>
+        <p>{isLoginMode ? t('login.notHave') : t('login.have')} </p>
+        <Button loginBtn text={isLoginMode ? t('login.switchSign') : t('login.switchLogin')} onClick={handleLoginMode} width="200px" />
+      </div>
       )}
     </ContainerFormAuth>
   );
