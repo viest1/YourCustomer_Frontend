@@ -7,6 +7,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { ContainerFilters, ContainerOptionsSort, ContainerWithBackground, FilterButton } from '../Customers/Customers';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { FcCheckmark } from 'react-icons/fc';
+import { useInView } from 'react-intersection-observer';
 
 export const ContainerVisits = styled.div`
   padding: 0.3rem;
@@ -175,6 +176,14 @@ const Visits = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [withPhoto]);
 
+  const { ref: lastRef, inView } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (inView) setNumberFilterResults((prev) => prev + 10);
+  }, [inView]);
+
   return (
     <>
       <ContainerWithBackground themeType={themeType}>
@@ -233,7 +242,12 @@ const Visits = () => {
           <LoadingSpinner />
         </div>
       ) : (
-        <ContainerVisits>{filteringCustomers && filteringCustomers?.map((item) => <CardVisit t={t} visit={item} key={item._id} />)}</ContainerVisits>
+        <ContainerVisits>
+          {filteringCustomers &&
+            filteringCustomers?.map((item, i) => (
+              <CardVisit ref={filteringCustomers.length === i + 1 ? lastRef : null} t={t} visit={item} key={item._id} />
+            ))}
+        </ContainerVisits>
       )}
     </>
   );

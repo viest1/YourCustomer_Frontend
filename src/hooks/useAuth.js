@@ -34,7 +34,7 @@ export const useAuth = (inputs) => {
         return;
       }
       navigate('/');
-      setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email });
+      setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email, exp: resJSON.exp, role: resJSON.role });
     };
     signup();
   };
@@ -61,6 +61,7 @@ export const useAuth = (inputs) => {
         name: resJSON.name,
         email: resJSON.email,
         exp: resJSON.exp,
+        role: resJSON.role,
       });
       navigate('/');
     };

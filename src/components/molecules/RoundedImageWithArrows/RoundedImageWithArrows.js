@@ -54,7 +54,7 @@ const RoundedImageWithArrows = ({ item, photo }) => {
       <IconPrevious onClick={handleBack} />
       <ContainerImage>
         <a href={actuallyPhoto} target="_blank" rel="noreferrer">
-          <img src={actuallyPhoto || noPhoto} alt="dog" />
+          <img src={actuallyPhoto || noPhoto} alt="dog" loading={'lazy'} />
           <span>
             {counterPhoto + 1}/{photos?.length}
           </span>

@@ -79,185 +79,188 @@ export const ContainerIcons = styled.div`
   }
 `;
 
-const CardVisit = ({
-  visit: { time, customer, _id, photo, price, extraPay, premium, behavior, visit, comments, hour, service, shop, tip },
-  t,
-  customerName,
-  noCustomerDetails,
-  visitDetails,
-}) => {
-  const navigate = useNavigate();
-  const handleDetailsVisit = () => {
-    navigate(`/visits/${_id}`);
-  };
-  const handleEditVisit = () => {
-    navigate(`/visits/${_id}/edit`);
-  };
-  const handleDetailsCustomer = () => {
-    navigate(`/customers/${customer._id || customer}`);
-  };
-  const handleAddVisit = () => {
-    navigate(`/customers/${customer._id || customer}/addVisit`);
-  };
-  const [isDropdownOpen, setIsDropdownOpen] = useState();
-  const { themeType } = useContext(ListCustomersTestContext);
-  const ref = useRef();
-  useOnClickOutside(ref, () => setIsDropdownOpen(false));
-  // const arrTexts = [t('visit.time'), time, t('visit.price'), price?.label, t('visit.visit'), visit];
-  // const arrValues = [photo, customer?.contactName, t('button.details'), '100%', handleDetails];
+const CardVisit = React.forwardRef(
+  (
+    {
+      visit: { time, customer, _id, photo, price, extraPay, premium, behavior, visit, comments, hour, service, shop, tip },
+      t,
+      customerName,
+      noCustomerDetails,
+      visitDetails,
+    },
+    refLast
+  ) => {
+    const navigate = useNavigate();
+    const handleDetailsVisit = () => {
+      navigate(`/visits/${_id}`);
+    };
+    const handleEditVisit = () => {
+      navigate(`/visits/${_id}/edit`);
+    };
+    const handleDetailsCustomer = () => {
+      navigate(`/customers/${customer._id || customer}`);
+    };
+    const handleAddVisit = () => {
+      navigate(`/customers/${customer._id || customer}/addVisit`);
+    };
+    const [isDropdownOpen, setIsDropdownOpen] = useState();
+    const { themeType } = useContext(ListCustomersTestContext);
+    const ref = useRef();
+    useOnClickOutside(ref, () => setIsDropdownOpen(false));
 
-  const premiumValue = premium.reduce((a, b) => {
-    a += +b.value;
-    return +a;
-  }, 0);
-  const extraPayValue = +extraPay?.value;
-  const priceValue = +price?.value?.split(' ')[0];
-  const sumPrice = premiumValue + extraPayValue + priceValue;
+    const premiumValue = premium.reduce((a, b) => {
+      a += +b.value;
+      return +a;
+    }, 0);
+    const extraPayValue = +extraPay?.value;
+    const priceValue = +price?.value?.split(' ')[0];
+    const sumPrice = premiumValue + extraPayValue + priceValue;
 
-  const handleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
+    const handleDropdown = () => {
+      setIsDropdownOpen((prev) => !prev);
+    };
 
-  let data;
-  if (!visitDetails) {
-    data = [
-      {
-        title: t('visit.visit'),
-        value: visit,
-        onClick: handleDetailsVisit,
-      },
-      {
-        title: t('visit.price'),
-        value: (
-          <>
-            {price?.label} / <span>{sumPrice}</span>
-          </>
-        ),
-      },
-      {
-        title: t('visit.time'),
-        value: time,
-      },
-      {
-        title: t('formVisit.premium'),
-        value: premium?.map((item) => ' ' + item.label),
-      },
-      {
-        title: t('formVisit.extraPay'),
-        value: extraPay?.label,
-      },
-      {
-        title: t('formVisit.behavior'),
-        value: behavior?.label,
-      },
-    ];
-  } else {
-    const weekday = new Date(visit).toLocaleString('default', { weekday: 'long' });
-    data = [
-      {
-        title: t('visit.visit'),
-        value: visit,
-        onClick: handleDetailsVisit,
-      },
-      {
-        title: t('visit.price'),
-        value: (
-          <>
-            {price?.label} / <span>{sumPrice}</span>
-          </>
-        ),
-      },
-      {
-        title: t('visit.time'),
-        value: time,
-      },
-      {
-        title: t('formVisit.premium'),
-        value: premium?.map((item) => ' ' + item.label),
-      },
-      {
-        title: t('formVisit.extraPay'),
-        value: extraPay?.label,
-      },
-      {
-        title: t('formVisit.behavior'),
-        value: behavior?.label,
-      },
-      {
-        title: t('formVisit.hour'),
-        value: hour,
-      },
-      {
-        title: t('day'),
-        value: weekday,
-      },
-      {
-        title: t('formVisit.tip'),
-        value: tip,
-      },
-      {
-        title: t('service'),
-        value: service.split(/(?=[A-Z])/).join(' '),
-      },
-      {
-        title: t('formVisit.shop'),
-        value: shop.length ? shop?.map((item) => ' ' + item.label) : 'No',
-      },
-      // {
-      //   title: ,
-      //   value: ,
-      // },
-      // {
-      //   title: ,
-      //   value: ,
-      // },
-      // {
-      //   title: ,
-      //   value: ,
-      // },
-    ];
+    let data;
+    if (!visitDetails) {
+      data = [
+        {
+          title: t('visit.visit'),
+          value: visit,
+          onClick: handleDetailsVisit,
+        },
+        {
+          title: t('visit.price'),
+          value: (
+            <>
+              {price?.label} / <span>{sumPrice}</span>
+            </>
+          ),
+        },
+        {
+          title: t('visit.time'),
+          value: time,
+        },
+        {
+          title: t('formVisit.premium'),
+          value: premium?.map((item) => ' ' + item.label),
+        },
+        {
+          title: t('formVisit.extraPay'),
+          value: extraPay?.label,
+        },
+        {
+          title: t('formVisit.behavior'),
+          value: behavior?.label,
+        },
+      ];
+    } else {
+      const weekday = new Date(visit).toLocaleString('default', { weekday: 'long' });
+      data = [
+        {
+          title: t('visit.visit'),
+          value: visit,
+          onClick: handleDetailsVisit,
+        },
+        {
+          title: t('visit.price'),
+          value: (
+            <>
+              {price?.label} / <span>{sumPrice}</span>
+            </>
+          ),
+        },
+        {
+          title: t('visit.time'),
+          value: time,
+        },
+        {
+          title: t('formVisit.premium'),
+          value: premium?.map((item) => ' ' + item.label),
+        },
+        {
+          title: t('formVisit.extraPay'),
+          value: extraPay?.label,
+        },
+        {
+          title: t('formVisit.behavior'),
+          value: behavior?.label,
+        },
+        {
+          title: t('formVisit.hour'),
+          value: hour,
+        },
+        {
+          title: t('day'),
+          value: weekday,
+        },
+        {
+          title: t('formVisit.tip'),
+          value: tip,
+        },
+        {
+          title: t('service'),
+          value: service.split(/(?=[A-Z])/).join(' '),
+        },
+        {
+          title: t('formVisit.shop'),
+          value: shop.length ? shop?.map((item) => ' ' + item.label) : 'No',
+        },
+        // {
+        //   title: ,
+        //   value: ,
+        // },
+        // {
+        //   title: ,
+        //   value: ,
+        // },
+        // {
+        //   title: ,
+        //   value: ,
+        // },
+      ];
+    }
+
+    return (
+      <ContainerCard themeType={themeType} ref={refLast}>
+        <RoundedImageWithArrows item={visit} photo={photo || ''} />
+        <h4 onClick={handleDetailsCustomer}>{customer?.contactName || customerName}</h4>
+        {/*<ContainerIcons themeType={themeType}>*/}
+        {/*  <MdOutlineEditNote fontSize={26} />*/}
+        {/*</ContainerIcons>*/}
+        <ContainerDates>
+          {data.map((item, i) => (
+            <ContainerOneRow key={i} themeType={themeType}>
+              <p>{item.title}</p>
+              <p onClick={item.onClick}>{item.value}</p>
+            </ContainerOneRow>
+          ))}
+        </ContainerDates>
+        {comments && (
+          <ContainerComment>
+            <p>{comments}</p>
+          </ContainerComment>
+        )}
+        <div ref={ref}>
+          <DotsDropdown handleDropdown={handleDropdown} isDropdownOpen={isDropdownOpen}>
+            {visitDetails ? (
+              <>
+                <li onClick={handleEditVisit}>Edit Visit</li>
+                <li onClick={handleDetailsCustomer}>Details Customer</li>
+                <li onClick={handleAddVisit}>Add Visit</li>
+              </>
+            ) : (
+              <>
+                <li onClick={handleDetailsVisit}>Details Visit</li>
+                {noCustomerDetails ? null : <li onClick={handleDetailsCustomer}>Details Customer</li>}
+                {noCustomerDetails ? <li onClick={handleEditVisit}>Edit Visit</li> : null}
+                <li onClick={handleAddVisit}>Add Visit</li>
+              </>
+            )}
+          </DotsDropdown>
+        </div>
+      </ContainerCard>
+    );
   }
-
-  return (
-    <ContainerCard themeType={themeType}>
-      <RoundedImageWithArrows item={visit} photo={photo || ''} />
-      <h4 onClick={handleDetailsCustomer}>{customer?.contactName || customerName}</h4>
-      {/*<ContainerIcons themeType={themeType}>*/}
-      {/*  <MdOutlineEditNote fontSize={26} />*/}
-      {/*</ContainerIcons>*/}
-      <ContainerDates>
-        {data.map((item, i) => (
-          <ContainerOneRow key={i} themeType={themeType}>
-            <p>{item.title}</p>
-            <p onClick={item.onClick}>{item.value}</p>
-          </ContainerOneRow>
-        ))}
-      </ContainerDates>
-      {comments && (
-        <ContainerComment>
-          <p>{comments}</p>
-        </ContainerComment>
-      )}
-      <div ref={ref}>
-        <DotsDropdown handleDropdown={handleDropdown} isDropdownOpen={isDropdownOpen}>
-          {visitDetails ? (
-            <>
-              <li onClick={handleEditVisit}>Edit Visit</li>
-              <li onClick={handleDetailsCustomer}>Details Customer</li>
-              <li onClick={handleAddVisit}>Add Visit</li>
-            </>
-          ) : (
-            <>
-              <li onClick={handleDetailsVisit}>Details Visit</li>
-              {noCustomerDetails ? null : <li onClick={handleDetailsCustomer}>Details Customer</li>}
-              {noCustomerDetails ? <li onClick={handleEditVisit}>Edit Visit</li> : null}
-              <li onClick={handleAddVisit}>Add Visit</li>
-            </>
-          )}
-        </DotsDropdown>
-      </div>
-    </ContainerCard>
-  );
-};
+);
 
 export default CardVisit;

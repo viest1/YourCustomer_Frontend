@@ -1,11 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import SettingsItem from '../../organisms/SettingsItem/SettingsItem';
 import Button from '../../atoms/Button/Button';
 import useForm from '../../../hooks/useForm';
 import { MdOutlineFormatColorReset } from 'react-icons/md';
-import { FcCheckmark } from 'react-icons/fc';
+import { FcCheckmark, FcOk } from 'react-icons/fc';
+import { BsArrowRight } from 'react-icons/bs';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import Modal from '../../organisms/Modal/Modal';
+import useModal from '../../organisms/Modal/useModal';
 
 export const Container = styled.div`
   padding: 0 2rem;
@@ -14,7 +18,7 @@ export const Container = styled.div`
   //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   border-radius: 1rem;
   @media all and (max-width: 400px) {
-    padding: 1rem;
+    padding: 0 1rem;
   }
 `;
 
@@ -56,7 +60,7 @@ export const LayoutCircle = styled.div`
 export const ContainerDataAccount = styled.div`
   display: flex;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem 0 2rem 0;
   justify-content: space-between;
   align-items: center;
   max-width: 500px;
@@ -74,17 +78,63 @@ export const ContainerDataAccount = styled.div`
   > div:first-child h2 {
     color: white;
   }
-  @media (max-width: 530px) {
-    button:first-child {
+  div:last-child > p {
+    padding: 0.5rem 0.9rem;
+    box-shadow: 2px 2px 6px black;
+    border-radius: 0.3rem;
+    background: ${({ themeType }) => themeType.nav};
+    color: white;
+    font-size: 12px;
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    div:last-child {
       display: none;
     }
   }
+`;
+
+export const SelectStyle = styled.select`
+  padding: 0.7rem 1rem;
+  border-radius: 0.4rem;
+  color: black;
+  * {
+    color: black;
+  }
+  @media (max-width: 480px) {
+    padding: 0.4rem 0.6rem;
+    width: 140px;
+  }
+`;
+
+export const TypeSubMobile = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.2rem 1.5rem 0.2rem;
+  gap: 0.4rem;
+  p {
+    padding: 0.7rem 1.1rem;
+    box-shadow: 2px 2px 6px black;
+    border-radius: 0.3rem;
+    background: ${({ themeType }) => themeType.nav};
+    color: white;
+  }
+  @media (min-width: 480px) {
+    display: none;
+  }
+`;
+
+export const ContainerPaypalButtons = styled.div`
+  max-width: 500px;
 `;
 
 const Settings = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [errorMessagePassword, setErrorMessagePassword] = useState();
   const { userData, setUserData, themeType, setThemeType, t } = useContext(ListCustomersTestContext);
+  const [desiredRole, setDesiredRole] = useState(userData.role);
+  const { modalIsOpen, openModal, closeModal } = useModal();
   const { inputs, handleChange } = useForm({
     name: userData.name,
     email: userData.email,
@@ -92,13 +142,16 @@ const Settings = () => {
     oldPassword: '',
     newPassword: '',
     repeatedNewPassword: '',
+    actualRole: userData.role,
+    userId: userData.userId,
+    desiredRole,
   });
   const handleChangeEmailAndName = async (e) => {
     e.preventDefault();
     inputs.timestamp = Date.now();
     inputs.userId = userData.userId;
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changeDataAccount', {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
@@ -116,7 +169,7 @@ const Settings = () => {
     inputs.timestamp = Date.now();
     inputs.userId = userData.userId;
     const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changePassword', {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
@@ -159,6 +212,62 @@ const Settings = () => {
       color: '#2c50ed',
     },
   ];
+  const handleRoleChange = async () => {
+    inputs.timestamp = Date.now();
+    inputs.userId = userData.userId;
+    inputs.role = desiredRole;
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changeRoleOnAccount', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      },
+      body: JSON.stringify(inputs),
+    });
+    const resJSON = await res.json();
+    console.log(resJSON);
+    setUserData({ ...userData, role: resJSON.role });
+    if (resJSON.error) return setErrorMessagePassword(resJSON.message);
+  };
+
+  const createOrder = useCallback(
+    (data, actions) => {
+      // if(inputs.actualRole === inputs.desiredRole) return console.log('You have already this Type of Account')
+      return (
+        fetch(process.env.REACT_APP_BACKEND_URL + '/proceedBuy', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + userData?.token,
+          },
+          body: JSON.stringify({
+            items: [
+              {
+                id: desiredRole === 'Premium' ? 2 : 1,
+                quantity: 1,
+              },
+            ],
+          }),
+        })
+          .then(async (res) => {
+            const resJSON = await res.json();
+            console.log(resJSON);
+            if (res.ok) return resJSON.id;
+            return await res.json().then((json) => Promise.reject(json));
+          })
+          // .then(({ id }) => {
+          //   console.log('id', id);
+          //   return id;
+          // })
+          .catch((e) => {
+            console.error(e.error);
+          })
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [desiredRole]
+  );
+
   return (
     <Container>
       <ContainerDataAccount themeType={themeType}>
@@ -173,8 +282,52 @@ const Settings = () => {
         </div>
         <div>
           <Button text={t('navigation.logout')} width={'120px'} />
+          <p>Type: {userData.role}</p>
         </div>
+        {/*<h4>I want to buy a higher subscription and have access to premium features.</h4>*/}
       </ContainerDataAccount>
+      <TypeSubMobile themeType={themeType}>
+        <p>Type of Account:</p>
+        <p>{userData.role}</p>
+      </TypeSubMobile>
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', maxWidth: '500px', padding: '0 0 2rem 0' }}>
+        <Button text={'Choose Version'} iconRight={<BsArrowRight fill={'white'} />} />
+        <SelectStyle name="planPricing" id="planPricing" value={`${desiredRole}`} onChange={(e) => setDesiredRole(e.target.value)}>
+          <option value="Basic">Basic 0.01€</option>
+          <option value="Premium">Premium 0.02€</option>
+        </SelectStyle>
+      </div>
+      {inputs.actualRole !== desiredRole && (
+        <ContainerPaypalButtons>
+          <PayPalScriptProvider
+            options={{ 'client-id': 'AY-LVB-kx-OsOie4JC4InEK-z3wfR-onR2hrbKMKOqJ4ovip0yezMQntET8iDZBlXEcAoHHdfDoLc7hu', currency: 'EUR' }}
+          >
+            <PayPalButtons
+              createOrder={createOrder}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then(async () => {
+                  // const name = details.payer.name.given_name; (details - param)
+                  await handleRoleChange();
+                  openModal();
+                });
+              }}
+            />
+          </PayPalScriptProvider>
+        </ContainerPaypalButtons>
+      )}
+      {modalIsOpen && (
+        <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
+          <div>
+            <div>
+              <FcOk fontSize={70} />
+            </div>
+            <h2 style={{ textAlign: 'center', color: 'white' }}>Buying process successfully completed</h2>
+          </div>
+        </Modal>
+      )}
+      {/*<div style={{ maxWidth: '500px' }}>*/}
+      {/*  <Button text={'Change'} width={'100%'} onClick={handleRoleChange} />*/}
+      {/*</div>*/}
       <div style={{ padding: '1rem 0 0 0', borderBottom: '1px solid grey' }}>
         <h2>Customize Your Layout</h2>
       </div>

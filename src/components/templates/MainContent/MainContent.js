@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import CardMainContent from '../../organisms/CardMainContent/CardMainContent';
 import creativeWoman from '../../../assets/illustrations/undraw_creative_woman_re_u5tk.svg';
@@ -12,7 +12,10 @@ import Button from '../../atoms/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import Footer from '../../organisms/Footer/Footer';
-import { FcOk } from 'react-icons/fc';
+import Logo from '../../atoms/Logo/Logo';
+// import Stats from '../../../assets/images/statisticsPage1.png';
+// import CustomersImg from '../../../assets/images/customersPage1.png';
+// import VisitsImg from '../../../assets/images/visitsPage1.png';
 
 export const ContainerMainContent = styled.div`
   display: flex;
@@ -48,6 +51,12 @@ export const ContainerCards = styled.div`
   }
 `;
 
+// export const ContainerBackgroundHero = styled.div`
+//   background-image: url(${Stats});
+//   background-size:contain;
+//   background-repeat: no-repeat;
+// `
+
 export const ContainerHero = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -57,6 +66,19 @@ export const ContainerHero = styled.div`
   height: calc(100vh - 88px);
   line-height: 1.3;
   max-width: 1360px;
+
+  // &:before{
+  //   content: "";
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   position: absolute;
+  //   background-image: url($)
+  //   background-size: cover;
+  //   filter: grayscale(100%);
+  //   z-index:1;
+  // }
 
   //h2 {
   //  color: #222121;
@@ -73,7 +95,7 @@ export const ContainerHero = styled.div`
   }
 
   div {
-    flex: 0 0 45%;
+    flex: 0 0 47%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -96,20 +118,21 @@ export const ContainerHero = styled.div`
   }
 
   h2 {
-    font-size: clamp(1rem, 0.7rem + 3vw, 2.5rem);
+    font-size: clamp(1rem, 0.7rem + 2vw, 2rem);
     margin: 0;
     color: ${({ theme }) => theme.color.black};
+    font-weight: normal;
     //@media only screen and (max-width:700px){
     //  font-size:1rem;
     //}
   }
 
   & > h2 {
-    position: absolute;
-    top: 140px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
+    //position: absolute;
+    //top: 140px;
+    //left: 50%;
+    //transform: translateX(-50%);
+    //width: 100%;
     text-align: center;
     @media only screen and (max-width: 700px) {
       position: static;
@@ -128,6 +151,10 @@ export const ContainerHero = styled.div`
   @media only screen and (max-width: 700px) {
     max-width: 450px;
   }
+  //> div:last-child{
+  //  position: relative;
+  //  display:block;
+  //}
 `;
 
 export const Background = styled.div`
@@ -185,6 +212,14 @@ export const Copyright = styled.div`
     margin: 4px;
   }
 `;
+
+export const ImgHero = styled.img`
+  position: absolute;
+  z-index: 0;
+  width: 100px;
+  height: 80px;
+  top: 0;
+`;
 const bottomWave = () => {
   return (
     <div className="custom-shape-divider-bottom-1641212545">
@@ -227,44 +262,28 @@ const topWave1 = () => {
 export const topWaveVar1 = topWave1();
 
 const MainContent = () => {
-  const [noHide, setNoHide] = useState(true);
   const navigate = useNavigate();
   const { userData, t } = useContext(ListCustomersTestContext);
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
-  useEffect(() => {
-    if (userData.loggedOut) {
-      setTimeout(() => setNoHide(false), 5000);
-    }
-  }, [userData.loggedOut]);
   return (
-    <ContainerMainContent onClick={() => setNoHide(false)}>
+    <ContainerMainContent>
       <ContainerHero>
-        {userData.loggedOut && noHide && (
-          <span
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              borderRadius: '0.5rem',
-              background: 'white',
-              padding: '1rem',
-              boxShadow: '2px 4px 5px black',
-            }}
-          >
-            <FcOk fontSize={30} />
-            <h3>You was logout safely</h3>
-          </span>
-        )}
-        <h2>{t('heroContent.presents')}</h2>
+        {/*<h2>{t('heroContent.presents')}</h2><Logo withText />*/}
         <div>
-          <h1>{t('heroContent.heroText')}</h1>
+          <div>
+            <Logo withText />
+            <h1 style={{ padding: '0', margin: '0' }}>{t('heroContent.heroText')}</h1>
+          </div>
           <h2>{t('heroContent.secondHeroText')}</h2>
           {!userData.token && <Button text={t('button.clickToLogIn')} onClick={handleNavigateToLogin} />}
         </div>
         <div>
           <img src={creativeWoman} alt="organised women" />
+          {/*  <img src={Stats} alt="organised women" />*/}
+          {/*<ImgHero src={CustomersImg} />*/}
+          {/*<ImgHero src={VisitsImg} />*/}
         </div>
         {bottomWaveVar}
       </ContainerHero>

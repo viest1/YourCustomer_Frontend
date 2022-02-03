@@ -62,5 +62,6 @@ export default function useForm(initial = {}) {
     resetForm,
     clearForm,
     handleSelect,
+    setInputs,
   };
 }

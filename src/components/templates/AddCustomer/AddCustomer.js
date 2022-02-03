@@ -114,12 +114,8 @@ const AddCustomer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!inputs.premium || !inputs.price || !inputs.extraPay || !inputs.behavior) {
-      setValidationError(`You need to select in Form:
-      ${!inputs.premium && 'Premium'},
-      ${!inputs.price && 'Price'},
-      ${!inputs.extraPay && 'Extra Pay'},
-      ${!inputs.behavior && 'Behavior'}`);
+    if (!inputs.price) {
+      setValidationError(`You need to select Price`);
       return;
     }
 
@@ -171,6 +167,8 @@ const AddCustomer = () => {
             submitted={submitted}
             setSubmitted={setSubmitted}
             setPreviewSource={setPreviewSource}
+            validationError={validationError}
+            setValidationError={setValidationError}
           />
           <Button type="submit" text={t('button.addNewCustomer')} />
           {isLoading && (
@@ -180,7 +178,6 @@ const AddCustomer = () => {
           )}
         </fieldset>
       </ContainerForms>
-      {validationError && <p>{validationError}</p>}
       {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           <h2>{t('modal.addCustomer')}</h2>

@@ -28,6 +28,7 @@ const GeneralProvider = ({ children }) => {
     name: '',
     email: '',
     exp: '',
+    role: '',
     loggedOut: false,
   });
   const { t } = useTranslation();

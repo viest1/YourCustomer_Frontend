@@ -10,9 +10,9 @@
     "logout": "Logout"
   },
   "heroContent": {
-    "presents": "PLWebsites Presents: YourCustomer!",
-    "heroText": "YourCustomer - App which helps manage your business!",
-    "secondHeroText": "Easy managing your Customers, Visits and others"
+    "presents": "PLWebsites Presents:",
+    "heroText": "App which helps manage your business!",
+    "secondHeroText": "Easy managing your Customers, Visits, Statistics and others"
   },
   "functionalities": {
     "functionalities": "Functionalities",

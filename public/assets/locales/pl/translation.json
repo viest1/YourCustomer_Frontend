@@ -10,8 +10,8 @@
     "logout": "Logout"
   },
   "heroContent": {
-    "presents": "PLWebsites Presents: YourCustomer!",
-    "heroText": "YourCustomer - Polska!",
+    "presents": "PLWebsites Presents:",
+    "heroText": "Polska!",
     "secondHeroText": "Easy managing your Customers, Visits and others"
   },
   "functionalities": {

@@ -88,6 +88,7 @@ const FormData = ({ handleSelect, handleChange, inputs }) => {
         handleInput={handleChange}
         value={inputs.contactName}
         icon={<MdAssignmentInd />}
+        minlength="4"
       />
       <FormLabelAndInput
         id="phone"

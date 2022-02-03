@@ -5,9 +5,11 @@ import { Bar, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
 import { Grid1, Grid2, ContainerBar, ContainerDoughnut } from './CardOverall.styles';
 import { FaDog } from 'react-icons/fa';
+import { useInView } from 'react-intersection-observer';
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement);
 
 const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
+  // const ref = useRef()
   const shopItems = () => {
     let arr = [];
     let obj = {};
@@ -457,6 +459,17 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       color: '#29c0b1',
     },
   ];
+  const optionsObserver = {
+    triggerOnce: true,
+    threshold: 0.5,
+  };
+  const [ref, inView] = useInView(optionsObserver);
+  const [ref2, inView2] = useInView(optionsObserver);
+  const [ref3, inView3] = useInView(optionsObserver);
+  const [ref4, inView4] = useInView(optionsObserver);
+  const [ref5, inView5] = useInView(optionsObserver);
+  const [ref6, inView6] = useInView(optionsObserver);
+
   return (
     <>
       <Grid1>
@@ -472,47 +485,35 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
         ))}
       </Grid1>
       <Grid2>
-        <div>
+        <div ref={ref6}>
           <p>Average</p>
           <p>Average values this date</p>
-          <ContainerBar>
-            <Bar data={dataAverage} options={options} />
-          </ContainerBar>
+          <ContainerBar>{inView6 && <Bar data={dataAverage} options={options} type={'Bar'} />}</ContainerBar>
         </div>
-        <div>
+        <div ref={ref5}>
           <p>Behavior</p>
           <p>Behavior your dogs on this date</p>
-          <ContainerDoughnut>
-            <Doughnut data={dataBehavior} options={optionsDoughnut} />
-          </ContainerDoughnut>
+          <ContainerDoughnut>{inView5 && <Doughnut data={dataBehavior} options={optionsDoughnut} type={'Doughnut'} />}</ContainerDoughnut>
         </div>
-        <div>
+        <div ref={ref4}>
           <p>Size</p>
           <p>Size your dogs on this date</p>
-          <ContainerDoughnut>
-            <Doughnut data={dataSize} options={optionsDoughnut} />
-          </ContainerDoughnut>
+          <ContainerDoughnut>{inView4 && <Doughnut data={dataSize} options={optionsDoughnut} type={'Doughnut'} />}</ContainerDoughnut>
         </div>
-        <div>
+        <div ref={ref3}>
           <p>Services</p>
           <p>Which services you had on this date</p>
-          <ContainerDoughnut>
-            <Doughnut data={dataService} options={optionsDoughnut} />
-          </ContainerDoughnut>
+          <ContainerDoughnut>{inView3 && <Doughnut data={dataService} options={optionsDoughnut} type={'Doughnut'} />}</ContainerDoughnut>
         </div>
-        <div>
+        <div ref={ref2}>
           <p>Gender</p>
           <p>Gender type your dogs on this date</p>
-          <ContainerDoughnut>
-            <Doughnut data={dataGender} options={optionsDoughnut} />
-          </ContainerDoughnut>
+          <ContainerDoughnut>{inView2 && <Doughnut data={dataGender} options={optionsDoughnut} type={'Doughnut'} />}</ContainerDoughnut>
         </div>
-        <div>
+        <div ref={ref}>
           <p>Shop</p>
           <p>Shop items which you sold on this date: {data.shopSoldItems.value}</p>
-          <ContainerBar>
-            <Bar data={dataShop} options={optionsShop} />
-          </ContainerBar>
+          <ContainerBar>{inView && <Bar data={dataShop} options={optionsShop} type={'Bar'} />}</ContainerBar>
         </div>
       </Grid2>
     </>

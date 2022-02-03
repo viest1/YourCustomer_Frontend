@@ -87,13 +87,14 @@ export const ButtonStyles = styled.button`
   }
 `;
 
-const Button = ({ text, type = 'button', onClick, width, height, loginBtn, icon }) => {
+const Button = ({ text, type = 'button', onClick, width, height, loginBtn, icon, iconRight }) => {
   const { themeType } = useContext(ListCustomersTestContext);
   return (
     <div>
       <ButtonStyles loginBtn={loginBtn} type={type} onClick={onClick} themeType={themeType} style={{ width: width, height: height }}>
         {icon && <span>{icon}</span>}
         {text}
+        {iconRight && <span>{iconRight}</span>}
       </ButtonStyles>
     </div>
   );

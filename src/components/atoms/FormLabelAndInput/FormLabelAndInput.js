@@ -22,6 +22,7 @@ const FormLabelAndInput = React.forwardRef(
       padding,
       noPointer,
       width,
+      minlength,
     },
     ref
   ) => {
@@ -40,6 +41,7 @@ const FormLabelAndInput = React.forwardRef(
             isNotValid={isNotValid}
             onBlur={onBlur}
             ref={ref}
+            minLength={minlength}
           />
         ) : icon ? (
           <div style={{ position: 'relative' }}>
@@ -61,6 +63,7 @@ const FormLabelAndInput = React.forwardRef(
               ref={ref}
               padding={padding || '0.8rem 10px 0.8rem 3rem'}
               width={width}
+              minLength={minlength}
             />
           </div>
         ) : (
@@ -78,6 +81,7 @@ const FormLabelAndInput = React.forwardRef(
             max={max}
             ref={ref}
             width={width}
+            minLength={minlength}
           />
         )}
       </Container>

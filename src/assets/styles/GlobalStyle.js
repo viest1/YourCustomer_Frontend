@@ -27,6 +27,10 @@ export const GlobalStyle = createGlobalStyle`
   input, button, textarea {
     font-family: 'Roboto', sans-serif;
   }
+  .price{
+    border:2px dotted red;
+    border-radius:0.3rem;
+  }
 
   //::-webkit-scrollbar {
   //  width: 10px;
@@ -95,6 +99,8 @@ export const GlobalStyle = createGlobalStyle`
     transition: all 300ms;
     transform: translateX(-300px);
   }
+  
+  
 
   .nav-icon-1 {
     width: 30px;

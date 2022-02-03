@@ -7,6 +7,7 @@ import { sortByTimestamp } from '../../../helpers/sortByTimestamp';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { useAuth } from '../../../hooks/useAuth';
+import { useInView } from 'react-intersection-observer';
 
 export const ContainerCardsCustomer = styled.div`
   padding: 0.3rem;
@@ -211,6 +212,14 @@ const Customers = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberFilterResults]);
 
+  const { ref: lastRef, inView } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (inView) setNumberFilterResults((prev) => prev + 10);
+  }, [inView]);
+
   return (
     <>
       <ContainerWithBackground themeType={themeType}>
@@ -269,7 +278,11 @@ const Customers = () => {
         </ContainerCardsCustomer>
       ) : (
         <ContainerCardsCustomer>
-          {filteringCustomers ? filteringCustomers?.map((item) => <CardCustomer t={t} customer={item} key={item._id} />) : 'Something Wrong'}
+          {filteringCustomers
+            ? filteringCustomers?.map((item, i) => (
+                <CardCustomer ref={filteringCustomers.length === i + 1 ? lastRef : null} t={t} customer={item} key={item._id} />
+              ))
+            : 'Something Wrong'}
         </ContainerCardsCustomer>
       )}
     </>

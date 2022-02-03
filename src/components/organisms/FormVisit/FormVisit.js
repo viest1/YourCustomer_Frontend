@@ -203,6 +203,8 @@ const FormVisit = ({
   previewFile,
   previewSource,
   editMode,
+  validationError,
+  theme,
 }) => {
   const imageRef = useRef(null);
   const { t, themeType } = useContext(ListCustomersTestContext);
@@ -274,7 +276,15 @@ const FormVisit = ({
       </div>
       <div>
         <label htmlFor="price">{t('formVisit.price')}</label>
-        <Select id="price" name="price" onChange={handleSelect} options={optionsPrice} value={inputs.price} />
+        <Select
+          id="price"
+          name="price"
+          onChange={handleSelect}
+          options={optionsPrice}
+          value={inputs.price}
+          className={validationError && inputs?.price?.length < 2 && 'price'}
+        />
+        {validationError && inputs?.price?.length < 2 && <p style={{ color: 'red' }}>{validationError}</p>}
       </div>
       {editMode && (
         <FormLabelAndInput

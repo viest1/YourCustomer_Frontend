@@ -37,18 +37,15 @@ const AddNewVisit = () => {
     extraPay: { label: 'No', value: '0' },
     time: '01:45',
     hour: '14:45',
+    price: '',
   });
   const { userData, t, themeType } = useContext(ListCustomersTestContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const fetchAddVisit = async () => {
-      if (!inputs.premium || !inputs.price || !inputs.extraPay || !inputs.behavior) {
-        setValidationError(`You need to select in Form:
-      ${!inputs.premium && 'Premium'},
-      ${!inputs.price && 'Price'},
-      ${!inputs.extraPay && 'Extra Pay'},
-      ${!inputs.behavior && 'Behavior'}`);
+      if (!inputs.price) {
+        setValidationError(`You need to select Price`);
         return;
       }
       setIsLoading(true);
@@ -109,9 +106,10 @@ const AddNewVisit = () => {
             setPreviewSource={setPreviewSource}
             submitted={submitted}
             setSubmitted={setSubmitted}
+            validationError={validationError}
+            setValidationError={setValidationError}
           />
           <Button type="submit" text={t('button.addNewVisit')} width={'100%'} />
-          {validationError && <p>{validationError}</p>}
         </fieldset>
       </form>
       {modalIsOpen && (

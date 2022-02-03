@@ -35,26 +35,34 @@ const Statistics = () => {
   const [filteringCustomers, setFilteringCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dateStats, setDateStats] = useState('');
+  const [errorMessage, setErrorMessage] = useState();
   const { userData, t } = useContext(ListCustomersTestContext);
   const todayDateMonth = `${new Date().getFullYear()}-${
     new Date().getMonth() < 10 ? `0${new Date().getMonth() + 1}` : `${new Date().getMonth() + 1}`
   }`;
   const fetchCustomers = async () => {
     setIsLoading(true);
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers', {
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/customers/role/premium', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
+        Role: userData.role,
       },
     });
     const resJSON = await res.json();
+    if (resJSON.error) {
+      setErrorMessage(resJSON.message);
+      console.log(resJSON.message);
+      return;
+    }
     setCustomers(resJSON.allCustomers);
-    const resVisits = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits', {
+    const resVisits = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits/role/premium', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
         Authorization: 'Bearer ' + userData?.token,
+        Role: userData.role,
       },
     });
     const resJSONVisits = await resVisits.json();
@@ -77,9 +85,7 @@ const Statistics = () => {
     <ContainerStatistics>
       <input type="month" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
       {isLoading ? (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <LoadingSpinner />
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>{errorMessage ? <p>{errorMessage}</p> : <LoadingSpinner />}</div>
       ) : (
         <div>
           {customers && (

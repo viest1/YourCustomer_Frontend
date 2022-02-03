@@ -10,8 +10,8 @@
     "logout": "Abmelden"
   },
   "heroContent": {
-    "presents": "PLWebsites präsentiert: YourCustomer!",
-    "heroText": "YourCustomer - App, die Ihnen hilft, Ihr Geschäft zu verwalten!",
+    "presents": "PLWebsites präsentiert:",
+    "heroText": "App, die Ihnen hilft, Ihr Geschäft zu verwalten!",
     "secondHeroText": "Einfache Verwaltung Ihrer Kunden, Besuche und anderer"
   },
   "functionalities": {

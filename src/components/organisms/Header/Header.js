@@ -15,6 +15,7 @@ import useModal from '../Modal/useModal';
 import Modal from '../Modal/Modal';
 import i18next from 'i18next';
 import { MdClear } from 'react-icons/md';
+import Logo from '../../atoms/Logo/Logo';
 
 export const ContainerHeader = styled.div`
   padding: 2rem;
@@ -98,13 +99,6 @@ export const LanguageIcon = styled(BsGlobe)`
     border-radius: 1rem;
     -moz-outline-radius: 1rem;
   }
-`;
-
-export const Title = styled.h2`
-  position: absolute;
-  top: 25%;
-  transform: translateY(-25%);
-  left: 22px;
 `;
 
 export const ContainerHamburger = styled.div`
@@ -310,7 +304,7 @@ const Header = ({ setThemeState }) => {
   useEffect(() => {
     let interval;
     if (Date.now() > userData.exp) {
-      navigate('/login');
+      navigate('/');
       setUserData({
         userId: '',
         token: '',
@@ -323,6 +317,7 @@ const Header = ({ setThemeState }) => {
         if (userData.exp - Date.now() < 30000 && !modalDisplayed) {
           openModal();
           setModalDisplayed(true);
+          clearInterval(interval);
         }
         if (Date.now() > userData.exp) {
           navigate('/login');
@@ -340,6 +335,28 @@ const Header = ({ setThemeState }) => {
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData.exp]);
+
+  useEffect(() => {
+    let interval;
+    if (modalDisplayed) {
+      interval = setInterval(() => {
+        if (Date.now() > userData.exp) {
+          navigate('/login');
+          setUserData({
+            userId: '',
+            token: '',
+            name: '',
+            exp: '',
+          });
+          setModalDisplayed(false);
+        }
+      }, 5000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalDisplayed]);
 
   useEffect(() => {
     let interval;
@@ -396,7 +413,7 @@ const Header = ({ setThemeState }) => {
       )}
       {!isMobile ? (
         <>
-          <Title>YourCustomer</Title>
+          <Logo />
           <NavLinkItem text="Home" path="/" />
           {userData.token && (
             <>
@@ -458,22 +475,24 @@ const Header = ({ setThemeState }) => {
       </CSSTransition>
       <ContainerIcons>
         <span ref={languageMenuRef} style={{ display: 'flex', alignItems: 'center' }}>
-          <ContainerListLanguages themeType={themeType}>
-            {languageMenuIsOpen &&
-              languages.map((item, index) => (
-                <ButtonLanguage
-                  themeType={themeType}
-                  key={index}
-                  onClick={() => {
-                    i18next.changeLanguage(item.code);
-                    setLanguageMenuIsOpen(false);
-                  }}
-                >
-                  <span className={`fi fi-${item.country_code}`} />
-                  <span>{item.name}</span>
-                </ButtonLanguage>
-              ))}
-          </ContainerListLanguages>
+          <CSSTransition in={languageMenuIsOpen} timeout={300} classNames="search-input" unmountOnExit>
+            <ContainerListLanguages themeType={themeType}>
+              {languageMenuIsOpen &&
+                languages.map((item, index) => (
+                  <ButtonLanguage
+                    themeType={themeType}
+                    key={index}
+                    onClick={() => {
+                      i18next.changeLanguage(item.code);
+                      setLanguageMenuIsOpen(false);
+                    }}
+                  >
+                    <span className={`fi fi-${item.country_code}`} />
+                    <span>{item.name}</span>
+                  </ButtonLanguage>
+                ))}
+            </ContainerListLanguages>
+          </CSSTransition>
           <LanguageIcon onClick={() => setLanguageMenuIsOpen((prev) => !prev)} />
         </span>
         {userData.token && <SearchIcon onClick={handleOpenSearchBar} />}
