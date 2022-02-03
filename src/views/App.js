@@ -48,6 +48,8 @@ function App() {
               <>
                 <Route path="/" element={<MainContent />} />
                 <Route path="/login" element={<FormAuth />} />
+                <Route path="/verifyEmail/:tokenVerifyEmail" element={<FormAuth />} />
+                <Route path="/resetPassword/:tokenResetPassword" element={<FormAuth />} />
               </>
             )}
           </Routes>

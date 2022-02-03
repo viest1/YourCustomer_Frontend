@@ -33,7 +33,7 @@ export const useAuth = (inputs) => {
         setErrorMessageSignUp(resJSON.message);
         return;
       }
-      navigate('/');
+      // navigate('/');
       setUserData({ token: resJSON.token, userId: resJSON.userId, name: resJSON.name, email: resJSON.email, exp: resJSON.exp, role: resJSON.role });
     };
     signup();

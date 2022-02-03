@@ -197,6 +197,14 @@ export const ButtonLanguage = styled.button`
   }
 `;
 
+export const ContainerLogo = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 22px;
+  pointer-events: none;
+`;
+
 const languages = [
   {
     code: 'de',
@@ -413,7 +421,9 @@ const Header = ({ setThemeState }) => {
       )}
       {!isMobile ? (
         <>
-          <Logo />
+          <ContainerLogo>
+            <Logo />
+          </ContainerLogo>
           <NavLinkItem text="Home" path="/" />
           {userData.token && (
             <>

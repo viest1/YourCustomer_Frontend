@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import logoYC from '../../../assets/images/logoYCPurple.png';
 
 export const LogoStyle = styled.h2`
-  position: absolute;
-  top: 25%;
-  transform: translateY(-25%);
-  left: 22px;
-  pointer-events: none;
+  //position: absolute;
+  //top: 25%;
+  //transform: translateY(-25%);
+  //left: 22px;
+  //pointer-events: none;
 `;
 
 export const Title = styled.h2``;
