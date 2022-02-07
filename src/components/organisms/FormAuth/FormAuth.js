@@ -107,7 +107,8 @@ const FormAuth = () => {
     return () => clearTimeout(timeout);
   }, [messageError]);
 
-  const handleVerifyEmail = () => {
+  const handleVerifyEmail = async (e) => {
+    e.preventDefault();
     const fetchVerify = async () => {
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/verifyEmail', {
         method: 'PATCH',
@@ -119,15 +120,16 @@ const FormAuth = () => {
       const resJSON = await res.json();
       console.log(resJSON);
       if (resJSON.error) return setMessageError('Something went wrong');
-      return setMessage('You Verified Email Correct. You can Now Log In');
+      setMessage('You Verified Email Correct. You can Now Log In');
+      return resJSON;
     };
-    fetchVerify();
+    await fetchVerify();
     setTimeout(() => {
       navigate('/login');
     }, 3000);
   };
 
-  const handleSendEmailToResetPassword = (e) => {
+  const handleSendEmailToResetPassword = async (e) => {
     e.preventDefault();
     const fetchSendEmailToResetPassword = async () => {
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/sendEmailToResetPassword', {
@@ -142,9 +144,9 @@ const FormAuth = () => {
       if (resJSON.error) return setMessageError('Something went wrong');
       return setMessage('Check your Mailbox');
     };
-    fetchSendEmailToResetPassword();
+    await fetchSendEmailToResetPassword();
   };
-  const handleResetPassword = (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
     const fetchSetNewPassword = async () => {
       const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/setNewPassword', {
@@ -159,9 +161,12 @@ const FormAuth = () => {
       if (resJSON.error) return setMessageError('Something went wrong');
       return setMessage('You changed password correctly');
     };
-    fetchSetNewPassword();
+    await fetchSetNewPassword();
   };
-
+  const handleResetPasswordBack = (e) => {
+    clearForm();
+    setResetPasswordMode(false);
+  };
   if (tokenVerifyEmail) {
     return (
       <ContainerFormAuth>
@@ -174,8 +179,8 @@ const FormAuth = () => {
               <h2>{'Verification E-mail'}</h2>
               <p>Click on button and verify your e-mail</p>
             </div>
-            <ContainerForm as={'div'}>
-              <Button loginBtn type="button" text={'Verify E-mail'} width={'100%'} onClick={handleVerifyEmail} />
+            <ContainerForm onSubmit={handleVerifyEmail}>
+              <Button loginBtn type="submit" text={'Verify E-mail'} width={'100%'} />
               {messageError ||
                 (message && (
                   <div>
@@ -216,7 +221,7 @@ const FormAuth = () => {
                 <p>{messageError ? messageError : message}</p>
               </div>
             ))}
-          <ForgotPassword type={'button'} onClick={() => setResetPasswordMode(false)}>
+          <ForgotPassword type={'button'} onClick={handleResetPasswordBack}>
             Back
           </ForgotPassword>
           <Button loginBtn type="submit" text={'Reset Password'} width={'100%'} />
