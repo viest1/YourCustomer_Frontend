@@ -25,14 +25,12 @@ export const ContainerHeader = styled.div`
   align-items: center;
   justify-content: flex-end;
   font-size: ${({ theme }) => theme.fontSize.m};
-  //box-shadow: ${({ theme }) => theme.boxShadow.inside};
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
   position: relative;
   z-index: 9999;
   @media (max-width: 1289px) {
     gap: 1rem;
     justify-content: space-between;
-    //padding:2rem 0;
   }
   * {
     transition: 0.3s;
@@ -102,11 +100,6 @@ export const LanguageIcon = styled(BsGlobe)`
 `;
 
 export const ContainerHamburger = styled.div`
-  //margin-right: auto;
-  //position: absolute;
-  //left: 25px;
-  //top: 50%;
-  //transform: translateY(-50%);
   position: relative;
   z-index: 2;
   @media (max-width: 353px) {
@@ -157,13 +150,6 @@ export const ListMenu = styled.div`
 `;
 
 export const ContainerListLanguages = styled.div`
-  //background: white;
-  //position: absolute;
-  //right: 130px;
-  //top: 57px;
-  //flex-direction: column;
-  //display: flex;
-  //z-index: 1;
   position: absolute;
   top: 70px;
   right: 0;
@@ -172,7 +158,6 @@ export const ContainerListLanguages = styled.div`
   background: ${({ themeType }) => themeType.button};
   border-radius: 0.2rem;
   text-align: left;
-  //box-shadow: 0 0 3px 2px black;
   * {
     color: black;
   }
@@ -379,10 +364,6 @@ const Header = ({ setThemeState }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalIsOpen]);
 
-  // const handleLogoutTime = () => {
-  //   closeModal();
-  //   setUserData({ ...userData, exp: userData.exp + 1000 * 35 });
-  // };
   const handleOpenMenu = () => {
     setIsOpenMenu((prev) => !prev);
   };
@@ -405,7 +386,6 @@ const Header = ({ setThemeState }) => {
           {Date.now() < userData.exp ? (
             <div>
               <h2 style={{ textAlign: 'center', color: 'white' }}>{t('modal.areYouThere')}</h2>
-              {/*<Button text={t('button.stayLogged')} style={{ color: 'white' }} onClick={handleLogoutTime} />*/}
               <p style={{ color: 'white' }}>{t('modal.willLogout')}</p>
               <p style={{ textAlign: 'center', color: 'white' }}>
                 {t('modal.automaticallyLogout')}: {remainingTime}
@@ -441,15 +421,15 @@ const Header = ({ setThemeState }) => {
         <div ref={ref}>
           <ContainerHamburger hide={isOpenSearch}>
             <div className={isOpenMenu ? 'icon nav-icon-1 open' : 'icon nav-icon-1'} onClick={handleOpenMenu}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
             </div>
           </ContainerHamburger>
           <ContainerListMenu open={isOpenMenu}>
@@ -477,9 +457,9 @@ const Header = ({ setThemeState }) => {
           value={searchText}
           handleInput={handleInputSearch}
           onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
-          icon={<MdClear onClick={handleClearSearchInput} />}
+          rightIcon={<MdClear onClick={handleClearSearchInput} />}
           noPointer
-          padding={'0.7rem 0 0.7rem 3rem'}
+          padding={'0.7rem 0 0.7rem 1rem'}
           width={size.width > 1290 && size.width < 1400 ? '150px' : '100%'}
         />
       </CSSTransition>

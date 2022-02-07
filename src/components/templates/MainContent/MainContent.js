@@ -272,12 +272,13 @@ const MainContent = () => {
       <ContainerHero>
         {/*<h2>{t('heroContent.presents')}</h2><Logo withText />*/}
         <div>
-          <div>
-            <Logo withText />
-            <h1 style={{ padding: '0', margin: '0' }}>{t('heroContent.heroText')}</h1>
+          <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexDirection: 'row' }}>
+            <Logo />
+            <h2>YourCustomer</h2>
           </div>
+          <h1 style={{ padding: '0', margin: '0' }}>{t('heroContent.heroText')}</h1>
           <h2>{t('heroContent.secondHeroText')}</h2>
-          {!userData.token && <Button text={t('button.clickToLogIn')} onClick={handleNavigateToLogin} />}
+          {!userData.token && <Button text={t('button.clickToLogIn')} height={'45px'} onClick={handleNavigateToLogin} />}
         </div>
         <div>
           <img src={creativeWoman} alt="organised women" />

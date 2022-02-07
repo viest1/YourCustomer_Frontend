@@ -55,3 +55,14 @@ export const ContainerIcon = styled.span`
     fill: ${({ themeType }) => themeType.layout};
   }
 `;
+
+export const ContainerIconRight = styled.span`
+  position: absolute;
+  top: 54%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: ${({ noPointer }) => (noPointer ? 'auto' : 'none')};
+  svg {
+    fill: ${({ themeType }) => themeType.layout};
+  }
+`;

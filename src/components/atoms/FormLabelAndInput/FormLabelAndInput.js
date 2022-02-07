@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, InputSearch, LabelStyled, TextareaStyled, ContainerIcon } from './FormLabelAndInput.styles';
+import { Container, InputSearch, LabelStyled, TextareaStyled, ContainerIcon, ContainerIconRight } from './FormLabelAndInput.styles';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 const FormLabelAndInput = React.forwardRef(
@@ -23,6 +23,7 @@ const FormLabelAndInput = React.forwardRef(
       noPointer,
       width,
       minlength,
+      rightIcon,
     },
     ref
   ) => {
@@ -43,11 +44,13 @@ const FormLabelAndInput = React.forwardRef(
             ref={ref}
             minLength={minlength}
           />
-        ) : icon ? (
+        ) : icon || rightIcon ? (
           <div style={{ position: 'relative' }}>
-            <ContainerIcon themeType={themeType} noPointer>
-              {icon}
-            </ContainerIcon>
+            {icon && (
+              <ContainerIcon themeType={themeType} noPointer>
+                {icon}
+              </ContainerIcon>
+            )}
             <InputSearch
               type={type}
               id={id}
@@ -65,6 +68,11 @@ const FormLabelAndInput = React.forwardRef(
               width={width}
               minLength={minlength}
             />
+            {rightIcon && (
+              <ContainerIconRight themeType={themeType} noPointer>
+                {rightIcon}
+              </ContainerIconRight>
+            )}
           </div>
         ) : (
           <InputSearch

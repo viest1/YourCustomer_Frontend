@@ -15,16 +15,20 @@ i18next
   .use(initReactI18next)
   .init({
     supportedLngs: ['en', 'de', 'pl'],
+    fallbacks: true,
     fallbackLng: 'en',
+    whitelist: 'en',
     debug: false,
     // Options for language detector
     detection: {
-      order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+      order: ['cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag', 'querystring', 'path', 'subdomain'],
       lookupQuerystring: 'lng',
+      lookupCookie: 'i18n',
+      lookupLocalStorage: 'i18nextLng',
       caches: ['localStorage', 'cookie'],
     },
     backend: {
-      loadPath: 'assets/locales/{{lng}}/translation.json',
+      loadPath: '/assets/locales/{{lng}}/translation.json',
     },
   });
 

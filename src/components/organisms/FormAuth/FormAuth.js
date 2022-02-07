@@ -260,7 +260,10 @@ const FormAuth = () => {
 
   return (
     <ContainerFormAuth>
-      <h2>YourCustomer</h2>
+      <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+        <Logo />
+        <h2>YourCustomer</h2>
+      </div>
       <div>
         <h2>{isLoginMode ? t('login.welcomeBack') : t('login.newHere')}</h2>
         <p>{isLoginMode ? t('login.happy') : t('login.joinUs')}</p>
@@ -337,7 +340,6 @@ const FormAuth = () => {
         <p>{isLoginMode ? t('login.notHave') : t('login.have')} </p>
         <Button loginBtn text={isLoginMode ? t('login.switchSign') : t('login.switchLogin')} onClick={handleLoginMode} width="200px" />
       </div>
-      )}
     </ContainerFormAuth>
   );
 };

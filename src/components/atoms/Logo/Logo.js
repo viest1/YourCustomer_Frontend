@@ -26,7 +26,7 @@ const Logo = ({ withText }) => {
         </Title>
       ) : (
         <LogoStyle>
-          <img style={{ width: '30px', height: 'auto' }} src={logoYC} alt={'Logo Your Customer'} />
+          <img style={{ width: '30px', height: 'auto' }} src={logoYC} alt={'Y'} />
           <span style={{ marginLeft: '-14px' }}>
             <span style={{ color: '#6201ed', fontSize: '30px', fontWeight: 'bold' }}>C</span>
           </span>

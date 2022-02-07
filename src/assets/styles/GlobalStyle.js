@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
     background:#fafafa;
     background: ${({ theme }) => theme.color.white100};
+    overflow-x:hidden;
   }
 
   *,
@@ -27,11 +28,11 @@ export const GlobalStyle = createGlobalStyle`
   input, button, textarea {
     font-family: 'Roboto', sans-serif;
   }
+
   .price{
     border:2px dotted red;
     border-radius:0.3rem;
   }
-
   //::-webkit-scrollbar {
   //  width: 10px;
   //  height: 10px;
