@@ -152,6 +152,10 @@ const CardVisit = React.forwardRef(
           title: t('formVisit.behavior'),
           value: behavior?.label,
         },
+        {
+          title: t('formVisit.shop'),
+          value: shop.length ? shop?.map((item) => ' ' + item.label + ',') : 'No',
+        },
       ];
     } else {
       const weekday = new Date(visit).toLocaleString('default', { weekday: 'long' });

@@ -209,7 +209,7 @@ const languages = [
 ];
 
 const Header = ({ setThemeState }) => {
-  const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const [isOpenSearch, setIsOpenSearch] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -242,6 +242,8 @@ const Header = ({ setThemeState }) => {
   useEffect(() => {
     if (userData.token) {
       fetchData();
+    } else {
+      setSearchText('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData.token]);
@@ -376,7 +378,7 @@ const Header = ({ setThemeState }) => {
   };
   const handleClearSearchInput = () => {
     setSearchText('');
-    setIsOpenSearch(false);
+    // setIsOpenSearch(false);
   };
 
   return (
@@ -456,7 +458,7 @@ const Header = ({ setThemeState }) => {
           placeholder="Search..."
           value={searchText}
           handleInput={handleInputSearch}
-          onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
+          // onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
           rightIcon={<MdClear onClick={handleClearSearchInput} />}
           noPointer
           padding={'0.7rem 0 0.7rem 1rem'}
@@ -464,6 +466,7 @@ const Header = ({ setThemeState }) => {
         />
       </CSSTransition>
       <ContainerIcons>
+        {userData.token && <SearchIcon onClick={handleOpenSearchBar} />}
         <span ref={languageMenuRef} style={{ display: 'flex', alignItems: 'center' }}>
           <CSSTransition in={languageMenuIsOpen} timeout={300} classNames="search-input" unmountOnExit>
             <ContainerListLanguages themeType={themeType}>
@@ -485,7 +488,6 @@ const Header = ({ setThemeState }) => {
           </CSSTransition>
           <LanguageIcon onClick={() => setLanguageMenuIsOpen((prev) => !prev)} />
         </span>
-        {userData.token && <SearchIcon onClick={handleOpenSearchBar} />}
         <DarkMode setThemeState={setThemeState} />
       </ContainerIcons>
     </ContainerHeader>

@@ -13,5 +13,6 @@ export const shopProducts = [
   { value: 'sprayZecke', label: 'Spray Zecke', price: 12 },
   { value: 'burste', label: 'Burste', price: 20 },
   { value: 'gelbeBurste', label: 'Gelbe Burste', price: 20 },
+  { value: 'bursteTangles', label: 'Burste Tangles', price: 15 },
   { value: 'zeckenzange', label: 'Zeckenzange', price: 8 },
 ];

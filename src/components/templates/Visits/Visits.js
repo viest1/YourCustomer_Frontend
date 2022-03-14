@@ -4,7 +4,7 @@ import CardVisit from '../../organisms/CardVisit/CardVisit';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import { IoIosArrowDown } from 'react-icons/io';
-import { ContainerFilters, ContainerOptionsSort, ContainerWithBackground, FilterButton } from '../Customers/Customers';
+import { ContainerFilters, ContainerOptionsSort, ContainerWithBackground, FilterButton } from '../Customers/Customers.styles';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { FcCheckmark } from 'react-icons/fc';
 import { useInView } from 'react-intersection-observer';

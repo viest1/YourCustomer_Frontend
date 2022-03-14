@@ -31,6 +31,14 @@ const CardCustomer = React.forwardRef(
     const handleDropdown = () => {
       setIsDropdownOpen((prev) => !prev);
     };
+    let shopList = [];
+    const shop = visits?.map((item) => item.shop);
+    for (let i = 0; i < shop?.length; i++) {
+      if (shop[i].length > 0) {
+        shopList.push(shop[i].map((item) => item.label));
+      }
+    }
+    shopList = [...shopList].join(', ');
     const dataCustomer = [
       {
         title: t('formData.dogOwner'),
@@ -72,6 +80,10 @@ const CardCustomer = React.forwardRef(
       {
         title: t('formVisit.time'),
         value: visits && visits[visits.length - 1]?.time,
+      },
+      {
+        title: t('formVisit.shop'),
+        value: visits && shopList && shopList,
       },
     ];
 

@@ -34,7 +34,7 @@ const Statistics = () => {
   const [filteringVisits, setFilteringVisits] = useState([]);
   const [filteringCustomers, setFilteringCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [dateStats, setDateStats] = useState('');
+  const [dateStats, setDateStats] = useState(`${new Date().toISOString().slice(0, 7)}`);
   const [errorMessage, setErrorMessage] = useState();
   const { userData, t } = useContext(ListCustomersTestContext);
   const todayDateMonth = `${new Date().getFullYear()}-${
