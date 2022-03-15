@@ -130,10 +130,10 @@ const optionsPrice = [
   {
     label: 'Welcome Visit',
     options: [
-      { label: 'Small 40', value: '40 WelcomeVisit Small' },
-      { label: 'Medium 40', value: '40 WelcomeVisit Medium' },
-      { label: 'Big 40', value: '40 WelcomeVisit Big' },
-      { label: 'Huge 40', value: '40 WelcomeVisit Huge' },
+      { label: 'Small 45', value: '45 WelcomeVisit Small' },
+      { label: 'Medium 45', value: '45 WelcomeVisit Medium' },
+      { label: 'Big 45', value: '45 WelcomeVisit Big' },
+      { label: 'Huge 45', value: '45 WelcomeVisit Huge' },
     ],
   },
   {

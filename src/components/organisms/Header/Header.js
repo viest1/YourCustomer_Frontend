@@ -452,19 +452,21 @@ const Header = ({ setThemeState }) => {
           </ContainerListMenu>
         </div>
       )}
-      <CSSTransition in={isOpenSearch} timeout={300} classNames="search-input" unmountOnExit>
-        <FormLabelAndInput
-          ref={searchInput}
-          placeholder="Search..."
-          value={searchText}
-          handleInput={handleInputSearch}
-          // onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
-          rightIcon={<MdClear onClick={handleClearSearchInput} />}
-          noPointer
-          padding={'0.7rem 0 0.7rem 1rem'}
-          width={size.width > 1290 && size.width < 1400 ? '150px' : '100%'}
-        />
-      </CSSTransition>
+      {userData.token && (
+        <CSSTransition in={isOpenSearch} timeout={300} classNames="search-input" unmountOnExit>
+          <FormLabelAndInput
+            ref={searchInput}
+            placeholder="Search..."
+            value={searchText}
+            handleInput={handleInputSearch}
+            // onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
+            rightIcon={<MdClear onClick={handleClearSearchInput} />}
+            noPointer
+            padding={'0.7rem 0 0.7rem 1rem'}
+            width={size.width > 1290 && size.width < 1400 ? '150px' : '100%'}
+          />
+        </CSSTransition>
+      )}
       <ContainerIcons>
         {userData.token && <SearchIcon onClick={handleOpenSearchBar} />}
         <span ref={languageMenuRef} style={{ display: 'flex', alignItems: 'center' }}>
