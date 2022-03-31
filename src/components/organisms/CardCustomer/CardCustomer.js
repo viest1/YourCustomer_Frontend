@@ -1,13 +1,16 @@
 import React, { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RoundedImageWithArrows from '../../molecules/RoundedImageWithArrows/RoundedImageWithArrows';
-import { ContainerCard, ContainerDates, ContainerOneRow } from '../CardVisit/CardVisit';
+import { ContainerCard, ContainerComment, ContainerDates, ContainerOneRow } from '../CardVisit/CardVisit';
 import DotsDropdown from '../../molecules/DotsDropdown/DotsDropdown';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 
 const CardCustomer = React.forwardRef(
-  ({ t, customer: { dogOwner, address, birthday, breed, contactName, dogName, phone, size, visits, _id }, noCustomerDetails }, refLast) => {
+  (
+    { t, customer: { dogOwner, address, birthday, breed, contactName, dogName, phone, size, visits, _id, generalComment }, noCustomerDetails },
+    refLast
+  ) => {
     const navigate = useNavigate();
     const handleEdit = () => {
       navigate(`/customers/${_id}/edit`);
@@ -102,6 +105,11 @@ const CardCustomer = React.forwardRef(
             );
           })}
         </ContainerDates>
+        {generalComment && (
+          <ContainerComment>
+            <p>{generalComment}</p>
+          </ContainerComment>
+        )}
         <div ref={ref}>
           <DotsDropdown handleDropdown={handleDropdown} isDropdownOpen={isDropdownOpen}>
             {noCustomerDetails ? null : <li onClick={handleDetailsCustomer}>{t('button.details')}</li>}
