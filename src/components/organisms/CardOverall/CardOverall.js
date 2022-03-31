@@ -387,6 +387,8 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
     ],
   };
 
+  // color: '#29c0b1',
+
   const dataFirstRow = [
     {
       title: data.customers.title,
@@ -400,63 +402,63 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.visits.value,
       icon: <FaDog />,
-      color: '#29c0b1',
+      color: '#2c50ed',
     },
     {
       title: data.totalMoney.title,
       text: 'Total for this date',
       value: data.totalMoney.value,
       icon: <FaDog />,
-      color: '#2c50ed',
+      color: '#222437',
     },
     {
       title: data.totalMoneyShop.title,
       text: 'Total for this date',
       value: data.totalMoneyShop.value,
       icon: <FaDog />,
-      color: '#222437',
+      color: '#6201ed',
     },
     {
       title: data.premium.title,
       text: 'Total for this date',
       value: data.premium.value,
       icon: <FaDog />,
-      color: '#6201ed',
+      color: '#2c50ed',
     },
     {
       title: data.tip.title,
       text: 'Total for this date',
       value: data.tip.value,
       icon: <FaDog />,
-      color: '#29c0b1',
+      color: '#222437',
     },
     {
       title: data.extra.title,
       text: 'Total for this date',
       value: data.extra.value,
       icon: <FaDog />,
-      color: '#2c50ed',
+      color: '#6201ed',
     },
     {
       title: data.avgTimeForVisit.title,
       text: 'Total for this date',
       value: data.avgTimeForVisit.value,
       icon: <FaDog />,
-      color: '#222437',
+      color: '#2c50ed',
     },
     {
       title: data.newCustomers.title,
       text: 'Total for this date',
       value: data.newCustomers.value,
       icon: <FaDog />,
-      color: '#6201ed',
+      color: '#222437',
     },
     {
       title: data.oldCustomers.title,
       text: 'Total for this date',
       value: data.oldCustomers.value,
       icon: <FaDog />,
-      color: '#29c0b1',
+      color: '#6201ed',
     },
   ];
   const optionsObserver = {

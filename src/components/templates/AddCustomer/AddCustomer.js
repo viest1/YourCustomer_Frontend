@@ -24,12 +24,13 @@ const initialValues = {
   visit: '',
   price: '',
   premium: [{ label: 'No', value: '0' }],
-  tip: '0',
+  tip: '',
   behavior: { label: '3', value: 'ok' },
   extraPay: { label: 'No', value: '0' },
   time: '01:45',
   hour: '14:45',
   comments: '',
+  generalComment: '',
   shop: [],
 };
 // {label:"", value:""}
@@ -117,6 +118,9 @@ const AddCustomer = () => {
     if (!inputs.price) {
       setValidationError(`You need to select Price`);
       return;
+    }
+    if (inputs.tip === '' || !inputs.tip) {
+      inputs.tip = '0';
     }
 
     setIsLoading(true);

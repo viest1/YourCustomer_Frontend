@@ -258,10 +258,10 @@ const Header = ({ setThemeState }) => {
       setIsSearching(true);
       const afterSearching = customers?.filter(
         (item) =>
-          item.contactName.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.dogOwner?.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.dogName?.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.comments?.toLowerCase().includes(searchText.toLowerCase())
+          item.contactName?.replace(/\s/g, '').toLowerCase().includes(searchText.replace(/\s/g, '').toLowerCase()) ||
+          item.dogOwner?.replace(/\s/g, '').toLowerCase().includes(searchText.replace(/\s/g, '').toLowerCase()) ||
+          item.dogName?.replace(/\s/g, '').toLowerCase().includes(searchText.replace(/\s/g, '').toLowerCase()) ||
+          item.comments?.replace(/\s/g, '').toLowerCase().includes(searchText.replace(/\s/g, '').toLowerCase())
       );
       setSearchingCustomers(afterSearching);
     } else {

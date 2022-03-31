@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CardOverall from '../../organisms/CardOverall/CardOverall';
 import LoadingSpinner from '../../atoms/LoadingSpinner/LoadingSpinner';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
+import Button from '../../atoms/Button/Button';
 
 export const ContainerStatistics = styled.div`
   //padding: 2rem;
@@ -25,6 +26,28 @@ export const ContainerStatistics = styled.div`
     &:focus {
       outline: 2px solid #2684ff;
     }
+  }
+`;
+
+const ContainerFlexDates = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const FlexDate = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 200px;
+  label,
+  button {
+    margin-left: 1rem;
+  }
+  input {
+    width: 170px;
+  }
+  button {
+    width: 170px;
   }
 `;
 
@@ -76,14 +99,33 @@ const Statistics = () => {
   }, []);
 
   useEffect(() => {
-    setFilteringCustomers(customers.filter((item) => item.visits.map((item) => item.visit.slice(0, 7) === dateStats).includes(true)));
-    setFilteringVisits(visits.filter((item) => item.visit?.slice(0, 7) === dateStats));
+    // setFilteringCustomers(customers.filter((item) => item.visits.map((item) => item.visit.slice(0, 7) === dateStats).includes(true)));
+    // setFilteringVisits(visits.filter((item) => item.visit?.slice(0, 7) === dateStats));
+    setFilteringCustomers(customers?.filter((item) => item.visits?.map((item) => item?.visit?.startsWith(dateStats)).includes(true)));
+    setFilteringVisits(visits?.filter((item) => item?.visit?.startsWith(dateStats)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateStats]);
+  }, [dateStats, isLoading]);
 
   return (
     <ContainerStatistics>
-      <input type="month" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
+      <ContainerFlexDates>
+        <FlexDate>
+          <label htmlFor="dayDate">Choose Day</label>
+          <input type="date" id="dayDate" value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
+        </FlexDate>
+        <FlexDate>
+          <label htmlFor="monthDate">Choose Month</label>
+          <input type="month" id="monthDate" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
+        </FlexDate>
+        <FlexDate>
+          <label htmlFor="yearDate">Choose Year</label>
+          <input type="number" id="yearDate" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
+        </FlexDate>
+        <FlexDate>
+          <label htmlFor="overallDate">Display All</label>
+          <Button text="Display All" id="overallDate" onClick={() => setDateStats('')} />
+        </FlexDate>
+      </ContainerFlexDates>
       {isLoading ? (
         <div style={{ display: 'flex', justifyContent: 'center' }}>{errorMessage ? <p>{errorMessage}</p> : <LoadingSpinner />}</div>
       ) : (

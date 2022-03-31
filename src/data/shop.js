@@ -15,4 +15,8 @@ export const shopProducts = [
   { value: 'gelbeBurste', label: 'Gelbe Burste', price: 20 },
   { value: 'bursteTangles', label: 'Burste Tangles', price: 15 },
   { value: 'zeckenzange', label: 'Zeckenzange', price: 8 },
+  { value: 'perfumeYuup30ml', label: 'Perfume Yuup 30 ml', price: 10 },
+  { value: 'sprayAugenPflege', label: 'Spray AugenPflege', price: 15 },
+  { value: 'sprayOhrenPflege', label: 'Spray OhrenPflege', price: 15 },
+  { value: 'Fusspflegecreme', label: 'Fußpflegecreme', price: 13 },
 ];

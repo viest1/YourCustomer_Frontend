@@ -73,7 +73,7 @@ export const ImgStyled = styled.div`
   width: 80px;
   height: 80px;
   position: absolute;
-  z-index: 2;
+  z-index: 0;
   top: 65%;
   transform: translateY(-50%);
   left: 180px;

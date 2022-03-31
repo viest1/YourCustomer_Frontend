@@ -124,6 +124,15 @@ const FormData = ({ handleSelect, handleChange, inputs }) => {
       {/*<Select id="size" name="size" onChange={handleSelect} options={options} value={inputs.size} />*/}
       <label htmlFor="breed">{t('formData.breed')}</label>
       <Select id="breed" name="breed" onChange={handleSelect} options={breeds} value={inputs.breed} />
+      <FormLabelAndInput
+        textarea
+        id="generalComment"
+        placeholder="Type Here..."
+        label={t('formVisit.comments')}
+        handleInput={handleChange}
+        value={inputs.generalComment}
+        required={false}
+      />
     </ContainerFormData>
   );
 };
