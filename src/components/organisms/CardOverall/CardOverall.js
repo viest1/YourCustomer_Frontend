@@ -395,6 +395,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.customers.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#6201ed',
     },
     {
@@ -402,6 +403,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.visits.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#2c50ed',
     },
     {
@@ -409,6 +411,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.totalMoney.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#222437',
     },
     {
@@ -416,6 +419,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.totalMoneyShop.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#6201ed',
     },
     {
@@ -423,6 +427,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.premium.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#2c50ed',
     },
     {
@@ -430,6 +435,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.tip.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#222437',
     },
     {
@@ -437,6 +443,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.extra.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#6201ed',
     },
     {
@@ -444,6 +451,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.avgTimeForVisit.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#2c50ed',
     },
     {
@@ -451,6 +459,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.newCustomers.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#222437',
     },
     {
@@ -458,6 +467,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
       text: 'Total for this date',
       value: data.oldCustomers.value,
       icon: <FaDog />,
+      backgroundDog: 'rgba(255, 255, 255, 0.2)',
       color: '#6201ed',
     },
   ];
@@ -478,7 +488,7 @@ const Statistics = ({ customers, visits, dateStats = 'Overall Time', t }) => {
         {dataFirstRow.map((item, i) => (
           <div style={{ background: item.color }} key={i}>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0' }}>
-              <div style={{ padding: '0.6rem', borderRadius: '0.5rem', background: 'blue' }}>{item.icon}</div>
+              <div style={{ padding: '0.6rem', borderRadius: '0.5rem', background: item.backgroundDog }}>{item.icon}</div>
               <h3>{item.title}</h3>
             </div>
             <h4>{item.value}</h4>

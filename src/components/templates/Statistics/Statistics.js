@@ -14,7 +14,8 @@ export const ContainerStatistics = styled.div`
   border-radius: 1rem;
   //background:grey;
 
-  input {
+  input,
+  select {
     margin-left: 1rem;
     background-color: ${({ theme }) => (theme.color.lighterBackground ? theme.color.black : theme.color.white)};
     border-radius: 8px;
@@ -43,11 +44,16 @@ const FlexDate = styled.div`
   button {
     margin-left: 1rem;
   }
-  input {
+  input,
+  select {
     width: 170px;
   }
   button {
     width: 170px;
+  }
+  option,
+  select {
+    color: black;
   }
 `;
 
@@ -59,6 +65,7 @@ const Statistics = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [dateStats, setDateStats] = useState(`${new Date().toISOString().slice(0, 7)}`);
   const [errorMessage, setErrorMessage] = useState();
+  const [years, setYears] = useState([]);
   const { userData, t } = useContext(ListCustomersTestContext);
   const todayDateMonth = `${new Date().getFullYear()}-${
     new Date().getMonth() < 10 ? `0${new Date().getMonth() + 1}` : `${new Date().getMonth() + 1}`
@@ -106,12 +113,24 @@ const Statistics = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateStats, isLoading]);
 
+  const setYearsToSelect = () => {
+    const data = [];
+    for (let i = 2020; i < new Date().getFullYear() + 1; i++) {
+      data.push(i);
+    }
+    setYears(data);
+  };
+
+  useEffect(() => {
+    setYearsToSelect();
+  }, []);
+
   return (
     <ContainerStatistics>
       <ContainerFlexDates>
         <FlexDate>
           <label htmlFor="dayDate">Choose Day</label>
-          <input type="date" id="dayDate" value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
+          <input type="date" id="dayDate" min="2020-10-01" value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
         </FlexDate>
         <FlexDate>
           <label htmlFor="monthDate">Choose Month</label>
@@ -119,7 +138,18 @@ const Statistics = () => {
         </FlexDate>
         <FlexDate>
           <label htmlFor="yearDate">Choose Year</label>
-          <input type="number" id="yearDate" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} />
+          <select name="yearDate" id="yearDate" defaultValue="" onChange={(e) => setDateStats(e.target.value)}>
+            <option value="" disabled>
+              Select Year
+            </option>
+            {years &&
+              years.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+          </select>
+          {/* <input type="number" id="yearDate" min="2020-11" max={todayDateMonth} value={dateStats} onChange={(e) => setDateStats(e.target.value)} /> */}
         </FlexDate>
         <FlexDate>
           <label htmlFor="overallDate">Display All</label>
