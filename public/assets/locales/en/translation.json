@@ -12,7 +12,9 @@
   "heroContent": {
     "presents": "PLWebsites Presents:",
     "heroText": "App which helps manage your business!",
-    "secondHeroText": "Easy managing your Customers, Visits, Statistics and others"
+    "secondHeroText": "Easy managing your Customers, Visits, Statistics and others",
+    "heroTextAlternative": "Do you own a Dog Salon?",
+    "secondHeroTextAlternative": "Increase revenue and save time! With this app, you can record your dog's appointments, view their history, as well as view accurate statistics about your salon's revenue and much more."
   },
   "functionalities": {
     "functionalities": "Functionalities",

@@ -12,7 +12,9 @@
   "heroContent": {
     "presents": "PLWebsites Presents:",
     "heroText": "Polska!",
-    "secondHeroText": "Easy managing your Customers, Visits and others"
+    "secondHeroText": "Easy managing your Customers, Visits and others",
+    "heroTextAlternative": "Masz Salon Dla Psów?",
+    "secondHeroTextAlternative": "Zwiększ dochody i zaoszczędź czas! Dzięki tej aplikacji możesz zapisywać wizyty psów, przeglądać ich historię, a także przeglądać dokładne statystyki na temat przychodów salonu i wiele wiele więcej."
   },
   "functionalities": {
     "addCustomer": "Add Customer +",

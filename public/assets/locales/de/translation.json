@@ -12,7 +12,9 @@
   "heroContent": {
     "presents": "PLWebsites präsentiert:",
     "heroText": "App, die Ihnen hilft, Ihr Geschäft zu verwalten!",
-    "secondHeroText": "Einfache Verwaltung Ihrer Kunden, Besuche und anderer"
+    "secondHeroText": "Einfache Verwaltung Ihrer Kunden, Besuche und anderer",
+    "heroTextAlternative": "Besitzen Sie einen Hundesalon?",
+    "secondHeroTextAlternative": "Steigern Sie Ihren Umsatz und sparen Sie Zeit! Mit dieser App können Sie die Termine Ihres Hundes aufzeichnen, die Historie einsehen und genaue Statistiken über die Einnahmen des Salons und vieles mehr abrufen."
   },
   "functionalities": {
     "functionalities": "Funktionalitäten",

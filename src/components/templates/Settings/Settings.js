@@ -212,61 +212,61 @@ const Settings = () => {
       color: '#2c50ed',
     },
   ];
-  const handleRoleChange = async () => {
-    inputs.timestamp = Date.now();
-    inputs.userId = userData.userId;
-    inputs.role = desiredRole;
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changeRoleOnAccount', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + userData?.token,
-      },
-      body: JSON.stringify(inputs),
-    });
-    const resJSON = await res.json();
-    console.log(resJSON);
-    setUserData({ ...userData, role: resJSON.role });
-    if (resJSON.error) return setErrorMessagePassword(resJSON.message);
-  };
+  // const handleRoleChange = async () => {
+  //   inputs.timestamp = Date.now();
+  //   inputs.userId = userData.userId;
+  //   inputs.role = desiredRole;
+  //   const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/changeRoleOnAccount', {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Bearer ' + userData?.token,
+  //     },
+  //     body: JSON.stringify(inputs),
+  //   });
+  //   const resJSON = await res.json();
+  //   console.log(resJSON);
+  //   setUserData({ ...userData, role: resJSON.role });
+  //   if (resJSON.error) return setErrorMessagePassword(resJSON.message);
+  // };
 
-  const createOrder = useCallback(
-    (data, actions) => {
-      // if(inputs.actualRole === inputs.desiredRole) return console.log('You have already this Type of Account')
-      return (
-        fetch(process.env.REACT_APP_BACKEND_URL + '/proceedBuy', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + userData?.token,
-          },
-          body: JSON.stringify({
-            items: [
-              {
-                id: desiredRole === 'Premium' ? 2 : 1,
-                quantity: 1,
-              },
-            ],
-          }),
-        })
-          .then(async (res) => {
-            const resJSON = await res.json();
-            console.log(resJSON);
-            if (res.ok) return resJSON.id;
-            return await res.json().then((json) => Promise.reject(json));
-          })
-          // .then(({ id }) => {
-          //   console.log('id', id);
-          //   return id;
-          // })
-          .catch((e) => {
-            console.error(e.error);
-          })
-      );
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [desiredRole]
-  );
+  // const createOrder = useCallback(
+  //   (data, actions) => {
+  //     // if(inputs.actualRole === inputs.desiredRole) return console.log('You have already this Type of Account')
+  //     return (
+  //       fetch(process.env.REACT_APP_BACKEND_URL + '/proceedBuy', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: 'Bearer ' + userData?.token,
+  //         },
+  //         body: JSON.stringify({
+  //           items: [
+  //             {
+  //               id: desiredRole === 'Premium' ? 2 : 1,
+  //               quantity: 1,
+  //             },
+  //           ],
+  //         }),
+  //       })
+  //         .then(async (res) => {
+  //           const resJSON = await res.json();
+  //           console.log(resJSON);
+  //           if (res.ok) return resJSON.id;
+  //           return await res.json().then((json) => Promise.reject(json));
+  //         })
+  //         // .then(({ id }) => {
+  //         //   console.log('id', id);
+  //         //   return id;
+  //         // })
+  //         .catch((e) => {
+  //           console.error(e.error);
+  //         })
+  //     );
+  //   },
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   [desiredRole]
+  // );
 
   return (
     <Container>
@@ -290,14 +290,14 @@ const Settings = () => {
         <p>Type of Account:</p>
         <p>{userData.role}</p>
       </TypeSubMobile>
-      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', maxWidth: '500px', padding: '0 0 2rem 0' }}>
+      {/* <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', maxWidth: '500px', padding: '0 0 2rem 0' }}>
         <Button text={'Choose Version'} iconRight={<BsArrowRight fill={'white'} />} />
         <SelectStyle name="planPricing" id="planPricing" value={`${desiredRole}`} onChange={(e) => setDesiredRole(e.target.value)}>
           <option value="Basic">Basic 0.01€</option>
           <option value="Premium">Premium 0.02€</option>
         </SelectStyle>
-      </div>
-      {inputs.actualRole !== desiredRole && (
+      </div> */}
+      {/* {inputs.actualRole !== desiredRole && (
         <ContainerPaypalButtons>
           <PayPalScriptProvider
             options={{ 'client-id': 'AY-LVB-kx-OsOie4JC4InEK-z3wfR-onR2hrbKMKOqJ4ovip0yezMQntET8iDZBlXEcAoHHdfDoLc7hu', currency: 'EUR' }}
@@ -314,8 +314,8 @@ const Settings = () => {
             />
           </PayPalScriptProvider>
         </ContainerPaypalButtons>
-      )}
-      {modalIsOpen && (
+      )} */}
+      {/* {modalIsOpen && (
         <Modal closeModal={closeModal} modalIsOpen={modalIsOpen}>
           <div>
             <div>
@@ -324,7 +324,7 @@ const Settings = () => {
             <h2 style={{ textAlign: 'center', color: 'white' }}>Buying process successfully completed</h2>
           </div>
         </Modal>
-      )}
+      )} */}
       {/*<div style={{ maxWidth: '500px' }}>*/}
       {/*  <Button text={'Change'} width={'100%'} onClick={handleRoleChange} />*/}
       {/*</div>*/}

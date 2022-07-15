@@ -101,7 +101,7 @@ export const ContainerHero = styled.div`
     gap: 2rem;
     @media only screen and (max-width: 700px) {
       flex: 0 0 100%;
-      gap: 0.5rem;
+      gap: 1rem;
     }
   }
   h3 {
@@ -115,9 +115,13 @@ export const ContainerHero = styled.div`
     //@media only screen and (max-width:700px){
     //  font-size:1.5rem;
     //}
+    @media only screen and (max-width: 700px) {
+      margin-bottom: 50px;
+    }
   }
 
-  h2 {
+  h2,
+  h3 {
     font-size: clamp(1rem, 0.7rem + 2vw, 2rem);
     margin: 0;
     color: ${({ theme }) => theme.color.black};
@@ -125,6 +129,13 @@ export const ContainerHero = styled.div`
     //@media only screen and (max-width:700px){
     //  font-size:1rem;
     //}
+  }
+
+  h3 {
+    font-size: clamp(0.9rem, 0.6rem + 2vw, 1.3rem);
+    @media only screen and (max-width: 700px) {
+      margin-bottom: 30px;
+    }
   }
 
   & > h2 {
@@ -267,48 +278,51 @@ const MainContent = () => {
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
-  return (
-    <ContainerMainContent>
-      <ContainerHero>
-        {/*<h2>{t('heroContent.presents')}</h2><Logo withText />*/}
-        <div>
-          <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexDirection: 'row' }}>
-            <Logo />
-            <h2>YourCustomer</h2>
+  if (!userData.token) {
+    return (
+      <ContainerMainContent>
+        <ContainerHero>
+          {/*<h2>{t('heroContent.presents')}</h2><Logo withText />*/}
+          <div>
+            <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexDirection: 'row' }}>
+              <Logo />
+              <h2>YourCustomer</h2>
+            </div>
+            <h1 style={{ padding: '0', margin: '0' }}>{t('heroContent.heroTextAlternative')}</h1>
+            <h3>{t('heroContent.secondHeroTextAlternative')}</h3>
+            {!userData.token && <Button text={t('button.clickToLogIn')} height={'45px'} onClick={handleNavigateToLogin} />}
           </div>
-          <h1 style={{ padding: '0', margin: '0' }}>{t('heroContent.heroText')}</h1>
-          <h2>{t('heroContent.secondHeroText')}</h2>
-          {!userData.token && <Button text={t('button.clickToLogIn')} height={'45px'} onClick={handleNavigateToLogin} />}
-        </div>
-        <div>
-          <img src={creativeWoman} alt="organised women" />
-          {/*  <img src={Stats} alt="organised women" />*/}
-          {/*<ImgHero src={CustomersImg} />*/}
-          {/*<ImgHero src={VisitsImg} />*/}
-        </div>
-        {bottomWaveVar}
-      </ContainerHero>
-      <Background>
-        {/*{topWaveVar}*/}
-        <div>
-          <h2>{t('functionalities.functionalities')}</h2>
-        </div>
-        <ContainerCards>
-          <CardMainContent text={t('functionalities.addCustomer')} path="/add" img={addInfo} />
-          <CardMainContent text={t('functionalities.displayCustomers')} path="/customers" img={displayCustomers} />
-          <CardMainContent text={t('functionalities.displayVisits')} path="/visits" img={displayVisits} />
-          <CardMainContent text={t('functionalities.displayStatistics')} path="/statistics" img={displayStatistics} />
-          <CardMainContent text={t('functionalities.search')} path="/" img={search} />
-          <CardMainContent text={t('functionalities.settings')} path="/settings" img={settings} />
-        </ContainerCards>
-        <div>
-          <h2>{t('functionalities.andMore')}</h2>
-        </div>
-        {bottomWaveVar}
-      </Background>
-      <Footer t={t} />
-    </ContainerMainContent>
-  );
+          <div>
+            <img src={creativeWoman} alt="organised women" />
+            {/*  <img src={Stats} alt="organised women" />*/}
+            {/*<ImgHero src={CustomersImg} />*/}
+            {/*<ImgHero src={VisitsImg} />*/}
+          </div>
+          {bottomWaveVar}
+        </ContainerHero>
+        <Background>
+          {/*{topWaveVar}*/}
+          <div>
+            <h2>{t('functionalities.functionalities')}</h2>
+          </div>
+          <ContainerCards>
+            <CardMainContent text={t('functionalities.addCustomer')} path="/add" img={addInfo} />
+            <CardMainContent text={t('functionalities.displayCustomers')} path="/customers" img={displayCustomers} />
+            <CardMainContent text={t('functionalities.displayVisits')} path="/visits" img={displayVisits} />
+            <CardMainContent text={t('functionalities.displayStatistics')} path="/statistics" img={displayStatistics} />
+            <CardMainContent text={t('functionalities.search')} path="/" img={search} />
+            <CardMainContent text={t('functionalities.settings')} path="/settings" img={settings} />
+          </ContainerCards>
+          <div>
+            <h2>{t('functionalities.andMore')}</h2>
+          </div>
+          {bottomWaveVar}
+        </Background>
+        <Footer t={t} />
+      </ContainerMainContent>
+    );
+  }
+  return <div>Hello</div>;
 };
 
 export default MainContent;
