@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CardMainContent from '../../organisms/CardMainContent/CardMainContent';
 import creativeWoman from '../../../assets/illustrations/undraw_creative_woman_re_u5tk.svg';
+import gif from '../../../assets/images/video2-gif.gif';
 import addInfo from '../../../assets/illustrations/undraw_add_information_j2wg.svg';
 import displayStatistics from '../../../assets/illustrations/undraw_grades_re_j7d6.svg';
 import displayVisits from '../../../assets/illustrations/undraw_getting_coffee_re_f2do.svg';
@@ -13,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { ListCustomersTestContext } from '../../../providers/GeneralProvider';
 import Footer from '../../organisms/Footer/Footer';
 import Logo from '../../atoms/Logo/Logo';
+import LoadingSpinner from 'components/atoms/LoadingSpinner/LoadingSpinner';
 // import Stats from '../../../assets/images/statisticsPage1.png';
 // import CustomersImg from '../../../assets/images/customersPage1.png';
 // import VisitsImg from '../../../assets/images/visitsPage1.png';
@@ -25,26 +27,24 @@ export const ContainerMainContent = styled.div`
   padding: 0 2rem 0 2rem;
   overflow: hidden;
   //background:white;
-  @media only screen and (max-width: 700px) {
-    padding: 2rem 0.3rem 2rem 0.3rem;
+  @media only screen and (max-width: 1000px) {
+    padding: 1rem 0.3rem;
   }
 `;
 
 export const ContainerCards = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   gap: 2rem;
-  padding: 3rem;
+  padding: 3rem 1rem;
   max-width: 1360px;
   * {
     transition: 0.5s;
   }
   @media all and (max-width: 1070px) {
-    overflow-x: auto;
-    flex-wrap: nowrap;
     max-width: 100%;
     justify-content: flex-start;
     gap: 1rem;
@@ -154,9 +154,9 @@ export const ContainerHero = styled.div`
   img {
     width: 100%;
     height: 100%;
-    @media only screen and (max-width: 700px) {
+    /* @media only screen and (max-width: 700px) {
       max-width: 300px;
-    }
+    } */
   }
 
   @media only screen and (max-width: 700px) {
@@ -170,7 +170,7 @@ export const ContainerHero = styled.div`
 
 export const Background = styled.div`
   width: 99.4vw;
-  background: ${({ theme }) => theme.color.main100};
+  /* background: ${({ theme }) => theme.color.main100}; */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -184,6 +184,7 @@ export const Background = styled.div`
     font-size: clamp(1rem, 0.8rem + 3vw, 2.5rem);
     padding: 2rem;
     margin-bottom: 0;
+    background: ${({ theme }) => theme.color.main100};
   }
 `;
 
@@ -230,6 +231,56 @@ export const ImgHero = styled.img`
   width: 100px;
   height: 80px;
   top: 0;
+`;
+
+// Dashboard Styles
+
+const ContainerDashboard = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  padding: 1rem 2rem;
+  height: 500px;
+  max-width: 1200px;
+  width: 100%;
+  @media all and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+`;
+const BoxVisits = styled.div`
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  padding: 0 1rem;
+  box-shadow: 5px 5px 12px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+`;
+const TitleTable = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  padding: 0 1rem;
+  gap: 1rem;
+  p {
+    color: #919191;
+  }
+  @media all and (max-width: 1000px) {
+    grid-template-columns: 2fr 1.5fr 1fr 1fr;
+    padding: 0;
+  }
+`;
+const RowTable = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  padding: 0 1rem;
+  gap: 1rem;
+  border-top: 1px solid #dbd9d9;
+  @media all and (max-width: 1000px) {
+    grid-template-columns: 2fr 1.5fr 1fr 1fr;
+    padding: 0;
+  }
 `;
 const bottomWave = () => {
   return (
@@ -278,6 +329,31 @@ const MainContent = () => {
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
+  const [visits, setVisits] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const fetchVisits = async () => {
+    setIsLoading(true);
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + userData.userId + '/visits', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + userData?.token,
+      },
+    });
+    const resJSON = await res.json();
+    setVisits(resJSON.allVisits);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchVisits();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDetailsVisit = (id) => {
+    navigate(`/visits/${id}`);
+  };
+
   if (!userData.token) {
     return (
       <ContainerMainContent>
@@ -293,7 +369,7 @@ const MainContent = () => {
             {!userData.token && <Button text={t('button.clickToLogIn')} height={'45px'} onClick={handleNavigateToLogin} />}
           </div>
           <div>
-            <img src={creativeWoman} alt="organised women" />
+            <img src={gif} alt="organised women" />
             {/*  <img src={Stats} alt="organised women" />*/}
             {/*<ImgHero src={CustomersImg} />*/}
             {/*<ImgHero src={VisitsImg} />*/}
@@ -310,8 +386,8 @@ const MainContent = () => {
             <CardMainContent text={t('functionalities.displayCustomers')} path="/customers" img={displayCustomers} />
             <CardMainContent text={t('functionalities.displayVisits')} path="/visits" img={displayVisits} />
             <CardMainContent text={t('functionalities.displayStatistics')} path="/statistics" img={displayStatistics} />
-            <CardMainContent text={t('functionalities.search')} path="/" img={search} />
-            <CardMainContent text={t('functionalities.settings')} path="/settings" img={settings} />
+            {/* <CardMainContent text={t('functionalities.search')} path="/" img={search} />
+            <CardMainContent text={t('functionalities.settings')} path="/settings" img={settings} /> */}
           </ContainerCards>
           <div>
             <h2>{t('functionalities.andMore')}</h2>
@@ -322,7 +398,40 @@ const MainContent = () => {
       </ContainerMainContent>
     );
   }
-  return <div>Hello</div>;
+  // const weekday = new Date(visit).toLocaleString('default', { weekday: 'long' });
+  return (
+    <ContainerMainContent>
+      <ContainerDashboard>
+        <BoxVisits>
+          <h4>{t('lastVisit')}</h4>
+          <TitleTable>
+            <p>Name</p>
+            <p>Date</p>
+            <p>Weekday</p>
+            <p>Visits</p>
+          </TitleTable>
+          {console.log(visits)}
+          {visits.length > 0 ? (
+            visits
+              .sort((a, b) => new Date(b.visit).getTime() + +b.hour.split(':')[0] - (new Date(a.visit).getTime() + +a.hour.split(':')[0]))
+              .slice(0, 20)
+              .map((item) => (
+                <RowTable onClick={() => handleDetailsVisit(item._id)}>
+                  <p>{item.customer.contactName}</p>
+                  <p>{item.visit}</p>
+                  <p>{new Date(item.visit).toLocaleString('default', { weekday: 'short' })}</p>
+                  <p>{item.customer.visits.length}</p>
+                </RowTable>
+              ))
+          ) : (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <LoadingSpinner />
+            </div>
+          )}
+        </BoxVisits>
+      </ContainerDashboard>
+    </ContainerMainContent>
+  );
 };
 
 export default MainContent;

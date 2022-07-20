@@ -7,7 +7,7 @@ import { ContainerSocial, Copyright, FooterContainer, topWaveVar1 } from '../../
 const Footer = ({ t }) => {
   return (
     <FooterContainer>
-      {topWaveVar1}
+      {/* {topWaveVar1} */}
       {/*{topWaveVar}*/}
       <Copyright>
         <p>Copyright {new Date().getFullYear()} by PLWebsites</p>

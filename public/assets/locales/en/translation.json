@@ -18,7 +18,7 @@
   },
   "functionalities": {
     "functionalities": "Functionalities",
-    "addCustomer": "Add Customer +",
+    "addCustomer": "Add Customers",
     "displayCustomers": "Display Customers",
     "displayVisits": "Display Visits",
     "displayStatistics": "Display Statistics",
@@ -158,5 +158,6 @@
   "4":"Cool",
   "5":"Best",
   "lastVisit": "Last Visit",
+  "lastVisits": "Last Visits",
   "day": "Day"
 }

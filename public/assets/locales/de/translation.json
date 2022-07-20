@@ -18,7 +18,7 @@
   },
   "functionalities": {
     "functionalities": "Funktionalitäten",
-    "addCustomer": "Kunden hinzufügen +",
+    "addCustomer": "Kunden hinzufügen",
     "displayCustomers": "Kunden anzeigen",
     "displayVisits": "Besuche anzeigen",
     "displayStatistics": "Statistik anzeigen",
@@ -156,6 +156,7 @@
   "3":"Ok",
   "4":"Cool",
   "5":"Beste",
-  "lastVisit": "Letzte Besuch"
+  "lastVisit": "Letzte Besuch",
+  "lastVisits": "Letzte Besuchen"
 }
 

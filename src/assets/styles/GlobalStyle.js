@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     background:#fafafa;
     background: ${({ theme }) => theme.color.white100};
     overflow-x:hidden;
+    line-height: 1.5;
+  }
+  h1,h2,h3,h4,h5,h6{
+    line-height: 1.1;
   }
 
   *,
