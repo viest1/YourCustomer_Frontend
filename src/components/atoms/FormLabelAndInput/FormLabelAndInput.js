@@ -24,6 +24,7 @@ const FormLabelAndInput = React.forwardRef(
       width,
       minlength,
       rightIcon,
+      fnToClick,
     },
     ref
   ) => {
@@ -47,7 +48,7 @@ const FormLabelAndInput = React.forwardRef(
         ) : icon || rightIcon ? (
           <div style={{ position: 'relative' }}>
             {icon && (
-              <ContainerIcon themeType={themeType} noPointer>
+              <ContainerIcon onClick={fnToClick} themeType={themeType} noPointer>
                 {icon}
               </ContainerIcon>
             )}
@@ -69,7 +70,7 @@ const FormLabelAndInput = React.forwardRef(
               minLength={minlength}
             />
             {rightIcon && (
-              <ContainerIconRight themeType={themeType} noPointer>
+              <ContainerIconRight onClick={fnToClick} themeType={themeType} noPointer>
                 {rightIcon}
               </ContainerIconRight>
             )}

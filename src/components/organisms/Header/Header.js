@@ -460,8 +460,9 @@ const Header = ({ setThemeState }) => {
             value={searchText}
             handleInput={handleInputSearch}
             // onBlur={() => searchText.length < 1 && setIsOpenSearch(false)}
-            rightIcon={<MdClear onClick={handleClearSearchInput} />}
+            rightIcon={<MdClear />}
             noPointer
+            fnToClick={handleClearSearchInput}
             padding={'0.7rem 0 0.7rem 1rem'}
             width={size.width > 1290 && size.width < 1400 ? '150px' : '100%'}
           />
